@@ -106,6 +106,32 @@
                     </LinearGradientBrush>
                 </ListView.Background>
             </ListView>
+            <Border BorderThickness="15"
+                    HorizontalAlignment="Right"  
+                    VerticalAlignment="Bottom"
+                    Margin="0,0,0,0"
+                    Grid.Row="0" Grid.RowSpan="2"
+                    Grid.Column="0" Grid.ColumnSpan="2"
+                    CornerRadius="10">
+                <Border.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03">
+                        <GradientStop Color="#e3e2fe" Offset="0"/>
+                        <GradientStop Color="#b8b6ff" Offset="0.567"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <Border.Effect>
+                    <DropShadowEffect
+                        ShadowDepth="7"
+                        Opacity="0.5"
+                        Color="Gray"></DropShadowEffect>
+                </Border.Effect>
+                <Image VerticalAlignment="Top"
+                            MaxHeight="150"
+                            MaxWidth="150" 
+                            Source="/Images/TestPhoto.png"
+                            >
+                      </Image>
+            </Border>
         </Grid>
     </Border>
 </Window>
