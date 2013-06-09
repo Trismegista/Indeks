@@ -110,6 +110,9 @@
     <Content Include="Images\MinimizeButton.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\Square Black Button Add Book.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\TestPhoto.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
