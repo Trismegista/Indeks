@@ -84,7 +84,7 @@
                     </Button.Template>
                 </Button>
             </StackPanel>
-            <ListView Grid.Column="0" Grid.ColumnSpan="5"
+            <!--<ListView Grid.Column="0" Grid.ColumnSpan="5"
                      Grid.Row="3" Grid.RowSpan="4"
                       Margin="15">
                 <ListView.View>
@@ -105,7 +105,7 @@
                         <GradientStop Color="#d5d4fd" Offset="0.567"/>
                     </LinearGradientBrush>
                 </ListView.Background>
-            </ListView>
+            </ListView>-->
             <Border BorderThickness="15"
                     HorizontalAlignment="Right"  
                     VerticalAlignment="Bottom"
@@ -132,13 +132,17 @@
                             >
                       </Image>
             </Border>
-            <Label Content="Dodaj Kierunek" HorizontalAlignment="Left" Margin="70,49,0,0" Grid.Row="2" VerticalAlignment="Top" Width="95" Grid.Column="4"/>
-            <Label Content="Dodaj Przedmiot" HorizontalAlignment="Left" Margin="32,49,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="95"/>
-            <Label Content="Dodaj Wykładowce" HorizontalAlignment="Left" Margin="32,49,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="95" Grid.Column="1"/>
-            <Label Content="Dodaj Semestr" HorizontalAlignment="Left" Margin="47,49,0,0" Grid.Row="2" VerticalAlignment="Top" Width="95" Grid.Column="2"/>
-            <Label Content="Dodaj kierunek" HorizontalAlignment="Left" Margin="10,49,0,0" Grid.Row="2" VerticalAlignment="Top" Width="95" Grid.Column="3"/>
-            <Label Content="Dodaj kierunek" HorizontalAlignment="Left" Margin="131,49,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="95" Grid.Column="3"/>
-            <Image Grid.Column="3" HorizontalAlignment="Left" Height="100" Margin="53,25,0,0" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top" Width="100" Source="/Images/Square Black Button Add Book.png"/>
+            <TabControl Name="semesterTab" ItemsSource="{Binding}" SelectionChanged="tabDynamic_SelectionChanged"
+                        Grid.Column="0" Grid.ColumnSpan="5"
+                        Grid.Row="3" Grid.RowSpan="4">
+                <TabControl.Resources>
+                    <DataTemplate x:Key="TabHeader" DataType="TabItem">
+                        <DockPanel>
+                            <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type TabItem}}, Path=Header}" />
+                        </DockPanel>
+                    </DataTemplate>
+                </TabControl.Resources>
+            </TabControl>
         </Grid>
     </Border>
 </Window>
