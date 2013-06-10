@@ -2,33 +2,11 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="LogInView"
-        WindowStyle="None"
-        AllowsTransparency="True"
-        Background="Transparent"
         WindowStartupLocation="CenterScreen"
         SizeToContent="WidthAndHeight"
+        Style="{StaticResource MyWindowStyle}"
         FocusManager.FocusedElement="{Binding ElementName=txtUserName}">
-    <Border CornerRadius="10"
-                BorderThickness="3"
-                Margin="24"
-                Padding="4">
-        <Border.BorderBrush>
-            <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03">
-                <GradientStop Color="#b8b6ff" Offset="0"/>
-                <GradientStop Color="#5f66fe" Offset="0.567"/>
-            </LinearGradientBrush>
-        </Border.BorderBrush>
-        <Border.Background>
-            <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03">
-                <GradientStop Color="#e3e2fe" Offset="0"/>
-                <GradientStop Color="#9398ff" Offset="0.567"/>
-            </LinearGradientBrush>
-        </Border.Background>
-        <Border.Effect>
-            <DropShadowEffect Color="Gray"
-                              Opacity=".50"
-                              ShadowDepth="16" />
-        </Border.Effect>
+    <Border Style="{StaticResource MainBorder}">
         <Grid>        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"/>

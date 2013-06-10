@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Indeks for learn" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=OCTAL-KB01\SQLKB01;Initial Catalog=&quot;Indeks for learn&quot;;Integrated Security=True" SettingsObjectName="Indeks.Properties.Settings" SettingsPropertyName="Indeks_for_learnConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Lista" Member="Listas">
+    <Type Name="Lista">
+      <Column Name="Id_Lista" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Id_Semestr" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Przedmiot" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Wykladowca" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PunktyETCS" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LGodzin" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Zajecia" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Lista_ListaStudnet" Member="ListaStudnets" ThisKey="Id_Semestr" OtherKey="Id_Semestr" Type="ListaStudnet" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ListaStudnet" Member="ListaStudnets">
+    <Type Name="ListaStudnet">
+      <Column Name="Id_Semestr" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Id_Student" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Lista_ListaStudnet" Member="Lista" ThisKey="Id_Semestr" OtherKey="Id_Semestr" Type="Lista" IsForeignKey="true" />
+      <Association Name="Studnet_ListaStudnet" Member="Studnet" ThisKey="Id_Student" OtherKey="Id_stunet" Type="Studnet" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Studnet" Member="Studnets">
+    <Type Name="Studnet">
+      <Column Name="Id_stunet" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Id_semestr" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="haslo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="imie" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="nazwisko" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="telefon" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Studnet_ListaStudnet" Member="ListaStudnets" ThisKey="Id_stunet" OtherKey="Id_Student" Type="ListaStudnet" />
+    </Type>
+  </Table>
+</Database>

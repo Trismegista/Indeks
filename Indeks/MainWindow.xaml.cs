@@ -15,35 +15,26 @@ using System.Windows.Shapes;
 
 namespace Indeks
 {    
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private List<TabItem> _tabItems;
         private TabItem _tabAdd;
         private string _addTabHeader;
+
         public MainWindow()
         {
            try
             {
                 InitializeComponent();
                 DisplayLoginScreen();
-                // initialize tabItem array
+                DisplayTestPage();
                 _tabItems = new List<TabItem>();
-
-                // add a tabItem with + in header 
                 TabItem tabAdd = new TabItem();
                 tabAdd.Header = "+";
                 _addTabHeader = "+";
                 _tabItems.Add(tabAdd);
-
-                // add first tab
                 this.AddTabItem();
-
-                // bind tab control
                 semesterTab.DataContext = _tabItems;
-
                 semesterTab.SelectedIndex = 0;
             }
             catch (Exception ex)
@@ -54,12 +45,17 @@ namespace Indeks
         private void DisplayLoginScreen()
         {
             LogInView frm = new LogInView();
-
             frm.ShowDialog();
             if (frm.DialogResult.HasValue && frm.DialogResult.Value)
                 MessageBox.Show("User Logged In");
             else
                 this.Close();
+        }
+
+        private void DisplayTestPage()
+        {
+            testWindow frm = new testWindow();
+            frm.Show();
         }
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
@@ -73,19 +69,11 @@ namespace Indeks
         private TabItem AddTabItem()
         {
             int count = _tabItems.Count;
-
-            // create new tab item
             TabItem tab = new TabItem();
             tab.Header = string.Format("Tab {0}", count);
             tab.Name = string.Format("tab{0}", count);
             tab.HeaderTemplate = semesterTab.FindResource("TabHeader") as DataTemplate;
-
-            // add controls to tab item, this case I added just a textbox
-            TextBox txt = new TextBox();
-            txt.Name = "txt";
-            tab.Content = txt;
-
-            // insert tab item right before the last (+) tab item
+            tab.DataContext = new { Header = "adkljasdaskjda", Text = "alskdjaldjad", Students = new string[3] { "asdkljasdkjas", "aaa", "111" } };
             _tabItems.Insert(count - 1, tab);
             return tab;
         }
@@ -97,21 +85,15 @@ namespace Indeks
             {
                 if (tab.Header.Equals(_addTabHeader))
                 {
-                    // clear tab control binding
+
                     semesterTab.DataContext = null;
-
-                    // add new tab
                     TabItem newTab = this.AddTabItem();
-
-                    // bind tab control
                     semesterTab.DataContext = _tabItems;
-
-                    // select newly added tab item
                     semesterTab.SelectedItem = newTab;
                 }
                 else
                 {
-                    // your code here...
+
                 }
             }
         }
@@ -132,18 +114,14 @@ namespace Indeks
         //        else if (MessageBox.Show(string.Format("Are you sure you want to remove the tab '{0}'?", tab.Header.ToString()),
         //            "Remove Tab", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
         //        {
-        //            // get selected tab
         //            TabItem selectedTab = semesterTab.SelectedItem as TabItem;
 
-        //            // clear tab control binding
         //            semesterTab.DataContext = null;
 
         //            _tabItems.Remove(tab);
 
-        //            // bind tab control
         //            semesterTab.DataContext = _tabItems;
 
-        //            // select previously selected tab. if that is removed then select first tab
         //            if (selectedTab == null || selectedTab.Equals(tab))
         //            {
         //                selectedTab = _tabItems[0];
