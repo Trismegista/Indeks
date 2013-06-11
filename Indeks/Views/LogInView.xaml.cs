@@ -19,6 +19,7 @@ namespace Indeks
     /// </summary>
     public partial class LogInView : Window
     {
+        
         public LogInView()
         {
             InitializeComponent();
@@ -30,11 +31,13 @@ namespace Indeks
         }
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
+            if ( txtUserName.Text == user.imie && txtPassword.Password == user.haslo )
+                DialogResult = true;
         }
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
+            var frm = new RegisterWindow();
+            frm.Show();
         }
     }
 }

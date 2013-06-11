@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Indeks
+namespace Indeks.LinqToSql
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;

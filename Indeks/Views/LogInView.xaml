@@ -46,7 +46,8 @@
                      Grid.Row="1" 
                      ToolTip="Enter Your user name" 
                      Name="txtUserName" 
-                     Margin="0,0,15,0"/>
+                     Margin="0,0,15,0"
+                     Height="25"/>
             <Label Grid.Column="1" 
                    Grid.Row="2"
                    HorizontalAlignment="Right">Password:
@@ -55,7 +56,8 @@
                          Grid.Column="2" 
                          Grid.Row="2" 
                          ToolTip="Enter Your Password"
-                         Margin="0,0,15,0"/>
+                         Margin="0,-5,15,0"
+                         Height="25"/>
             <StackPanel Grid.Column="1" Grid.ColumnSpan="2" 
                         Grid.Row="3" 
                         Margin="10" 
@@ -67,47 +69,18 @@
                         Click="btnCancel_Click" 
                         Margin="5,0" 
                         Width="60">
-                    <Button.Background>
-                        <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03">
-                            <GradientStop Color="White" Offset="0"/>
-                            <GradientStop Color="#d5d4fd" Offset="0.567"/>
-                        </LinearGradientBrush>
-                    </Button.Background>
-                    <Button.Effect>
-                        <DropShadowEffect Color="Gray" Opacity=".80" ShadowDepth="8" />
-                    </Button.Effect>
                 </Button>
                 <Button Name="btnLogin" 
-                        IsDefault="True" 
                         Content="Login" 
                         Click="btnLogin_Click" 
                         Margin="5,0" 
                         Width="60">
-                    <Button.Background>
-                        <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03">
-                            <GradientStop Color="White" Offset="0"/>
-                            <GradientStop Color="#d5d4fd" Offset="0.567"/>
-                        </LinearGradientBrush>
-                    </Button.Background>
-                    <Button.Effect>
-                        <DropShadowEffect Color="Gray" Opacity=".80" ShadowDepth="8" />
-                    </Button.Effect>
                 </Button>
                 <Button Name="btnRegister" 
-                        IsDefault="True" 
                         Content="Register" 
                         Click="btnRegister_Click" 
                         Margin="5,0" 
                         Width="60">
-                    <Button.Background>
-                        <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03">
-                            <GradientStop Color="White" Offset="0"/>
-                            <GradientStop Color="#d5d4fd" Offset="0.567"/>
-                        </LinearGradientBrush>
-                    </Button.Background>
-                    <Button.Effect>
-                        <DropShadowEffect Color="Gray" Opacity=".80" ShadowDepth="8" />
-                    </Button.Effect>
                 </Button>
             </StackPanel>
         </Grid>

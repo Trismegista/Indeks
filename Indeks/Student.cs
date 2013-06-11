@@ -3,41 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Indeks.Interfaces;
 
 namespace Indeks
 {
-    class Student
+    public class Student : IStudent
     {
-        Guid Id
+        public string CanLogin
         {
             get;
-            set;
         }
-        string Haslo
-        {
-            get;
-            set;
-        }
-        string Imie
-        {
-            get;
-            set;
-        }
-        string Nazwisko
-        {
-            get;
-            set;
-        }
-        string telefon
-        {
-            get;
-            set;
-        }
-        string Id_Semestr
-        {
-            get;
-            set;
-        }
-
     }
 }

@@ -14,7 +14,7 @@
         <elementListCompartment Id="57b93651-1ae5-4525-9684-778cf13b7101" absoluteBounds="5.265, 2.335, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3.625 : 2.47199625651042); (5.25 : 2.47199625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.625 : 2.47199625651042); (5.25 : 2.47199625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DataClasses1DataContext/Lista/Lista_ListaStudnet" />
       <nodes>
         <classShapeMoniker Id="9745376c-8cce-459f-b8a6-ade1a4cf4d2a" />
@@ -27,7 +27,7 @@
         <elementListCompartment Id="3cc25a47-28f8-4ce0-a72e-7872966a828a" absoluteBounds="5.14, 5.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(6.1875 : 4.75); (6.1875 : 3.06899251302083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(6.1875 : 4.75); (6.1875 : 3.06899251302083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DataClasses1DataContext/Studnet/Studnet_ListaStudnet" />
       <nodes>
         <classShapeMoniker Id="a83152ad-a370-4411-ad7c-5f79628f768c" />

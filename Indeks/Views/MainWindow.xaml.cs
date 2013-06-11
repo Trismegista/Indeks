@@ -46,9 +46,7 @@ namespace Indeks
         {
             LogInView frm = new LogInView();
             frm.ShowDialog();
-            if (frm.DialogResult.HasValue && frm.DialogResult.Value)
-                MessageBox.Show("User Logged In");
-            else
+            if (!frm.DialogResult.HasValue && !frm.DialogResult.Value)
                 this.Close();
         }
 
@@ -65,7 +63,6 @@ namespace Indeks
         {
             this.WindowState = WindowState.Minimized;
         }
-
         private TabItem AddTabItem()
         {
             int count = _tabItems.Count;
