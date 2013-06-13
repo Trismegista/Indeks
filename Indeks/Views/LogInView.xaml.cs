@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Indeks.LinqToSql;
+using Indeks.ViewModels;
 
 namespace Indeks
 {
@@ -23,21 +25,7 @@ namespace Indeks
         public LogInView()
         {
             InitializeComponent();
-        }
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = false;
-            this.Close();
-        }
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
-        {
-            if ( txtUserName.Text == user.imie && txtPassword.Password == user.haslo )
-                DialogResult = true;
-        }
-        private void btnRegister_Click(object sender, RoutedEventArgs e)
-        {
-            var frm = new RegisterWindow();
-            frm.Show();
+            DataContext = new LoginVM();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Indeks.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,16 +13,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Indeks
+namespace Indeks.Views
 {
     /// <summary>
-    /// Interaction logic for testWindow.xaml
+    /// Interaction logic for Semester.xaml
     /// </summary>
-    public partial class testWindow : Window
+    public partial class Semester : Window
     {
-        public testWindow()
+        public Semester()
         {
-            InitializeComponent();
+            InitializeComponent();            
+        }
+
+        public Semester(LoginVM loginVm) : this()
+        {
+            DataContext = new SemesterVM(loginVm);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Indeks.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,19 +16,25 @@ using System.Windows.Shapes;
 
 namespace Indeks
 {    
-    public partial class MainWindow : Window
+    public partial class Index : Window
     {
         private List<TabItem> _tabItems;
         private TabItem _tabAdd;
         private string _addTabHeader;
+        private LoginVM _loginVm;
 
-        public MainWindow()
+        public Index(LoginVM loginVm) : this()
+        {
+            _loginVm = loginVm;
+            DataContext = new IndexVM(_loginVm);
+        }
+
+        public Index()
         {
            try
             {
                 InitializeComponent();
-                DisplayLoginScreen();
-                DisplayTestPage();
+                
                 _tabItems = new List<TabItem>();
                 TabItem tabAdd = new TabItem();
                 tabAdd.Header = "+";
@@ -42,19 +49,7 @@ namespace Indeks
                 MessageBox.Show(ex.Message);
             }
         }
-        private void DisplayLoginScreen()
-        {
-            LogInView frm = new LogInView();
-            frm.ShowDialog();
-            if (!frm.DialogResult.HasValue && !frm.DialogResult.Value)
-                this.Close();
-        }
 
-        private void DisplayTestPage()
-        {
-            testWindow frm = new testWindow();
-            frm.Show();
-        }
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -127,5 +122,5 @@ namespace Indeks
         //        }
         //    }
         //}
-    }
+      }
 }

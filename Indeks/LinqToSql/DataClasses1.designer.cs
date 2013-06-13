@@ -30,15 +30,15 @@ namespace Indeks.LinqToSql
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertLista(Lista instance);
-    partial void UpdateLista(Lista instance);
-    partial void DeleteLista(Lista instance);
     partial void InsertListaStudnet(ListaStudnet instance);
     partial void UpdateListaStudnet(ListaStudnet instance);
     partial void DeleteListaStudnet(ListaStudnet instance);
-    partial void InsertStudnet(Studnet instance);
-    partial void UpdateStudnet(Studnet instance);
-    partial void DeleteStudnet(Studnet instance);
+    partial void InsertStudent(Student instance);
+    partial void UpdateStudent(Student instance);
+    partial void DeleteStudent(Student instance);
+    partial void InsertLista(Lista instance);
+    partial void UpdateLista(Lista instance);
+    partial void DeleteLista(Lista instance);
     #endregion
 		
 		public DataClasses1DataContext() : 
@@ -71,14 +71,6 @@ namespace Indeks.LinqToSql
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Lista> Listas
-		{
-			get
-			{
-				return this.GetTable<Lista>();
-			}
-		}
-		
 		public System.Data.Linq.Table<ListaStudnet> ListaStudnets
 		{
 			get
@@ -87,12 +79,398 @@ namespace Indeks.LinqToSql
 			}
 		}
 		
-		public System.Data.Linq.Table<Studnet> Studnets
+		public System.Data.Linq.Table<Student> Students
 		{
 			get
 			{
-				return this.GetTable<Studnet>();
+				return this.GetTable<Student>();
 			}
+		}
+		
+		public System.Data.Linq.Table<Lista> Listas
+		{
+			get
+			{
+				return this.GetTable<Lista>();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ListaStudnet")]
+	public partial class ListaStudnet : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _Id_Semestr;
+		
+		private System.Guid _Id_Student;
+		
+		private EntityRef<Student> _Student;
+		
+		private EntityRef<Lista> _Lista;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnId_SemestrChanging(System.Guid value);
+    partial void OnId_SemestrChanged();
+    partial void OnId_StudentChanging(System.Guid value);
+    partial void OnId_StudentChanged();
+    #endregion
+		
+		public ListaStudnet()
+		{
+			this._Student = default(EntityRef<Student>);
+			this._Lista = default(EntityRef<Lista>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Semestr", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id_Semestr
+		{
+			get
+			{
+				return this._Id_Semestr;
+			}
+			set
+			{
+				if ((this._Id_Semestr != value))
+				{
+					if (this._Lista.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnId_SemestrChanging(value);
+					this.SendPropertyChanging();
+					this._Id_Semestr = value;
+					this.SendPropertyChanged("Id_Semestr");
+					this.OnId_SemestrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Student", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id_Student
+		{
+			get
+			{
+				return this._Id_Student;
+			}
+			set
+			{
+				if ((this._Id_Student != value))
+				{
+					if (this._Student.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnId_StudentChanging(value);
+					this.SendPropertyChanging();
+					this._Id_Student = value;
+					this.SendPropertyChanged("Id_Student");
+					this.OnId_StudentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Student_ListaStudnet", Storage="_Student", ThisKey="Id_Student", OtherKey="Id_student", IsForeignKey=true)]
+		public Student Student
+		{
+			get
+			{
+				return this._Student.Entity;
+			}
+			set
+			{
+				Student previousValue = this._Student.Entity;
+				if (((previousValue != value) 
+							|| (this._Student.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Student.Entity = null;
+						previousValue.ListaStudnets.Remove(this);
+					}
+					this._Student.Entity = value;
+					if ((value != null))
+					{
+						value.ListaStudnets.Add(this);
+						this._Id_Student = value.Id_student;
+					}
+					else
+					{
+						this._Id_Student = default(System.Guid);
+					}
+					this.SendPropertyChanged("Student");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Lista_ListaStudnet", Storage="_Lista", ThisKey="Id_Semestr", OtherKey="Id_Semestr", IsForeignKey=true)]
+		public Lista Lista
+		{
+			get
+			{
+				return this._Lista.Entity;
+			}
+			set
+			{
+				Lista previousValue = this._Lista.Entity;
+				if (((previousValue != value) 
+							|| (this._Lista.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Lista.Entity = null;
+						previousValue.ListaStudnets.Remove(this);
+					}
+					this._Lista.Entity = value;
+					if ((value != null))
+					{
+						value.ListaStudnets.Add(this);
+						this._Id_Semestr = value.Id_Semestr;
+					}
+					else
+					{
+						this._Id_Semestr = default(System.Guid);
+					}
+					this.SendPropertyChanged("Lista");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Student")]
+	public partial class Student : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _Id_student;
+		
+		private string _haslo;
+		
+		private string _imie;
+		
+		private string _nazwisko;
+		
+		private string _telefon;
+		
+		private string _login;
+		
+		private EntitySet<ListaStudnet> _ListaStudnets;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnId_studentChanging(System.Guid value);
+    partial void OnId_studentChanged();
+    partial void OnhasloChanging(string value);
+    partial void OnhasloChanged();
+    partial void OnimieChanging(string value);
+    partial void OnimieChanged();
+    partial void OnnazwiskoChanging(string value);
+    partial void OnnazwiskoChanged();
+    partial void OntelefonChanging(string value);
+    partial void OntelefonChanged();
+    partial void OnloginChanging(string value);
+    partial void OnloginChanged();
+    #endregion
+		
+		public Student()
+		{
+			this._ListaStudnets = new EntitySet<ListaStudnet>(new Action<ListaStudnet>(this.attach_ListaStudnets), new Action<ListaStudnet>(this.detach_ListaStudnets));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_student", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
+		public System.Guid Id_student
+		{
+			get
+			{
+				return this._Id_student;
+			}
+			set
+			{
+				if ((this._Id_student != value))
+				{
+					this.OnId_studentChanging(value);
+					this.SendPropertyChanging();
+					this._Id_student = value;
+					this.SendPropertyChanged("Id_student");
+					this.OnId_studentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_haslo", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string haslo
+		{
+			get
+			{
+				return this._haslo;
+			}
+			set
+			{
+				if ((this._haslo != value))
+				{
+					this.OnhasloChanging(value);
+					this.SendPropertyChanging();
+					this._haslo = value;
+					this.SendPropertyChanged("haslo");
+					this.OnhasloChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_imie", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string imie
+		{
+			get
+			{
+				return this._imie;
+			}
+			set
+			{
+				if ((this._imie != value))
+				{
+					this.OnimieChanging(value);
+					this.SendPropertyChanging();
+					this._imie = value;
+					this.SendPropertyChanged("imie");
+					this.OnimieChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_nazwisko", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string nazwisko
+		{
+			get
+			{
+				return this._nazwisko;
+			}
+			set
+			{
+				if ((this._nazwisko != value))
+				{
+					this.OnnazwiskoChanging(value);
+					this.SendPropertyChanging();
+					this._nazwisko = value;
+					this.SendPropertyChanged("nazwisko");
+					this.OnnazwiskoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_telefon", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string telefon
+		{
+			get
+			{
+				return this._telefon;
+			}
+			set
+			{
+				if ((this._telefon != value))
+				{
+					this.OntelefonChanging(value);
+					this.SendPropertyChanging();
+					this._telefon = value;
+					this.SendPropertyChanged("telefon");
+					this.OntelefonChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_login", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string login
+		{
+			get
+			{
+				return this._login;
+			}
+			set
+			{
+				if ((this._login != value))
+				{
+					this.OnloginChanging(value);
+					this.SendPropertyChanging();
+					this._login = value;
+					this.SendPropertyChanged("login");
+					this.OnloginChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Student_ListaStudnet", Storage="_ListaStudnets", ThisKey="Id_student", OtherKey="Id_Student")]
+		public EntitySet<ListaStudnet> ListaStudnets
+		{
+			get
+			{
+				return this._ListaStudnets;
+			}
+			set
+			{
+				this._ListaStudnets.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ListaStudnets(ListaStudnet entity)
+		{
+			this.SendPropertyChanging();
+			entity.Student = this;
+		}
+		
+		private void detach_ListaStudnets(ListaStudnet entity)
+		{
+			this.SendPropertyChanging();
+			entity.Student = null;
 		}
 	}
 	
@@ -101,8 +479,6 @@ namespace Indeks.LinqToSql
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _Id_Lista;
 		
 		private System.Guid _Id_Semestr;
 		
@@ -116,14 +492,14 @@ namespace Indeks.LinqToSql
 		
 		private string _Zajecia;
 		
+		private string _Nazwa;
+		
 		private EntitySet<ListaStudnet> _ListaStudnets;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnId_ListaChanging(System.Guid value);
-    partial void OnId_ListaChanged();
     partial void OnId_SemestrChanging(System.Guid value);
     partial void OnId_SemestrChanged();
     partial void OnPrzedmiotChanging(string value);
@@ -136,6 +512,8 @@ namespace Indeks.LinqToSql
     partial void OnLGodzinChanged();
     partial void OnZajeciaChanging(string value);
     partial void OnZajeciaChanged();
+    partial void OnNazwaChanging(string value);
+    partial void OnNazwaChanged();
     #endregion
 		
 		public Lista()
@@ -144,27 +522,7 @@ namespace Indeks.LinqToSql
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Lista", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid Id_Lista
-		{
-			get
-			{
-				return this._Id_Lista;
-			}
-			set
-			{
-				if ((this._Id_Lista != value))
-				{
-					this.OnId_ListaChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Lista = value;
-					this.SendPropertyChanged("Id_Lista");
-					this.OnId_ListaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Semestr", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Semestr", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
 		public System.Guid Id_Semestr
 		{
 			get
@@ -284,6 +642,26 @@ namespace Indeks.LinqToSql
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nazwa", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Nazwa
+		{
+			get
+			{
+				return this._Nazwa;
+			}
+			set
+			{
+				if ((this._Nazwa != value))
+				{
+					this.OnNazwaChanging(value);
+					this.SendPropertyChanging();
+					this._Nazwa = value;
+					this.SendPropertyChanged("Nazwa");
+					this.OnNazwaChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Lista_ListaStudnet", Storage="_ListaStudnets", ThisKey="Id_Semestr", OtherKey="Id_Semestr")]
 		public EntitySet<ListaStudnet> ListaStudnets
 		{
@@ -327,384 +705,6 @@ namespace Indeks.LinqToSql
 		{
 			this.SendPropertyChanging();
 			entity.Lista = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ListaStudnet")]
-	public partial class ListaStudnet : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _Id_Semestr;
-		
-		private System.Guid _Id_Student;
-		
-		private EntityRef<Lista> _Lista;
-		
-		private EntityRef<Studnet> _Studnet;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnId_SemestrChanging(System.Guid value);
-    partial void OnId_SemestrChanged();
-    partial void OnId_StudentChanging(System.Guid value);
-    partial void OnId_StudentChanged();
-    #endregion
-		
-		public ListaStudnet()
-		{
-			this._Lista = default(EntityRef<Lista>);
-			this._Studnet = default(EntityRef<Studnet>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Semestr", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid Id_Semestr
-		{
-			get
-			{
-				return this._Id_Semestr;
-			}
-			set
-			{
-				if ((this._Id_Semestr != value))
-				{
-					if (this._Lista.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_SemestrChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Semestr = value;
-					this.SendPropertyChanged("Id_Semestr");
-					this.OnId_SemestrChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Student", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid Id_Student
-		{
-			get
-			{
-				return this._Id_Student;
-			}
-			set
-			{
-				if ((this._Id_Student != value))
-				{
-					if (this._Studnet.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_StudentChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Student = value;
-					this.SendPropertyChanged("Id_Student");
-					this.OnId_StudentChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Lista_ListaStudnet", Storage="_Lista", ThisKey="Id_Semestr", OtherKey="Id_Semestr", IsForeignKey=true)]
-		public Lista Lista
-		{
-			get
-			{
-				return this._Lista.Entity;
-			}
-			set
-			{
-				Lista previousValue = this._Lista.Entity;
-				if (((previousValue != value) 
-							|| (this._Lista.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Lista.Entity = null;
-						previousValue.ListaStudnets.Remove(this);
-					}
-					this._Lista.Entity = value;
-					if ((value != null))
-					{
-						value.ListaStudnets.Add(this);
-						this._Id_Semestr = value.Id_Semestr;
-					}
-					else
-					{
-						this._Id_Semestr = default(System.Guid);
-					}
-					this.SendPropertyChanged("Lista");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Studnet_ListaStudnet", Storage="_Studnet", ThisKey="Id_Student", OtherKey="Id_stunet", IsForeignKey=true)]
-		public Studnet Studnet
-		{
-			get
-			{
-				return this._Studnet.Entity;
-			}
-			set
-			{
-				Studnet previousValue = this._Studnet.Entity;
-				if (((previousValue != value) 
-							|| (this._Studnet.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Studnet.Entity = null;
-						previousValue.ListaStudnets.Remove(this);
-					}
-					this._Studnet.Entity = value;
-					if ((value != null))
-					{
-						value.ListaStudnets.Add(this);
-						this._Id_Student = value.Id_stunet;
-					}
-					else
-					{
-						this._Id_Student = default(System.Guid);
-					}
-					this.SendPropertyChanged("Studnet");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Studnet")]
-	public partial class Studnet : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _Id_stunet;
-		
-		private System.Guid _Id_semestr;
-		
-		private string _haslo;
-		
-		private string _imie;
-		
-		private string _nazwisko;
-		
-		private string _telefon;
-		
-		private EntitySet<ListaStudnet> _ListaStudnets;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnId_stunetChanging(System.Guid value);
-    partial void OnId_stunetChanged();
-    partial void OnId_semestrChanging(System.Guid value);
-    partial void OnId_semestrChanged();
-    partial void OnhasloChanging(string value);
-    partial void OnhasloChanged();
-    partial void OnimieChanging(string value);
-    partial void OnimieChanged();
-    partial void OnnazwiskoChanging(string value);
-    partial void OnnazwiskoChanged();
-    partial void OntelefonChanging(string value);
-    partial void OntelefonChanged();
-    #endregion
-		
-		public Studnet()
-		{
-			this._ListaStudnets = new EntitySet<ListaStudnet>(new Action<ListaStudnet>(this.attach_ListaStudnets), new Action<ListaStudnet>(this.detach_ListaStudnets));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_stunet", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid Id_stunet
-		{
-			get
-			{
-				return this._Id_stunet;
-			}
-			set
-			{
-				if ((this._Id_stunet != value))
-				{
-					this.OnId_stunetChanging(value);
-					this.SendPropertyChanging();
-					this._Id_stunet = value;
-					this.SendPropertyChanged("Id_stunet");
-					this.OnId_stunetChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_semestr", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid Id_semestr
-		{
-			get
-			{
-				return this._Id_semestr;
-			}
-			set
-			{
-				if ((this._Id_semestr != value))
-				{
-					this.OnId_semestrChanging(value);
-					this.SendPropertyChanging();
-					this._Id_semestr = value;
-					this.SendPropertyChanged("Id_semestr");
-					this.OnId_semestrChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_haslo", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string haslo
-		{
-			get
-			{
-				return this._haslo;
-			}
-			set
-			{
-				if ((this._haslo != value))
-				{
-					this.OnhasloChanging(value);
-					this.SendPropertyChanging();
-					this._haslo = value;
-					this.SendPropertyChanged("haslo");
-					this.OnhasloChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_imie", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string imie
-		{
-			get
-			{
-				return this._imie;
-			}
-			set
-			{
-				if ((this._imie != value))
-				{
-					this.OnimieChanging(value);
-					this.SendPropertyChanging();
-					this._imie = value;
-					this.SendPropertyChanged("imie");
-					this.OnimieChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_nazwisko", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string nazwisko
-		{
-			get
-			{
-				return this._nazwisko;
-			}
-			set
-			{
-				if ((this._nazwisko != value))
-				{
-					this.OnnazwiskoChanging(value);
-					this.SendPropertyChanging();
-					this._nazwisko = value;
-					this.SendPropertyChanged("nazwisko");
-					this.OnnazwiskoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_telefon", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string telefon
-		{
-			get
-			{
-				return this._telefon;
-			}
-			set
-			{
-				if ((this._telefon != value))
-				{
-					this.OntelefonChanging(value);
-					this.SendPropertyChanging();
-					this._telefon = value;
-					this.SendPropertyChanged("telefon");
-					this.OntelefonChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Studnet_ListaStudnet", Storage="_ListaStudnets", ThisKey="Id_stunet", OtherKey="Id_Student")]
-		public EntitySet<ListaStudnet> ListaStudnets
-		{
-			get
-			{
-				return this._ListaStudnets;
-			}
-			set
-			{
-				this._ListaStudnets.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_ListaStudnets(ListaStudnet entity)
-		{
-			this.SendPropertyChanging();
-			entity.Studnet = this;
-		}
-		
-		private void detach_ListaStudnets(ListaStudnet entity)
-		{
-			this.SendPropertyChanging();
-			entity.Studnet = null;
 		}
 	}
 }
