@@ -19,6 +19,7 @@ namespace Indeks.ViewModels
         }
 
         public ICommand ExecuteRegisterCommand { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(String property)

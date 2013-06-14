@@ -110,16 +110,16 @@
                             >
                       </Image>
             </Border>
-            <TabControl Name="semesterTab" ItemsSource="{Binding}" SelectionChanged="tabDynamic_SelectionChanged"
+            <TabControl x:Name="semesterTab"
                         Grid.Column="0" Grid.ColumnSpan="5"
                         Grid.Row="3" Grid.RowSpan="4">
-                <TabControl.Resources>
-                    <DataTemplate x:Key="TabHeader" DataType="TabItem">
-                        <DockPanel>
-                            <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type TabItem}}, Path=Header}" />
-                        </DockPanel>
+                <TabControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>                            
+                <TextBlock Text="{Binding Naglowek}"/>
+            </TextBlock>
                     </DataTemplate>
-                </TabControl.Resources>
+                </TabControl.ItemTemplate>
             </TabControl>
             <Button Grid.ColumnSpan="2" 
                     Content="DodajSemestr" 

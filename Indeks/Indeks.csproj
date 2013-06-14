@@ -60,6 +60,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </Compile>
+    <Compile Include="LinqToSql\SemesterData.cs" />
     <Compile Include="ViewModels\ApplicationViewModel.cs" />
     <Compile Include="ViewModels\IndexVM.cs" />
     <Compile Include="ViewModels\LoginVM.cs" />
@@ -72,6 +73,8 @@
     <Compile Include="Views\Semester.xaml.cs">
       <DependentUpon>Semester.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Test2.cs" />
+    <Compile Include="Views\TestKlasa.cs" />
     <Page Include="Views\LogInView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

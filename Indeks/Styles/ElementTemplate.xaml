@@ -13,16 +13,15 @@
         </Setter>
     </Style>
     
-    <Style TargetType="TabItem">
-        <Setter Property="Content">
+    <Style TargetType="TabControl">
+        <Setter Property="ContentTemplate">
             <Setter.Value>
-                <ListView>
-                    <TextBlock Text="{Binding Header}" />
-                    <TextBlock Text="{Binding Text}" />
-                    <GroupBox Header="Lista studentów">
-                        <ListBox DataContext="{Binding}" ItemsSource="{Binding Students}"/>
-                    </GroupBox>
-                </ListView>
+                <DataTemplate>
+                        <!--<TextBlock>  
+                                ssddasd <TextBlock Text="{Binding Imie}"/> <TextBlock Text="{Binding Nazwisko}"/>
+                        </TextBlock>-->
+                    <DataGrid ItemsSource="{Binding ExecuteGetData}"/>
+                </DataTemplate>
             </Setter.Value>
         </Setter>
     </Style>
