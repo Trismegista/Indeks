@@ -24,7 +24,7 @@ namespace Indeks.ViewModels
         public ICommand ExecuteLoginCommand { get; set; }
         public ICommand ExecuteCancelCommand { get; set; }
         
-        public LinqToSql.Student CurrentStudent;
+        public LinqToSql.Login CurrentStudent;
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(String property)
@@ -36,7 +36,7 @@ namespace Indeks.ViewModels
         }
         public string GetLogin()
         {
-            return CurrentStudent.login;
+            return CurrentStudent.User_Login;
         }
         private bool CanCancelApp(object parameter)
         {
@@ -56,7 +56,7 @@ namespace Indeks.ViewModels
         private void LoginIntoApp(object parameter)
         {
             var service = new StudentServiceVM();
-            CurrentStudent = service.FindStudentByLogin(_login);
+            CurrentStudent = service.FindUserByLogin(_login);
             if (service.CanBeLogged(CurrentStudent, _password, _login))
             {
                 var login = (Window)parameter;

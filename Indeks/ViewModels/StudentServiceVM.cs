@@ -16,12 +16,12 @@ namespace Indeks.ViewModels
             return student.Students.SingleOrDefault(x => x.Id_Student == id);
         }
 
-        public LinqToSql.Student FindStudentByLogin(string login)
+        public LinqToSql.Login FindUserByLogin(string login)
         {
             DataClasses1DataContext student = new DataClasses1DataContext();
             try
             {
-                return student.Students.Single(x => x.login == login);
+                return student.Logins.SingleOrDefault(x => x.User_Login.Equals(login));
             }
             catch ( Exception e)
             {
@@ -29,11 +29,11 @@ namespace Indeks.ViewModels
             }
         }
 
-        public bool CanBeLogged(LinqToSql.Student student, string password, string login)
+        public bool CanBeLogged(LinqToSql.Login user, string password, string login)
         {
-            if (student == null) return false;
+            if (user == null) return false;
 
-            if (student.login == login && student.haslo == password) return true;
+            if (user.User_Login == login && user.Haslo == password) return true;
             else return false;
         }
     }

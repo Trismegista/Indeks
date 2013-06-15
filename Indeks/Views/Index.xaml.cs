@@ -54,7 +54,7 @@ namespace Indeks
 
             StudentServiceVM student = new StudentServiceVM();
             SemesterDataService listaSemesterow = new SemesterDataService();
-            var idStudent = student.FindStudentByLogin(_loginVm.Login).Id_Student;
+            var idStudent = student.FindUserByLogin(_loginVm.Login).Id_Student;
 
             //List<SemesterDataService> studenci = listaSemesterow.LoadDataGrid(idStudent).ToList();
             var semestry = listaSemesterow.StudentSemestersList(idStudent);
