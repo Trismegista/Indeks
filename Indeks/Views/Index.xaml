@@ -116,7 +116,7 @@
                 <TabControl.ItemTemplate>
                     <DataTemplate>
                         <TextBlock>                            
-                <TextBlock Text="{Binding Naglowek}"/>
+                <TextBlock Text="{Binding Nazwa}"/>
             </TextBlock>
                     </DataTemplate>
                 </TabControl.ItemTemplate>

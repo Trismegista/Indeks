@@ -21,10 +21,10 @@ namespace Indeks.LinqToSql
         public int LiczbaGodzin { get; set; }
         public string Zajecia { get; set; }
 
-        public List<LinqToSql.Lista> StudentSemestersNames(Guid idStudent)
+        public IEnumerable<LinqToSql.Lista> StudentSemestersNames(Guid idStudent)
         {
             DataClasses1DataContext ls = new DataClasses1DataContext();
-            var listaSemestrow = ls.ListaStudnets.Where(x => x.Id_Student == idStudent).Select(x => x.Id_Semestr).ToList();
+            var listaSemestrow = ls.ListaStudents.Where(x => x.Id_Student == idStudent).Select(x => x.Id_Semestr).ToList();
             List<LinqToSql.Lista> semestry = new List<LinqToSql.Lista>();
             foreach (Guid value in listaSemestrow)
                 {
@@ -33,12 +33,12 @@ namespace Indeks.LinqToSql
             return semestry;
         }
 
-        public List<SemesterDataService> ExecuteGetData
+        public IEnumerable<SemesterDataService> ExecuteGetData
         {
             get { return LoadDataGrid(CurrentUser()); }
         }
 
-        public List<SemesterDataService> LoadDataGrid(Guid idStudent)
+        public IEnumerable<SemesterDataService> LoadDataGrid(Guid idStudent)
         {
             var semestry = new List<SemesterDataService>();
             var sem = new SemesterDataService(_loginVm);
@@ -58,7 +58,7 @@ namespace Indeks.LinqToSql
         public Guid CurrentUser()
         {
             StudentServiceVM student = new StudentServiceVM();
-            return student.FindStudentByLogin(_loginVm.Login).Id_student;
+            return student.FindStudentByLogin(_loginVm.Login).Id_Student;
         }
     }
 }

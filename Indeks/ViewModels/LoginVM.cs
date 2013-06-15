@@ -10,7 +10,8 @@ using System.ComponentModel;
 
 namespace Indeks.ViewModels
 {
-    public class LoginVM : INotifyPropertyChanged
+    public class LoginVM : Window, INotifyPropertyChanged
+
     {
         public LoginVM()
         {
@@ -18,7 +19,7 @@ namespace Indeks.ViewModels
             ExecuteLoginCommand = new Commanding(LoginIntoApp,CanLoginIntoApp);
             ExecuteCancelCommand = new Commanding(CancelApp,CanCancelApp);
         }
-        
+
         public ICommand ExecuteRegistrationCommand { get; set; }
         public ICommand ExecuteLoginCommand { get; set; }
         public ICommand ExecuteCancelCommand { get; set; }

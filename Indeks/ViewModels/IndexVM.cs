@@ -56,14 +56,5 @@ namespace Indeks.ViewModels
         {
  	        throw new NotImplementedException();
         }
-
-        private void AddTabItem()
-        {
-            var informacje = new List<Test2>(){
-            new Test2 { Imie = "Pawel", Nazwisko = "Kubacki", Naglowek = "Szef" },
-            new Test2 { Imie = "Pawel", Nazwisko = "Łukasik", Naglowek = "Prezes" },
-            new Test2 { Imie = "Alina", Nazwisko = "Cycata", Naglowek = "Sekretarka" }};
-
-        }
       }
     }

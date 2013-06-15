@@ -54,6 +54,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CustomUserControl\TabControlUserControl.xaml.cs">
+      <DependentUpon>TabControlUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\Commanding.cs" />
     <Compile Include="LinqToSql\DataClasses1.designer.cs">
       <AutoGen>True</AutoGen>
@@ -74,7 +77,10 @@
       <DependentUpon>Semester.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Test2.cs" />
-    <Compile Include="Views\TestKlasa.cs" />
+    <Page Include="CustomUserControl\TabControlUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LogInView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

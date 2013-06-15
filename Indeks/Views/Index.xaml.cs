@@ -31,13 +31,7 @@ namespace Indeks
             DataContext = new IndexVM(_loginVm);
             InitializeComponent();
             AddTabItem();
-            semesterTab.DataContext = new List<string>();
         }
-        //public Index()
-        //{
-        //    InitializeComponent();
-        //    AddTabItem();
-        //}
         
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
@@ -51,9 +45,10 @@ namespace Indeks
         private void AddTabItem()
         {
             StudentServiceVM student = new StudentServiceVM();
-            var idStudent = student.FindStudentByLogin(_loginVm.Login).Id_student;
-            var listaSemestrow = new SemesterDataService(_loginVm);
-            semesterTab.ItemsSource = new SemesterDataService(_loginVm) {   };
+            var idStudent = student.FindStudentByLogin(_loginVm.Login).Id_Student;
+            SemesterDataService listaSemesterow = new SemesterDataService(_loginVm);
+            IEnumerable<SemesterDataService> studenci = listaSemesterow.LoadDataGrid(idStudent);
+            semesterTab.ItemsSource = studenci;
             semesterTab.SelectedIndex = 0;
         }
       }

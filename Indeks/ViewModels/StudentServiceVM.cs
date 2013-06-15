@@ -13,7 +13,7 @@ namespace Indeks.ViewModels
         public LinqToSql.Student FindStudentById(Guid id)
         {
             DataClasses1DataContext student = new DataClasses1DataContext();
-            return student.Students.SingleOrDefault(x => x.Id_student == id);
+            return student.Students.SingleOrDefault(x => x.Id_Student == id);
         }
 
         public LinqToSql.Student FindStudentByLogin(string login)

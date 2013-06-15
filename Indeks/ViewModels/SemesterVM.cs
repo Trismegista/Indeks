@@ -125,14 +125,14 @@ namespace Indeks.ViewModels
             };
             context.Listas.InsertOnSubmit(semester);
             context.SubmitChanges();
-            var listaStudents = new ListaStudnet() 
+            var listaStudents = new ListaStudent() 
             
             { 
                  Id_Semestr = context.Listas.SingleOrDefault(x => x.Id_Semestr == semester.Id_Semestr).Id_Semestr, 
-                 Id_Student = context.Students.SingleOrDefault(x => x.login == _loginVM.Login).Id_student 
+                 Id_Student = context.Students.SingleOrDefault(x => x.login == _loginVM.Login).Id_Student 
             };
 
-            context.ListaStudnets.InsertOnSubmit(listaStudents);
+            context.ListaStudents.InsertOnSubmit(listaStudents);
             context.SubmitChanges();
             //MessageBox.Show(_loginVM.GetLogin());
             Window frm = (Window)parameter;
