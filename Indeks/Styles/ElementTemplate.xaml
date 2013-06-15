@@ -13,18 +13,18 @@
         </Setter>
     </Style>
     
-    <Style TargetType="TabControl">
+    <!--<Style TargetType="TabControl">
         <Setter Property="ContentTemplate">
             <Setter.Value>
                 <DataTemplate>
-                        <!--<TextBlock>  
+                        <TextBlock>  
                                 ssddasd <TextBlock Text="{Binding Imie}"/> <TextBlock Text="{Binding Nazwisko}"/>
-                        </TextBlock>-->
+                        </TextBlock>
                     <DataGrid ItemsSource="{Binding ExecuteGetData}"/>
                 </DataTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
     
     <Style x:Key="MyWindowStyle" TargetType="Window">
         <Setter Property="Background" Value="Transparent"/>

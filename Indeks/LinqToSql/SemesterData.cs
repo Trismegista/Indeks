@@ -10,9 +10,9 @@ namespace Indeks.LinqToSql
     public class SemesterDataService
     {
         LoginVM _loginVm;
-        public SemesterDataService(LoginVM loginVm)
+        public SemesterDataService()
         {
-            _loginVm = loginVm;
+            //_loginVm = loginVm;
         }
         public string Nazwa { get; set; }
         public string Przedmiot { get; set; }
@@ -38,13 +38,34 @@ namespace Indeks.LinqToSql
             get { return LoadDataGrid(CurrentUser()); }
         }
 
+        public IEnumerable<LinqToSql.ListaStudent> StudentSemestersList(Guid idStudent)
+        {
+            DataClasses1DataContext ls = new DataClasses1DataContext();
+            return ls.ListaStudents.Where(x => x.Id_Student.Equals(idStudent));
+        }
+
+        public SemesterDataService SemesterDetails(Guid idSemester)
+        {
+            DataClasses1DataContext ls = new DataClasses1DataContext();
+            var dataSemestr = ls.Listas.Where(x => x.Id_Semestr == idSemester).SingleOrDefault();
+            return new SemesterDataService
+            {
+                Nazwa = dataSemestr.Nazwa,
+                Przedmiot = dataSemestr.Przedmiot,
+                Wykladowca = dataSemestr.Wykladowca,
+                PunktyETCS = dataSemestr.PunktyETCS,
+                LiczbaGodzin = dataSemestr.LGodzin,
+                Zajecia = dataSemestr.Zajecia
+            };
+        }
+
         public IEnumerable<SemesterDataService> LoadDataGrid(Guid idStudent)
         {
             var semestry = new List<SemesterDataService>();
-            var sem = new SemesterDataService(_loginVm);
+            var sem = new SemesterDataService();
             var listaSemestrow = sem.StudentSemestersNames(idStudent);
             foreach ( LinqToSql.Lista value in listaSemestrow )
-            semestry.Add(new SemesterDataService(_loginVm)
+            semestry.Add(new SemesterDataService()
             {
                 Nazwa = value.Nazwa,
                 Przedmiot = value.Przedmiot,

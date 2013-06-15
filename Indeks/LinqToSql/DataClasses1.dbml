@@ -2,7 +2,7 @@
   <Connection Mode="AppSettings" ConnectionString="Data Source=SHADOW-KOMPUTER;Initial Catalog=&quot;Indeks for learn&quot;;Integrated Security=True" SettingsObjectName="Indeks.Properties.Settings" SettingsPropertyName="Indeks_for_learnConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Lista" Member="Listas">
     <Type Name="Lista">
-      <Column Name="Id_Semestr" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Id_Semestr" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Nazwa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Przedmiot" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Wykladowca" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
@@ -22,7 +22,7 @@
   </Table>
   <Table Name="dbo.Student" Member="Students">
     <Type Name="Student">
-      <Column Name="Id_Student" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Id_Student" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="haslo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="imie" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="nazwisko" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
