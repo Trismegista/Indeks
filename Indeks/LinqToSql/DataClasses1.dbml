@@ -1,30 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Indeks for learn" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=SHADOW-KOMPUTER;Initial Catalog=&quot;Indeks for learn&quot;;Integrated Security=True" SettingsObjectName="Indeks.Properties.Settings" SettingsPropertyName="Indeks_for_learnConnectionString1" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Adres" Member="Adres">
-    <Type Name="Adre">
-      <Column Name="Id_Adres" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Kraj" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Woj" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Powiat" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Gmina" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Miasto" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Ulica" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Nr_Domu" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Nr_Mieszkania" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Kod_Pocztowy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Adre_Login" Member="Logins" ThisKey="Id_Adres" OtherKey="Id_Adres" Type="Login" />
-    </Type>
-  </Table>
-  <Table Name="dbo.ZajeciaPrzedmiot" Member="ZajeciaPrzedmiots">
-    <Type Name="ZajeciaPrzedmiot">
-      <Column Name="Id_Przedmiotu" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Id_Zajecia" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="PunktyETCS" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="LiczbaGodzin" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Przedmiot_ZajeciaPrzedmiot" Member="Przedmiot" ThisKey="Id_Przedmiotu" OtherKey="Id_Przedmiot" Type="Przedmiot" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-      <Association Name="Typ_Zajec_ZajeciaPrzedmiot" Member="Typ_Zajec" ThisKey="Id_Zajecia" OtherKey="Id_Zajecia" Type="Typ_Zajec" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-    </Type>
-  </Table>
+  <Connection Mode="AppSettings" ConnectionString="Data Source=OCTAL-KB01\SQLKB01;Initial Catalog=&quot;Indeks for learn&quot;;Integrated Security=True" SettingsObjectName="Indeks.Properties.Settings" SettingsPropertyName="Indeks_for_learnConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Ciag" Member="Ciags">
     <Type Name="Ciag">
       <Column Name="Id_Ciag" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -96,9 +71,9 @@
       <Column Name="Id_Wykladowcy" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="Id_Zajecia" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="Przedmiot_Nazwa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="Przedmiot_ZajeciaPrzedmiot" Member="ZajeciaPrzedmiots" ThisKey="Id_Przedmiot" OtherKey="Id_Przedmiotu" Type="ZajeciaPrzedmiot" />
       <Association Name="Przedmiot_SemestrPrzedmiot" Member="SemestrPrzedmiots" ThisKey="Id_Przedmiot" OtherKey="Id_Przedmio" Type="SemestrPrzedmiot" />
       <Association Name="Przedmiot_WykladowcaPrzedmiot" Member="WykladowcaPrzedmiots" ThisKey="Id_Przedmiot" OtherKey="Id_Przedmiotu" Type="WykladowcaPrzedmiot" />
+      <Association Name="Przedmiot_ZajeciaPrzedmiot" Member="ZajeciaPrzedmiots" ThisKey="Id_Przedmiot" OtherKey="Id_Przedmiotu" Type="ZajeciaPrzedmiot" />
     </Type>
   </Table>
   <Table Name="dbo.Semestr" Member="Semestrs">
@@ -174,9 +149,19 @@
       <Association Name="Wykladowca_WykladowcaPrzedmiot" Member="Wykladowca" ThisKey="Id_Wykladowcy" OtherKey="Id_Wykladowcy" Type="Wykladowca" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.ZajeciaPrzedmiot" Member="ZajeciaPrzedmiots">
+    <Type Name="ZajeciaPrzedmiot">
+      <Column Name="Id_Przedmiotu" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Id_Zajecia" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PunktyETCS" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LiczbaGodzin" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Przedmiot_ZajeciaPrzedmiot" Member="Przedmiot" ThisKey="Id_Przedmiotu" OtherKey="Id_Przedmiot" Type="Przedmiot" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Typ_Zajec_ZajeciaPrzedmiot" Member="Typ_Zajec" ThisKey="Id_Zajecia" OtherKey="Id_Zajecia" Type="Typ_Zajec" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.Login" Member="Logins">
     <Type Name="Login">
-      <Column Name="Id_Login" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Id_Login" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="User_Login" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Haslo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Student_Imie" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
@@ -186,6 +171,22 @@
       <Column Name="Student_E_Mail" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Association Name="Login_Student" Member="Students" ThisKey="Id_Login" OtherKey="Id_Login" Type="Student" />
       <Association Name="Adre_Login" Member="Adre" ThisKey="Id_Adres" OtherKey="Id_Adres" Type="Adre" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Adres" Member="Adres">
+    <Type Name="Adre">
+      <Column Name="Id_Adres" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Kraj" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Woj" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Powiat" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Gmina" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Miasto" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Ulica" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Nr_Domu" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Nr_Mieszkania" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Kod_Pocztowy" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Poczta" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Adre_Login" Member="Logins" ThisKey="Id_Adres" OtherKey="Id_Adres" Type="Login" />
     </Type>
   </Table>
 </Database>

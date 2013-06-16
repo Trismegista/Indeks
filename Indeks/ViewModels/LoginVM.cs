@@ -7,12 +7,15 @@ using Indeks.Interfaces;
 using System.Windows.Input;
 using System.Windows;
 using System.ComponentModel;
+using Indeks.LinqToSql;
 
 namespace Indeks.ViewModels
 {
     public class LoginVM : Window, INotifyPropertyChanged
 
     {
+        public Login CurrentStudent;
+
         public LoginVM()
         {
             ExecuteRegistrationCommand = new Commanding(OpenRegistration,CanOpenRegistration);
@@ -24,9 +27,9 @@ namespace Indeks.ViewModels
         public ICommand ExecuteLoginCommand { get; set; }
         public ICommand ExecuteCancelCommand { get; set; }
         
-        public LinqToSql.Login CurrentStudent;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         private void OnPropertyChanged(String property)
         {
             if (PropertyChanged != null)
@@ -34,10 +37,12 @@ namespace Indeks.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
             }
         }
+
         public string GetLogin()
         {
             return CurrentStudent.User_Login;
         }
+
         private bool CanCancelApp(object parameter)
         {
             return true;
@@ -55,9 +60,9 @@ namespace Indeks.ViewModels
 
         private void LoginIntoApp(object parameter)
         {
-            var service = new StudentServiceVM();
-            CurrentStudent = service.FindUserByLogin(_login);
-            if (service.CanBeLogged(CurrentStudent, _password, _login))
+            var model = new Login();
+            CurrentStudent = model.FindUserByLogin(_login) ;
+            if (model.IsAuthenticated(CurrentStudent, _password, _login))
             {
                 var login = (Window)parameter;
                 var frm = new Index(this);

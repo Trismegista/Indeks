@@ -51,34 +51,33 @@ namespace Indeks
         private TabItem AddTabItem()
         {
             int count = _tabItems.Count;
-
             StudentServiceVM student = new StudentServiceVM();
             SemesterDataService listaSemesterow = new SemesterDataService();
-            var idStudent = student.FindUserByLogin(_loginVm.Login).Id_Student;
-
+            //var idStudent = student.FindUserByLogin(_loginVm.Login).Id_Student;
+            PrzedmiotData cos = new PrzedmiotData();
             //List<SemesterDataService> studenci = listaSemesterow.LoadDataGrid(idStudent).ToList();
-            var semestry = listaSemesterow.StudentSemestersList(idStudent);
+            //var semestry = listaSemesterow.StudentSemestersList(idStudent);
 
             TabItem tab = new TabItem();
-            foreach (LinqToSql.ListaStudent val in semestry)
-            {
+            //foreach (LinqToSql.ListaStudent val in semestry)
+            //{
                 SemesterDataService semestr = new SemesterDataService();
                 tab.Header = string.Format("Tab {0}", count);
                 tab.Name = string.Format("tab{0}", count);
                 tab.HeaderTemplate = tabDynamic.FindResource("TabHeader") as DataTemplate;
 
-                //TextBox txt = new TextBox();
-                //txt.Name = "txt";
-                //txt.Text = " widze cie i nie wiem co jeszcze ";
-                //tab.Content = txt;
+                TextBox txt = new TextBox();
+                txt.Name = "txt";
+                txt.Text = " widze cie i nie wiem co jeszcze ";
+                tab.Content = txt;
 
-                DataGrid grid = new DataGrid();
-                grid.Name = "name";
-                grid.ItemsSource = semestr.SemesterDetails(val.Id_Semestr);
-                tab.Content = grid;
+                //DataGrid grid = new DataGrid();
+                //grid.Name = "name";
+                //grid.ItemsSource = semestr.SemesterDetails(val.Id_Semestr);
+                //tab.Content = grid;
 
                 _tabItems.Insert(count - 1, tab);
-            }
+            //}
             return tab;
         }
 

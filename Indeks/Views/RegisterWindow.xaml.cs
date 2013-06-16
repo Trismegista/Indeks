@@ -21,7 +21,7 @@ namespace Indeks
         public RegisterWindow()
         {
             InitializeComponent();            
-            DataContext = new StudentVM();
+            DataContext = new RegistrationVM();
         }
     }
 }
