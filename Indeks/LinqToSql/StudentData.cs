@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Indeks.LinqToSql
 {
-    class StudentData : LinqToSql.Student
+    public partial class Student
     {
     }
 }

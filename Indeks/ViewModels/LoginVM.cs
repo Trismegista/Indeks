@@ -61,13 +61,17 @@ namespace Indeks.ViewModels
         private void LoginIntoApp(object parameter)
         {
             var model = new Login();
-            CurrentStudent = model.FindUserByLogin(_login) ;
+            CurrentStudent = model.FindUserByLogin(_login);
             if (model.IsAuthenticated(CurrentStudent, _password, _login))
             {
                 var login = (Window)parameter;
                 var frm = new Index(this);
                 frm.Show();
                 login.Close();
+            }
+            else
+            {
+                MessageBox.Show("Brak Autoryzacji");
             }
         }
 

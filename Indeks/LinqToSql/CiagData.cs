@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Indeks.LinqToSql
 {
-    class CiagData : LinqToSql.Ciag
+    public partial class Ciag
     {
     }
 }

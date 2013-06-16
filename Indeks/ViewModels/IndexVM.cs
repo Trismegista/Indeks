@@ -19,13 +19,8 @@ namespace Indeks.ViewModels
         {
             _loginVm = loginVm;
             ExecuteOpenSemesterCommand = new Commanding(AddSemesterCommand, CanAddSemesterCommand);
-            ExecuteCreateTabControl = new Commanding(GenerateTabControlData, CanGenerateTabControlData);
+            ExecuteOpenGroupCommand = new Commanding(AddGroupCommand, CanAddGroupCommand);
         }
-
-
-
-        public ICommand ExecuteOpenSemesterCommand { get; set; }
-        public ICommand ExecuteCreateTabControl { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(String property)
@@ -36,25 +31,41 @@ namespace Indeks.ViewModels
             }
         }
 
+
+        #region commands
+
+        public ICommand ExecuteOpenGroupCommand { get; set; }
+        public ICommand ExecuteOpenSemesterCommand { get; set; }
+
+        #endregion
+
+        #region Command Questions
+        private bool CanAddGroupCommand(object parameter)
+        {
+            return true;
+        }
+
         private bool CanAddSemesterCommand(object parameter)
         {
             return true;
         }
-        
+
+        #endregion
+
+        #region Execute Commands
         private void AddSemesterCommand(object parameter)
         {
             Window frm = new Semester(_loginVm);
-            frm.Show();
+            Nullable<bool> dialogResult = frm.ShowDialog();
         }
 
-        private bool CanGenerateTabControlData(object parameter)
+        private void AddGroupCommand(object parameter)
         {
- 	        return true;
+            Window frm = new GroupRegistration();
+            Nullable<bool> dialogResult = frm.ShowDialog();
         }
 
-        private void GenerateTabControlData(object parameter)
-        {
- 	        throw new NotImplementedException();
-        }
+        #endregion
+
       }
     }

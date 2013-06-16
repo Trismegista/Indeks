@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Indeks.LinqToSql
 {
-    class KierunekData : LinqToSql.Kierunek
+    public partial class Kierunek
     {
     }
 }

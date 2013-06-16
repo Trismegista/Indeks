@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Indeks.LinqToSql
 {
-    class GrupaData : LinqToSql.Grupa
+    public partial class Grupa
     {
     }
 }

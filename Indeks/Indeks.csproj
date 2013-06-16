@@ -73,12 +73,16 @@
     <Compile Include="LinqToSql\TypStudiowData.cs" />
     <Compile Include="LinqToSql\TypZajecData.cs" />
     <Compile Include="LinqToSql\WykladowcaData.cs" />
-    <Compile Include="ViewModels\ApplicationViewModel.cs" />
+    <Compile Include="ViewModels\ApplicationVm.cs" />
     <Compile Include="ViewModels\IndexVM.cs" />
     <Compile Include="ViewModels\LoginVM.cs" />
+    <Compile Include="ViewModels\RegistrationGroupVM.cs" />
     <Compile Include="ViewModels\SemesterVM.cs" />
     <Compile Include="ViewModels\StudentServiceVM.cs" />
     <Compile Include="ViewModels\RegistrationVM.cs" />
+    <Compile Include="Views\GroupRegistration.xaml.cs">
+      <DependentUpon>GroupRegistration.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RegisterWindow.xaml.cs">
       <DependentUpon>RegisterWindow.xaml</DependentUpon>
     </Compile>
@@ -86,6 +90,10 @@
       <DependentUpon>Semester.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Test2.cs" />
+    <Page Include="Views\GroupRegistration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LogInView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

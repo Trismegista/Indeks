@@ -248,7 +248,7 @@ namespace Indeks.ViewModels
             {
                 Ulica = _ulica,
                 Nr_Domu = _numerDomu,
-                Nr_Mieszkania = _numerMieszkania,
+                Nr_Mieszkania = Convert.ToInt32(_numerMieszkania),
                 Miasto = _miasto,
                 Kod_Pocztowy = string.Join("-",kod),
                 Poczta = _poczta,
@@ -271,6 +271,13 @@ namespace Indeks.ViewModels
                 Id_Adres = adresData.Id_Adres
             };
             context.Logins.InsertOnSubmit(userLogin);
+            context.SubmitChanges();
+
+            var student = new Student
+            {
+                Id_Login = userLogin.Id_Login,
+            };
+            context.Students.InsertOnSubmit(student);
             context.SubmitChanges();
 
             Window frm = (Window)parameter;

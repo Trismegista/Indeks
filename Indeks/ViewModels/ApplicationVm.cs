@@ -28,6 +28,9 @@ namespace Indeks.ViewModels
         private void CloseCurentWindow(object parameter)
         {
             Window window = (Window)parameter;
+            if (window.Title == "MainWindow")
+            Application.Current.Shutdown();
+            else
             window.Close();
         }
 

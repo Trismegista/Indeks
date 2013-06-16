@@ -1,23 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Indeks for learn" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=OCTAL-KB01\SQLKB01;Initial Catalog=&quot;Indeks for learn&quot;;Integrated Security=True" SettingsObjectName="Indeks.Properties.Settings" SettingsPropertyName="Indeks_for_learnConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Ciag" Member="Ciags">
-    <Type Name="Ciag">
-      <Column Name="Id_Ciag" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Ciag_Nazwa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="Ciag_KierunekCiag" Member="KierunekCiags" ThisKey="Id_Ciag" OtherKey="Id_Ciag" Type="KierunekCiag" />
-      <Association Name="Ciag_KierunekCiagGrupa" Member="KierunekCiagGrupas" ThisKey="Id_Ciag" OtherKey="Id_Ciag" Type="KierunekCiagGrupa" />
-      <Association Name="Ciag_KierunekCiagStopienStudiow" Member="KierunekCiagStopienStudiows" ThisKey="Id_Ciag" OtherKey="Id_Ciag" Type="KierunekCiagStopienStudiow" />
-      <Association Name="Ciag_KierunekCiagTypStudiow" Member="KierunekCiagTypStudiows" ThisKey="Id_Ciag" OtherKey="Id_Ciag" Type="KierunekCiagTypStudiow" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Grupa" Member="Grupas">
-    <Type Name="Grupa">
-      <Column Name="Id_Grupa" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Grupa_Nazwa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="Grupa_KierunekCiagGrupa" Member="KierunekCiagGrupas" ThisKey="Id_Grupa" OtherKey="Id_Grupa" Type="KierunekCiagGrupa" />
-      <Association Name="Grupa_KierunekCiagGrupaStudent" Member="KierunekCiagGrupaStudents" ThisKey="Id_Grupa" OtherKey="Id_Grupa" Type="KierunekCiagGrupaStudent" />
-    </Type>
-  </Table>
   <Table Name="dbo.Kierunek" Member="Kieruneks">
     <Type Name="Kierunek">
       <Column Name="Id_Kierunek" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -29,40 +11,30 @@
     <Type Name="KierunekCiag">
       <Column Name="Id_Kierunek" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Id_Ciag" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="Ciag_KierunekCiag" Member="Ciag" ThisKey="Id_Ciag" OtherKey="Id_Ciag" Type="Ciag" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="Kierunek_KierunekCiag" Member="Kierunek" ThisKey="Id_Kierunek" OtherKey="Id_Kierunek" Type="Kierunek" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Ciag_KierunekCiag" Member="Ciag" ThisKey="Id_Ciag" OtherKey="Id_Ciag" Type="Ciag" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.KierunekCiagGrupa" Member="KierunekCiagGrupas">
     <Type Name="KierunekCiagGrupa">
       <Column Name="Id_Ciag" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Id_Grupa" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="Ciag_KierunekCiagGrupa" Member="Ciag" ThisKey="Id_Ciag" OtherKey="Id_Ciag" Type="Ciag" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="Grupa_KierunekCiagGrupa" Member="Grupa" ThisKey="Id_Grupa" OtherKey="Id_Grupa" Type="Grupa" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Ciag_KierunekCiagGrupa" Member="Ciag" ThisKey="Id_Ciag" OtherKey="Id_Ciag" Type="Ciag" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.KierunekCiagGrupaStudent" Member="KierunekCiagGrupaStudents">
-    <Type Name="KierunekCiagGrupaStudent">
-      <Column Name="Id_Grupa" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Id_Student" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="Grupa_KierunekCiagGrupaStudent" Member="Grupa" ThisKey="Id_Grupa" OtherKey="Id_Grupa" Type="Grupa" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-      <Association Name="Student_KierunekCiagGrupaStudent" Member="Student" ThisKey="Id_Student" OtherKey="Id_Student" Type="Student" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.KierunekCiagStopienStudiow" Member="KierunekCiagStopienStudiows">
-    <Type Name="KierunekCiagStopienStudiow">
-      <Column Name="Id_Ciag" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Id_Stopien_Studiow" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="Ciag_KierunekCiagStopienStudiow" Member="Ciag" ThisKey="Id_Ciag" OtherKey="Id_Ciag" Type="Ciag" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-      <Association Name="StopienStudiow_KierunekCiagStopienStudiow" Member="StopienStudiow" ThisKey="Id_Stopien_Studiow" OtherKey="Id_Stopien_Studiow" Type="StopienStudiow" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.KierunekCiagTypStudiow" Member="KierunekCiagTypStudiows">
-    <Type Name="KierunekCiagTypStudiow">
-      <Column Name="Id_Typ_Studiow" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Id_Ciag" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="Ciag_KierunekCiagTypStudiow" Member="Ciag" ThisKey="Id_Ciag" OtherKey="Id_Ciag" Type="Ciag" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-      <Association Name="TypStudiow_KierunekCiagTypStudiow" Member="TypStudiow" ThisKey="Id_Typ_Studiow" OtherKey="Id_Typ_Studiow" Type="TypStudiow" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+  <Table Name="dbo.Login" Member="Logins">
+    <Type Name="Login">
+      <Column Name="Id_Login" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="User_Login" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Haslo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Student_Imie" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Student_Nazwisko" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Id_Adres" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Student_Telefon" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Student_E_Mail" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Login_Student" Member="Students" ThisKey="Id_Login" OtherKey="Id_Login" Type="Student" />
+      <Association Name="Adre_Login" Member="Adre" ThisKey="Id_Adres" OtherKey="Id_Adres" Type="Adre" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.Przedmiot" Member="Przedmiots">
@@ -76,37 +48,12 @@
       <Association Name="Przedmiot_ZajeciaPrzedmiot" Member="ZajeciaPrzedmiots" ThisKey="Id_Przedmiot" OtherKey="Id_Przedmiotu" Type="ZajeciaPrzedmiot" />
     </Type>
   </Table>
-  <Table Name="dbo.Semestr" Member="Semestrs">
-    <Type Name="Semestr">
-      <Column Name="Id_Semestr" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Semestr_Nazwa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="Semestr_SemestrPrzedmiot" Member="SemestrPrzedmiots" ThisKey="Id_Semestr" OtherKey="Id_Semestr" Type="SemestrPrzedmiot" />
-      <Association Name="Semestr_StudentSemestr" Member="StudentSemestrs" ThisKey="Id_Semestr" OtherKey="Id_Semestr" Type="StudentSemestr" />
-    </Type>
-  </Table>
   <Table Name="dbo.SemestrPrzedmiot" Member="SemestrPrzedmiots">
     <Type Name="SemestrPrzedmiot">
       <Column Name="Id_Semestr" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Id_Przedmio" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="Przedmiot_SemestrPrzedmiot" Member="Przedmiot" ThisKey="Id_Przedmio" OtherKey="Id_Przedmiot" Type="Przedmiot" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="Semestr_SemestrPrzedmiot" Member="Semestr" ThisKey="Id_Semestr" OtherKey="Id_Semestr" Type="Semestr" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.StopienStudiow" Member="StopienStudiows">
-    <Type Name="StopienStudiow">
-      <Column Name="Id_Stopien_Studiow" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Stopien_Studiow_Nazwa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="StopienStudiow_KierunekCiagStopienStudiow" Member="KierunekCiagStopienStudiows" ThisKey="Id_Stopien_Studiow" OtherKey="Id_Stopien_Studiow" Type="KierunekCiagStopienStudiow" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Student" Member="Students">
-    <Type Name="Student">
-      <Column Name="Id_Student" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Id_Login" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="Nr_Indeksu" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Student_KierunekCiagGrupaStudent" Member="KierunekCiagGrupaStudents" ThisKey="Id_Student" OtherKey="Id_Student" Type="KierunekCiagGrupaStudent" />
-      <Association Name="Student_StudentSemestr" Member="StudentSemestrs" ThisKey="Id_Student" OtherKey="Id_Student" Type="StudentSemestr" />
-      <Association Name="Login_Student" Member="Login" ThisKey="Id_Login" OtherKey="Id_Login" Type="Login" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.StudentSemestr" Member="StudentSemestrs">
@@ -122,13 +69,6 @@
       <Column Name="Id_Zajecia" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Typ_Zajec_Nazwa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Association Name="Typ_Zajec_ZajeciaPrzedmiot" Member="ZajeciaPrzedmiots" ThisKey="Id_Zajecia" OtherKey="Id_Zajecia" Type="ZajeciaPrzedmiot" />
-    </Type>
-  </Table>
-  <Table Name="dbo.TypStudiow" Member="TypStudiows">
-    <Type Name="TypStudiow">
-      <Column Name="Id_Typ_Studiow" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Typ_Studiow_Nazwa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="TypStudiow_KierunekCiagTypStudiow" Member="KierunekCiagTypStudiows" ThisKey="Id_Typ_Studiow" OtherKey="Id_Typ_Studiow" Type="KierunekCiagTypStudiow" />
     </Type>
   </Table>
   <Table Name="dbo.Wykladowca" Member="Wykladowcas">
@@ -159,18 +99,38 @@
       <Association Name="Typ_Zajec_ZajeciaPrzedmiot" Member="Typ_Zajec" ThisKey="Id_Zajecia" OtherKey="Id_Zajecia" Type="Typ_Zajec" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Login" Member="Logins">
-    <Type Name="Login">
-      <Column Name="Id_Login" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="User_Login" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Haslo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Student_Imie" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Student_Nazwisko" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Id_Adres" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="Student_Telefon" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Student_E_Mail" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Association Name="Login_Student" Member="Students" ThisKey="Id_Login" OtherKey="Id_Login" Type="Student" />
-      <Association Name="Adre_Login" Member="Adre" ThisKey="Id_Adres" OtherKey="Id_Adres" Type="Adre" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+  <Table Name="dbo.KierunekCiagGrupaSemestr" Member="KierunekCiagGrupaSemestrs">
+    <Type Name="KierunekCiagGrupaSemestr">
+      <Column Name="Id_Grupa" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Id_Semestr" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Semestr_KierunekCiagGrupaSemestr" Member="Semestr" ThisKey="Id_Semestr" OtherKey="Id_Semestr" Type="Semestr" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Grupa_KierunekCiagGrupaSemestr" Member="Grupa" ThisKey="Id_Grupa" OtherKey="Id_Grupa" Type="Grupa" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Semestr" Member="Semestrs">
+    <Type Name="Semestr">
+      <Column Name="Id_Semestr" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Semestr_Nazwa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Semestr_SemestrPrzedmiot" Member="SemestrPrzedmiots" ThisKey="Id_Semestr" OtherKey="Id_Semestr" Type="SemestrPrzedmiot" />
+      <Association Name="Semestr_StudentSemestr" Member="StudentSemestrs" ThisKey="Id_Semestr" OtherKey="Id_Semestr" Type="StudentSemestr" />
+      <Association Name="Semestr_KierunekCiagGrupaSemestr" Member="KierunekCiagGrupaSemestrs" ThisKey="Id_Semestr" OtherKey="Id_Semestr" Type="KierunekCiagGrupaSemestr" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Grupa" Member="Grupas">
+    <Type Name="Grupa">
+      <Column Name="Id_Grupa" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Grupa_Nazwa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Grupa_KierunekCiagGrupa" Member="KierunekCiagGrupas" ThisKey="Id_Grupa" OtherKey="Id_Grupa" Type="KierunekCiagGrupa" />
+      <Association Name="Grupa_KierunekCiagGrupaSemestr" Member="KierunekCiagGrupaSemestrs" ThisKey="Id_Grupa" OtherKey="Id_Grupa" Type="KierunekCiagGrupaSemestr" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Student" Member="Students">
+    <Type Name="Student">
+      <Column Name="Id_Student" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Id_Login" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Nr_Indeksu" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="Student_StudentSemestr" Member="StudentSemestrs" ThisKey="Id_Student" OtherKey="Id_Student" Type="StudentSemestr" />
+      <Association Name="Login_Student" Member="Login" ThisKey="Id_Login" OtherKey="Id_Login" Type="Login" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.Adres" Member="Adres">
@@ -183,10 +143,36 @@
       <Column Name="Miasto" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Ulica" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Nr_Domu" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Nr_Mieszkania" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Nr_Mieszkania" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Kod_Pocztowy" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Poczta" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Association Name="Adre_Login" Member="Logins" ThisKey="Id_Adres" OtherKey="Id_Adres" Type="Login" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Ciag" Member="Ciags">
+    <Type Name="Ciag">
+      <Column Name="Id_Ciag" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Id_Typ_Studiow" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Id_Stopien_Studiow" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Ciag_Nazwa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Ciag_KierunekCiag" Member="KierunekCiags" ThisKey="Id_Ciag" OtherKey="Id_Ciag" Type="KierunekCiag" />
+      <Association Name="Ciag_KierunekCiagGrupa" Member="KierunekCiagGrupas" ThisKey="Id_Ciag" OtherKey="Id_Ciag" Type="KierunekCiagGrupa" />
+      <Association Name="TypStudiow_Ciag" Member="TypStudiow" ThisKey="Id_Typ_Studiow" OtherKey="Id_Typ_Studiow" Type="TypStudiow" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="StopienStudiow_Ciag" Member="StopienStudiow" ThisKey="Id_Stopien_Studiow" OtherKey="Id_Stopien_Studiow" Type="StopienStudiow" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TypStudiow" Member="TypStudiows">
+    <Type Name="TypStudiow">
+      <Column Name="Id_Typ_Studiow" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Typ_Studiow_Nazwa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="TypStudiow_Ciag" Member="Ciags" ThisKey="Id_Typ_Studiow" OtherKey="Id_Typ_Studiow" Type="Ciag" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StopienStudiow" Member="StopienStudiows">
+    <Type Name="StopienStudiow">
+      <Column Name="Id_Stopien_Studiow" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Stopien_Studiow_Nazwa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="StopienStudiow_Ciag" Member="Ciags" ThisKey="Id_Stopien_Studiow" OtherKey="Id_Stopien_Studiow" Type="Ciag" />
     </Type>
   </Table>
 </Database>
