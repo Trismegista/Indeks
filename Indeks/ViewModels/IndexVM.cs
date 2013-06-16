@@ -1,4 +1,5 @@
 ﻿using Indeks.Interfaces;
+using Indeks.LinqToSql;
 using Indeks.Views;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,11 @@ namespace Indeks.ViewModels
             _loginVm = loginVm;
             ExecuteOpenSemesterCommand = new Commanding(AddSemesterCommand, CanAddSemesterCommand);
             ExecuteOpenGroupCommand = new Commanding(AddGroupCommand, CanAddGroupCommand);
+            ExecuteTestButtonCommand = new Commanding(TestInformation, CanTestInformation);
         }
+
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(String property)
@@ -34,6 +39,7 @@ namespace Indeks.ViewModels
 
         #region commands
 
+        public ICommand ExecuteTestButtonCommand { get; set; }
         public ICommand ExecuteOpenGroupCommand { get; set; }
         public ICommand ExecuteOpenSemesterCommand { get; set; }
 
@@ -46,6 +52,11 @@ namespace Indeks.ViewModels
         }
 
         private bool CanAddSemesterCommand(object parameter)
+        {
+            return true;
+        }
+
+        private bool CanTestInformation(object parameter)
         {
             return true;
         }
@@ -63,6 +74,12 @@ namespace Indeks.ViewModels
         {
             Window frm = new GroupRegistration();
             Nullable<bool> dialogResult = frm.ShowDialog();
+        }
+
+        private void TestInformation(object parameter)
+        {
+           RegistrationGroupVM gr = new RegistrationGroupVM();
+           MessageBox.Show(gr.CurrentGroupId.ToString());
         }
 
         #endregion

@@ -13,6 +13,7 @@ namespace Indeks.ViewModels
 {
     public class RegistrationGroupVM : ApplicationVM, INotifyPropertyChanged
     {
+        Guid _groupId;
         public RegistrationGroupVM()
         {
             ExecuteRegisterGroupCommand = new Commanding(RegisterGroup,CanRegisterGroup);
@@ -157,11 +158,15 @@ namespace Indeks.ViewModels
             context.KierunekCiagGrupas.InsertOnSubmit(kierunekCiagGrupa);
             context.SubmitChanges();
 
+            _groupId = grupa.Id_Grupa;
+
             Window frm = (Window)parameter;
             frm.Close();
         }
-
         #endregion
-
+        public Guid CurrentGroupId
+        {
+            get { return _groupId; }
+        }
     }
 }
