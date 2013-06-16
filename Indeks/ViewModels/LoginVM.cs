@@ -11,10 +11,12 @@ using Indeks.LinqToSql;
 
 namespace Indeks.ViewModels
 {
-    public class LoginVM : Window, INotifyPropertyChanged
+    public class LoginVM : INotifyPropertyChanged
 
     {
-        public Login CurrentStudent;
+        public Login CurrentStudent { get; set; }
+
+        public Guid CurrentStudentId { get; set; }
 
         public LoginVM()
         {
@@ -62,6 +64,7 @@ namespace Indeks.ViewModels
         {
             var model = new Login();
             CurrentStudent = model.FindUserByLogin(_login);
+            CurrentStudentId = model.GetUserId(_login);
             if (model.IsAuthenticated(CurrentStudent, _password, _login))
             {
                 var login = (Window)parameter;

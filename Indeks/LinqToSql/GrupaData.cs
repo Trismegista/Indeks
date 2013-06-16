@@ -16,8 +16,7 @@ namespace Indeks.LinqToSql
 
         public List<Guid> GetStudentGroupsId(Guid idStudent)
         {
-            return null;
-            //return db.KierunekCiagGrupas.Where
+            return db.KierunekCiagGrupaStudents.Where(x => x.Id_Student.Equals(idStudent)).Select(x => x.Id_Grupa).ToList();
         }
 
     }

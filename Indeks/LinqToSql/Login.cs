@@ -8,11 +8,11 @@ namespace Indeks.LinqToSql
 {
     public partial class Login
     {
-        DataClasses1DataContext log = new DataClasses1DataContext();
+        DataClasses1DataContext db = new DataClasses1DataContext();
 
         public Login FindUserByLogin(string login)
         {
-            var tempData = log.Logins.SingleOrDefault(x => x.User_Login.Equals(login));
+            var tempData = db.Logins.SingleOrDefault(x => x.User_Login.Equals(login));
             if (tempData == null) return null;
             else
             {
@@ -38,6 +38,11 @@ namespace Indeks.LinqToSql
                 return true;
             }
             else return false;
+        }
+
+        public Guid GetUserId(string login)
+        {
+            return db.Logins.Where(x => x.User_Login == login).Select(x => x.Id_Login).SingleOrDefault();
         }
     }
 }

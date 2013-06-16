@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace Indeks.LinqToSql
 {
-    class SemestrData : LinqToSql.Semestr
+    public partial class Semestr
     {
+        public List<Przedmiot> Przedmioty
+        {
+            get
+            {
+                return SemestrPrzedmiots.Select(x => x.Przedmiot).ToList();
+            }
+        }
     }
 }

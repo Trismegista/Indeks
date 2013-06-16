@@ -30,100 +30,100 @@ namespace Indeks
             DataContext = new IndexVM(_loginVm);
             InitializeComponent();
 
-            _tabItems = new List<TabItem>();
-            TabItem tabAdd = new TabItem();
-            tabAdd.Header = "+";
-            _tabItems.Add(tabAdd);
-            this.AddTabItem();
-            tabDynamic.DataContext = _tabItems;
-            tabDynamic.SelectedIndex = 0;
+            //_tabItems = new List<TabItem>();
+            //TabItem tabAdd = new TabItem();
+            //tabAdd.Header = "+";
+            //_tabItems.Add(tabAdd);
+            //this.AddTabItem();
+            //tabDynamic.DataContext = _tabItems;
+            //tabDynamic.SelectedIndex = 0;
         }
         
-        private TabItem AddTabItem()
-        {
-            int count = _tabItems.Count;
-            StudentServiceVM student = new StudentServiceVM();
-            SemesterDataService listaSemesterow = new SemesterDataService();
-            //var idStudent = student.FindUserByLogin(_loginVm.Login).Id_Student;
-            PrzedmiotData cos = new PrzedmiotData();
-            //List<SemesterDataService> studenci = listaSemesterow.LoadDataGrid(idStudent).ToList();
-            //var semestry = listaSemesterow.StudentSemestersList(idStudent);
+        //private TabItem AddTabItem()
+        //{
+        //    int count = _tabItems.Count;
+        //    StudentServiceVM student = new StudentServiceVM();
+        //    SemesterDataService listaSemesterow = new SemesterDataService();
+        //    //var idStudent = student.FindUserByLogin(_loginVm.Login).Id_Student;
+        //    PrzedmiotData cos = new PrzedmiotData();
+        //    //List<SemesterDataService> studenci = listaSemesterow.LoadDataGrid(idStudent).ToList();
+        //    //var semestry = listaSemesterow.StudentSemestersList(idStudent);
 
-            TabItem tab = new TabItem();
-            //foreach (LinqToSql.ListaStudent val in semestry)
-            //{
-                SemesterDataService semestr = new SemesterDataService();
-                tab.Header = string.Format("Tab {0}", count);
-                tab.Name = string.Format("tab{0}", count);
-                tab.HeaderTemplate = tabDynamic.FindResource("TabHeader") as DataTemplate;
+        //    TabItem tab = new TabItem();
+        //    //foreach (LinqToSql.ListaStudent val in semestry)
+        //    //{
+        //        SemesterDataService semestr = new SemesterDataService();
+        //        tab.Header = string.Format("Tab {0}", count);
+        //        tab.Name = string.Format("tab{0}", count);
+        //        tab.HeaderTemplate = tabDynamic.FindResource("TabHeader") as DataTemplate;
 
-                TextBox txt = new TextBox();
-                txt.Name = "txt";
-                txt.Text = " widze cie i nie wiem co jeszcze ";
-                tab.Content = txt;
+        //        TextBox txt = new TextBox();
+        //        txt.Name = "txt";
+        //        txt.Text = " widze cie i nie wiem co jeszcze ";
+        //        tab.Content = txt;
 
-                //DataGrid grid = new DataGrid();
-                //grid.Name = "name";
-                //grid.ItemsSource = semestr.SemesterDetails(val.Id_Semestr);
-                //tab.Content = grid;
+        //        //DataGrid grid = new DataGrid();
+        //        //grid.Name = "name";
+        //        //grid.ItemsSource = semestr.SemesterDetails(val.Id_Semestr);
+        //        //tab.Content = grid;
 
-                _tabItems.Insert(count - 1, tab);
-            //}
-            return tab;
-        }
+        //        _tabItems.Insert(count - 1, tab);
+        //    //}
+        //    return tab;
+        //}
 
-        private void tabDynamic_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            TabItem tab = tabDynamic.SelectedItem as TabItem;
+        //private void tabDynamic_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    TabItem tab = tabDynamic.SelectedItem as TabItem;
 
-            if (tab != null && tab.Header != null)
-            {
-                if (tab.Header.Equals("+"))
-                {
-                    tabDynamic.DataContext = null;
+        //    if (tab != null && tab.Header != null)
+        //    {
+        //        if (tab.Header.Equals("+"))
+        //        {
+        //            tabDynamic.DataContext = null;
 
-                    TabItem newTab = this.AddTabItem();
+        //            TabItem newTab = this.AddTabItem();
 
-                    tabDynamic.DataContext = _tabItems;
+        //            tabDynamic.DataContext = _tabItems;
 
-                    tabDynamic.SelectedItem = newTab;
-                }
-                else
-                {
-                }
-            }
-        }
+        //            tabDynamic.SelectedItem = newTab;
+        //        }
+        //        else
+        //        {
+        //        }
+        //    }
+        //}
 
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
-        {
-            string tabName = (sender as Button).CommandParameter.ToString();
+        //private void btnDelete_Click(object sender, RoutedEventArgs e)
+        //{
+        //    string tabName = (sender as Button).CommandParameter.ToString();
 
-            var item = tabDynamic.Items.Cast<TabItem>().Where(i => i.Name.Equals(tabName)).SingleOrDefault();
+        //    var item = tabDynamic.Items.Cast<TabItem>().Where(i => i.Name.Equals(tabName)).SingleOrDefault();
 
-            TabItem tab = item as TabItem;
+        //    TabItem tab = item as TabItem;
 
-            if (tab != null)
-            {
-                if (_tabItems.Count < 3)
-                {
-                    MessageBox.Show("Cannot remove last tab.");
-                }
-                else if (MessageBox.Show(string.Format("Are you sure you want to remove the tab '{0}'?", tab.Header.ToString()),
-                    "Remove Tab", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    TabItem selectedTab = tabDynamic.SelectedItem as TabItem;
-                    tabDynamic.DataContext = null;
-                    _tabItems.Remove(tab);
-                    tabDynamic.DataContext = _tabItems;
+        //    if (tab != null)
+        //    {
+        //        if (_tabItems.Count < 3)
+        //        {
+        //            MessageBox.Show("Cannot remove last tab.");
+        //        }
+        //        else if (MessageBox.Show(string.Format("Are you sure you want to remove the tab '{0}'?", tab.Header.ToString()),
+        //            "Remove Tab", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+        //        {
+        //            TabItem selectedTab = tabDynamic.SelectedItem as TabItem;
+        //            tabDynamic.DataContext = null;
+        //            _tabItems.Remove(tab);
+        //            tabDynamic.DataContext = _tabItems;
 
-                    if (selectedTab == null || selectedTab.Equals(tab))
-                    {
-                        selectedTab = _tabItems[0];
-                    }
-                    tabDynamic.SelectedItem = selectedTab;
-                }
-            }
-        }
+        //            if (selectedTab == null || selectedTab.Equals(tab))
+        //            {
+        //                selectedTab = _tabItems[0];
+        //            }
+        //            tabDynamic.SelectedItem = selectedTab;
+        //        }
+        //    }
+        //}
         //private void AddTabItem()
         //{
         //    StudentServiceVM student = new StudentServiceVM();

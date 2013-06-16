@@ -6,7 +6,7 @@
         Style="{StaticResource MyWindowStyle}">
     <Border Style="{StaticResource MainBorder}">
         <Grid>
-            
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="100"/>
@@ -109,7 +109,7 @@
                             MaxWidth="150" 
                             Source="/Images/TestPhoto.png"
                             >
-                      </Image>
+                </Image>
             </Border>
             <!--<TabControl x:Name="semesterTab"
                         Grid.Column="0" Grid.ColumnSpan="5"
@@ -122,18 +122,37 @@
                     </DataTemplate>
                 </TabControl.ItemTemplate>
             </TabControl>-->
-            <TabControl Name="tabDynamic" ItemsSource="{Binding}" SelectionChanged="tabDynamic_SelectionChanged"
+            <TabControl Name="tabDynamic" ItemsSource="{Binding Semesters}"
                         Grid.Column="0" Grid.ColumnSpan="5"
-                        Grid.Row="3" Grid.RowSpan="4">
+                        Grid.Row="3" Grid.RowSpan="4" SelectedIndex="{Binding WybranySemestr}">
+                <TabControl.ItemTemplate>
+                    <ItemContainerTemplate>
+                        <TextBlock Text="{Binding Semestr_Nazwa}" Grid.Row="0"/>
+                    </ItemContainerTemplate>
+                </TabControl.ItemTemplate>
+                <TabControl.ContentTemplate>
+                    <DataTemplate>
+                        <ListBox Grid.Row="1" ItemsSource="{Binding Przedmioty, Mode=OneWay}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Przedmiot_Nazwa}" />
+                                        <!--<TextBlock Text="{Binding Przedmiot_Wykladowca.Wykladowca_Nazwisko}" />-->
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DataTemplate>
+                </TabControl.ContentTemplate>
                 <TabControl.Resources>
-                    <DataTemplate x:Key="TabHeader" DataType="TabItem">
+                    <!--<DataTemplate x:Key="TabHeader" DataType="TabItem">
                         <DockPanel>
                             <Button Name="btnDelete" DockPanel.Dock="Right" Margin="5,0,0,0" Padding="0" Click="btnDelete_Click" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type TabItem}}, Path=Name}">
                                 <Image Source="/Images/CloseButton.png" Height="11" Width="11"></Image>
                             </Button>
-                            <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type TabItem}}, Path=Header}" />
+                            <TextBlock Text="{Binding Semestr_Nazwa}" />
                         </DockPanel>
-                    </DataTemplate>
+                    </DataTemplate>-->
                     <Style TargetType="TextBox">
                         <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
                         <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
@@ -144,7 +163,8 @@
                         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"></Setter>
                     </Style>
                 </TabControl.Resources>
-            </TabControl><Button Grid.ColumnSpan="2" 
+            </TabControl>
+            <Button Grid.ColumnSpan="2" 
                     Content="DodajSemestr" 
                     HorizontalAlignment="Left" 
                     Margin="90,47,0,0" 
@@ -154,7 +174,8 @@
             <Button HorizontalAlignment="Left" Margin="10,47,0,0" Grid.Row="2" VerticalAlignment="Top" Width="105" Grid.Column="2"
                     Content="Dodaj Kierunek"
                     Command="{Binding ExecuteOpenGroupCommand}"/>
-            <ComboBox HorizontalAlignment="Left" Margin="90,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="3"/>
+            <ComboBox HorizontalAlignment="Left" Margin="90,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="3"
+                      ItemsSource="{Binding NumeryIndeksow}" SelectedItem="{Binding WybranyIndeks}"/>
             <Button Grid.Column="3" HorizontalAlignment="Left" Margin="77,70,0,0" Grid.Row="1" VerticalAlignment="Top" Width="105"
                     Content="Test Informacji"
                     Command="{Binding ExecuteTestButtonCommand}"/>
