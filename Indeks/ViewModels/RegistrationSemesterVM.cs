@@ -47,6 +47,8 @@ namespace Indeks.ViewModels
 
         public ICommand ExecuteAddSemesterCommand { get; set; }
 
+        #region Bindings
+        #region Bindings to->
         private List<string> _semesterName;
         public List<string> SemesterName
         {
@@ -102,5 +104,77 @@ namespace Indeks.ViewModels
                 OnPropertyChanged();
             }
         }
+        #endregion
+        #region Bindings From <-
+
+        private string _selectedSemester;
+        public string SelectedSemester
+        {
+            get
+            {
+                return _selectedSemester;
+            }
+            set
+            {
+                if (value != _selectedSemester)
+                {
+                    _selectedSemester = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _selectedKierunek;
+        public string SelectedKierunek
+        {
+            get
+            {
+                return _selectedKierunek;
+            }
+            set
+            {
+                if (value != _selectedKierunek)
+                {
+                    _selectedKierunek = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _selectedCiag;
+        public string SelectedCiag
+        {
+            get
+            {
+                return _selectedCiag;
+            }
+            set
+            {
+                if (value != _selectedCiag)
+                {
+                    _selectedCiag = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _selectedGroup;
+        public string SelectedGroup
+        {
+            get
+            {
+                return _selectedGroup;
+            }
+            set
+            {
+                if (value != _selectedGroup)
+                {
+                    _selectedGroup = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        #endregion
+        #endregion
     }
 }
