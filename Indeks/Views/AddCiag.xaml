@@ -1,7 +1,7 @@
-﻿<Window x:Class="Indeks.Views.Semester"
+﻿<Window x:Class="Indeks.Views.AddCiag"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Semester" 
+        Title="AddCiag"
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterScreen"
         Style="{StaticResource MyWindowStyle}">
@@ -10,84 +10,38 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="123"/>
                 <ColumnDefinition Width="215"/>
-                <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
             </Grid.RowDefinitions>
-            <TextBlock Grid.Column="0" Grid.ColumnSpan="3"
+            <TextBlock Grid.Column="0" Grid.ColumnSpan="2"
                    Grid.Row="0"
                    FontSize="18"
                    FontWeight="SemiBold"
                    VerticalAlignment="Center"
-                   HorizontalAlignment="Center">Nowy semestr:
+                   HorizontalAlignment="Center">Nowy ciąg:
             </TextBlock>
             <TextBlock Grid.Column="0"
-                   Grid.Row="1">Nazwa semestru:
+                   Grid.Row="1">Rodzaj studiów:
             </TextBlock>
             <ComboBox Grid.Column="1"
                      Grid.Row="1"
-                     ItemsSource="{Binding SemesterName}" SelectedItem="{Binding SelectedSemester}">
+                     ItemsSource="{Binding StopienStudiowNazwa}" SelectedItem="{Binding SelectedStopien}">
             </ComboBox>
-                <Button Command="{Binding ExecuteAddSemesterName}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                        Content="+" 
-                        Width="30"
-                        Height="30"
-                        Grid.Column="3"
-                        Grid.Row="1"/>
-                <TextBlock Grid.Column="0"
-                   Grid.Row="2">Kierunek:
+            <TextBlock Grid.Column="0"
+                   Grid.Row="2">Typ studiów:
             </TextBlock>
             <ComboBox Grid.Column="1"
                      Grid.Row="2"
-                     ItemsSource="{Binding KierunekName}" SelectedItem="{Binding SelectedKierunek}">
+                     ItemsSource="{Binding TypStudiowNazwa}" SelectedItem="{Binding SelectedTyp}">
             </ComboBox>
-            <Button Command="{Binding ExecuteAddKierunek}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                        Content="+" 
-                        Width="30"
-                        Height="30"
-                        Grid.Column="3"
-                        Grid.Row="2"/>
-            <TextBlock Grid.Column="0"
-                   Grid.Row="3">Ciag:
-            </TextBlock>
-            <ComboBox Grid.Column="1"
-                     Grid.Row="3"
-                     ItemsSource="{Binding CiagName}" SelectedItem="{Binding SelectedCiag}">
-            </ComboBox>
-            <Button Command="{Binding ExecuteAddCiag}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                        Content="+" 
-                        Width="30"
-                        Height="30"
-                        Grid.Column="3"
-                        Grid.Row="3"/>
-            <TextBlock Grid.Column="0"
-                   Grid.Row="4">Grupa:
-            </TextBlock>
-            <ComboBox Grid.Column="1"
-                     Grid.Row="4"
-                     ItemsSource="{Binding GroupName}" SelectedItem="{Binding SelectedGroup}">
-            </ComboBox>
-            <Button Command="{Binding ExecuteAddGroup}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                        Content="+" 
-                        Width="30"
-                        Height="30"
-                        Grid.Column="3"
-                        Grid.Row="4"/>
+            
             <StackPanel Grid.Column="2" 
                         Grid.Row="0" 
-                        Margin="-20,-12,60,34" 
+                        Margin="143,-12,60,34" 
                         HorizontalAlignment="Center" 
                         Orientation="Horizontal">
                 <Button Command="{Binding ExecuteMinimizeCommand}"
@@ -130,7 +84,7 @@
             <StackPanel Grid.Column="0" Grid.ColumnSpan="3"
                         Grid.Row="7"
                         VerticalAlignment="Center">
-                <Button Command="{Binding ExecuteAddSemesterCommand}"
+                <Button Command="{Binding ExecuteAddCiagCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                         Content="Dodaj"
                         Margin="5,20" 

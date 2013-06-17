@@ -13,5 +13,11 @@ namespace Indeks.LinqToSql
             DataClasses1DataContext db = new DataClasses1DataContext();
             return db.Kieruneks.Select(x => x.Kierunek_Nazwa).ToList();
         }
+
+        public static Guid FindKierunekIdByName(string name)
+        {
+            DataClasses1DataContext db = new DataClasses1DataContext();
+            return db.Kieruneks.Where(x => x.Kierunek_Nazwa == name).Select(x => x.Id_Kierunek).SingleOrDefault();
+        }
     }
 }

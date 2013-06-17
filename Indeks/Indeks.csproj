@@ -72,6 +72,10 @@
     <Compile Include="LinqToSql\TypStudiow.cs" />
     <Compile Include="LinqToSql\TypZajec.cs" />
     <Compile Include="LinqToSql\Wykladowca.cs" />
+    <Compile Include="ViewModels\AddCiagVM.cs" />
+    <Compile Include="ViewModels\AddGroupVM.cs" />
+    <Compile Include="ViewModels\AddKierunekVM.cs" />
+    <Compile Include="ViewModels\AddSemestrNameVM.cs" />
     <Compile Include="ViewModels\ApplicationVm.cs" />
     <Compile Include="ViewModels\IndexVM.cs" />
     <Compile Include="ViewModels\LoginVM.cs" />
@@ -79,6 +83,18 @@
     <Compile Include="ViewModels\RegistrationSemesterVM.cs" />
     <Compile Include="ViewModels\StudentServiceVM.cs" />
     <Compile Include="ViewModels\RegistrationVM.cs" />
+    <Compile Include="Views\AddCiag.xaml.cs">
+      <DependentUpon>AddCiag.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddGroup.xaml.cs">
+      <DependentUpon>AddGroup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddKierunek.xaml.cs">
+      <DependentUpon>AddKierunek.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddSemesterName.xaml.cs">
+      <DependentUpon>AddSemesterName.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GroupRegistration.xaml.cs">
       <DependentUpon>GroupRegistration.xaml</DependentUpon>
     </Compile>
@@ -88,6 +104,22 @@
     <Compile Include="Views\Semester.xaml.cs">
       <DependentUpon>Semester.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\AddCiag.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddGroup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddKierunek.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddSemesterName.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\GroupRegistration.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

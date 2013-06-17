@@ -15,7 +15,7 @@ namespace Indeks.LinqToSql
             return db.Grupas.Select(x => x.Grupa_Nazwa).ToList();
         }
 
-        public Guid GetGrupasIdFromName(string name)
+        public static Guid FindGrupaIdByName(string name)
         {
             DataClasses1DataContext db = new DataClasses1DataContext();
             return db.Grupas.Where(x => x.Grupa_Nazwa == name).Select(x => x._Id_Grupa).SingleOrDefault();
