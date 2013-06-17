@@ -17,8 +17,11 @@ namespace Indeks.Views
 {
     public partial class Semester : Window
     {
-        public Semester()
+        private LoginVM _loginVm;
+        public Semester(LoginVM loginVm)
         {
+            _loginVm = loginVm;
+            DataContext = new RegistrationSemesterVM(_loginVm);
             InitializeComponent();            
         }
     }

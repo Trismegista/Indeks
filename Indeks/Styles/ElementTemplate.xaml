@@ -92,7 +92,21 @@
         <Setter Property="HorizontalAlignment" Value="Right"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
-    
+
+    <Style TargetType="ComboBox">
+        <Setter Property="BorderBrush" Value="#9398ff"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Margin" Value="10,20,20,20"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03">
+                    <GradientStop Color="White" Offset="0"/>
+                    <GradientStop Color="#d5d4fd" Offset="0.567"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="Button">
         <Setter Property="Background">
             <Setter.Value>

@@ -28,53 +28,33 @@
                    HorizontalAlignment="Center">Nowy semestr:
             </TextBlock>
             <TextBlock Grid.Column="0"
-                   Grid.Row="1">Nazwa:
+                   Grid.Row="1">Nazwa semestru:
             </TextBlock>
-            <TextBlock Grid.Column="0"
-                   Grid.Row="2">Przedmiot:
-            </TextBlock>
-            <TextBlock Grid.Column="0"
-                   Grid.Row="3">Wykładowca:
-            </TextBlock>
-            <TextBlock Grid.Column="0"
-                   Grid.Row="4">Punkty ETCS:
-            </TextBlock>
-            <TextBlock Grid.Column="0"
-                   Grid.Row="5">Liczba godzin:
-            </TextBlock>
-            <TextBlock Grid.Column="0"
-                   Grid.Row="6">Zajęcia:
-            </TextBlock>
-            <TextBox Grid.Column="1"
+            <ComboBox Grid.Column="1"
                      Grid.Row="1"
-                     Name="SemesterName"
-                     Text="{Binding SemesterName}">
-            </TextBox>
-            <TextBox Grid.Column="1"
+                     ItemsSource="{Binding SemesterName}" SelectedItem="{Binding SelectedSemester}">
+            </ComboBox>
+            <TextBlock Grid.Column="0"
+                   Grid.Row="2">Kierunek:
+            </TextBlock>
+            <ComboBox Grid.Column="1"
                      Grid.Row="2"
-                     Name="Lecture"
-                     Text="{Binding Lecture}">
-            </TextBox>
-            <TextBox Grid.Column="1"
+                     ItemsSource="{Binding KierunekName}" SelectedItem="{Binding SelectedKierunek}">
+            </ComboBox>
+            <TextBlock Grid.Column="0"
+                   Grid.Row="3">Ciag:
+            </TextBlock>
+            <ComboBox Grid.Column="1"
                      Grid.Row="3"
-                     Name="Teacher"
-                     Text="{Binding Teacher}">
-            </TextBox>
-            <TextBox Grid.Column="1"
+                     ItemsSource="{Binding CiagName}" SelectedItem="{Binding SelectedCiag}">
+            </ComboBox>
+            <TextBlock Grid.Column="0"
+                   Grid.Row="4">Grupa:
+            </TextBlock>
+            <ComboBox Grid.Column="1"
                      Grid.Row="4"
-                     Name="ETCSPoints"
-                     Text="{Binding ETCSPoints}">
-            </TextBox>
-            <TextBox Grid.Column="1"
-                     Grid.Row="5"
-                     Name="Hours"
-                     Text="{Binding Hours}">
-            </TextBox>
-            <TextBox Grid.Column="1"
-                     Grid.Row="6"
-                     Name="LectureType"
-                     Text="{Binding LectureType}">
-            </TextBox>
+                     ItemsSource="{Binding GroupName}" SelectedItem="{Binding SelectedGroup}">
+            </ComboBox>
             <StackPanel Grid.Column="1" 
                         Grid.Row="0" 
                         Margin="149,-12,60,34" 
@@ -123,7 +103,7 @@
                 <Button Command="{Binding ExecuteAddSemesterCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                         Content="Dodaj"
-                        Margin="5,0" 
+                        Margin="5,20" 
                         Width="80"
                         Height="40">
                 </Button>

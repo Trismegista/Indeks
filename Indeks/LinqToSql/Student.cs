@@ -21,7 +21,6 @@ namespace Indeks.LinqToSql
         {
             DataClasses1DataContext db = new DataClasses1DataContext();
             return db.Students.Where(x => x.Nr_Indeksu == index).SingleOrDefault().StudentSemestrs.Select(x=>x.Semestr).OrderBy(x=>x.Semestr_Nazwa).AsQueryable();
-            //return db.Students.Where(x => x.Nr_Indeksu == index).SingleOrDefault().StudentSemestrs.Where(x=>x.Semestr.Przedmioty)
         }
     }
 }

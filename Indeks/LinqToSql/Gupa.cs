@@ -8,16 +8,17 @@ namespace Indeks.LinqToSql
 {
     public partial class Grupa
     {
-        DataClasses1DataContext db = new DataClasses1DataContext();
-        public List<string> GetStudentGroupsInfo(Guid idStudent)
+
+        public static List<string> GetGrupas()
         {
-            return null;
+            DataClasses1DataContext db = new DataClasses1DataContext();
+            return db.Grupas.Select(x => x.Grupa_Nazwa).ToList();
         }
 
-        public List<Guid> GetStudentGroupsId(Guid idStudent)
+        public Guid GetGrupasIdFromName(string name)
         {
-            return db.KierunekCiagGrupaStudents.Where(x => x.Id_Student.Equals(idStudent)).Select(x => x.Id_Grupa).ToList();
+            DataClasses1DataContext db = new DataClasses1DataContext();
+            return db.Grupas.Where(x => x.Grupa_Nazwa == name).Select(x => x._Id_Grupa).SingleOrDefault();
         }
-
     }
 }

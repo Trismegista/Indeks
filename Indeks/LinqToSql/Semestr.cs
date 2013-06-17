@@ -15,6 +15,12 @@ namespace Indeks.LinqToSql
                 return SemestrPrzedmiots.Select(x => x.Przedmiot).ToList();
             }
         }
+        public static List<string> GetSemestersNames()
+        {
+            DataClasses1DataContext db = new DataClasses1DataContext();
+            return db.Semestrs.Where(x => x.Semestr_Nazwa != "").OrderBy(x => x.Semestr_Nazwa).Select(x => x.Semestr_Nazwa).ToList();
+            
+        }
         public string NaglowekPrzedmiot { get { return "Przedmiot"; } }
         public string NaglowekWykladowca { get { return "Wykładowca"; } }
         public string NaglowekZajecia { get { return "Zajęcia"; } }

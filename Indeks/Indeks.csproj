@@ -76,6 +76,7 @@
     <Compile Include="ViewModels\IndexVM.cs" />
     <Compile Include="ViewModels\LoginVM.cs" />
     <Compile Include="ViewModels\RegistrationGroupVM.cs" />
+    <Compile Include="ViewModels\RegistrationSemesterVM.cs" />
     <Compile Include="ViewModels\StudentServiceVM.cs" />
     <Compile Include="ViewModels\RegistrationVM.cs" />
     <Compile Include="Views\GroupRegistration.xaml.cs">

@@ -8,5 +8,10 @@ namespace Indeks.LinqToSql
 {
     public partial class Kierunek
     {
+        public static List<string> GetKieruneks()
+        {
+            DataClasses1DataContext db = new DataClasses1DataContext();
+            return db.Kieruneks.Select(x => x.Kierunek_Nazwa).ToList();
+        }
     }
 }

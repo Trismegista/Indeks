@@ -64,7 +64,7 @@ namespace Indeks.ViewModels
         #region Commands Execute
         private void AddSemesterCommand(object parameter)
         {
-            Semester frm = new Semester();
+            Semester frm = new Semester(_loginVm);
             Nullable<bool> dialogResult = frm.ShowDialog();
         }
 
