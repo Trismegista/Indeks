@@ -15,10 +15,10 @@ namespace Indeks.ViewModels
 {
     public class RegistrationSemesterVM : ApplicationVM
     {
-        private LoginVM _loginVm;
-        public RegistrationSemesterVM(LoginVM loginVm)
+        private Guid _studentId;
+        public RegistrationSemesterVM(Guid studentId)
         {
-            _loginVm = loginVm;
+            _studentId = studentId;
             ExecuteAddSemesterCommand = new Commanding(AddSemesterCommand, CanAddSemesterCommand);
             ExecuteAddSemesterName = new Commanding(AddSemesterNameCommand, CanAddSemesterNameCommand);
             ExecuteAddKierunek = new Commanding(AddKierunekCommand, CanAddKierunekCommand);
@@ -29,6 +29,7 @@ namespace Indeks.ViewModels
             KierunekName = Kierunek.GetKieruneks();
             CiagName = Ciag.GetCiags();
             GroupName = Grupa.GetGrupas();
+            MessageBox.Show(_studentId.ToString());
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -121,6 +122,14 @@ namespace Indeks.ViewModels
                 Id_Semestr = semestr.Id_Semestr
             };
             context.KierunekCiagGrupaSemestrs.InsertOnSubmit(kierunekCiagGrupaSemestr);
+            context.SubmitChanges();
+
+            var studentSemestr = new LinqToSql.StudentSemestr
+            {
+                Id_Semestr = semestr.Id_Semestr,
+                Id_Student = _studentId
+            };
+            context.StudentSemestrs.InsertOnSubmit(studentSemestr);
             context.SubmitChanges();
 
             Window frm = (Window)parameter;

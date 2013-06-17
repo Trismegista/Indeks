@@ -16,6 +16,7 @@ namespace Indeks.ViewModels
     public class IndexVM : ApplicationVM, INotifyPropertyChanged
     {
         LoginVM _loginVm;
+        Guid CurrentStudentId;
 
         public IndexVM(LoginVM loginVm)
         {
@@ -64,7 +65,7 @@ namespace Indeks.ViewModels
         #region Commands Execute
         private void AddSemesterCommand(object parameter)
         {
-            Semester frm = new Semester(_loginVm);
+            Semester frm = new Semester(CurrentStudentId);
             Nullable<bool> dialogResult = frm.ShowDialog();
         }
 
@@ -102,6 +103,7 @@ namespace Indeks.ViewModels
                     _wybranyIndex = value;
                     OnPropertyChanged();
                     Semesters = Student.Semesters(_wybranyIndex);
+                    CurrentStudentId = Student.FindStudentIdByIndex(_wybranyIndex);
                     WybranySemestr = 0;
                 }
             }
