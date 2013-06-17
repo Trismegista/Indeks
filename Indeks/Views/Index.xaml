@@ -63,28 +63,6 @@
                     </Button.Template>
                 </Button>
             </StackPanel>
-            <!--<ListView Grid.Column="0" Grid.ColumnSpan="5"
-                     Grid.Row="3" Grid.RowSpan="4"
-                      Margin="15">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Semestr" Width="80"/>
-                        <GridViewColumn Width="80"/>
-                        <GridViewColumn Header="Przedmiot" Width="150"/>
-                        <GridViewColumn Header="Wykładowca" Width="150"/>
-                        <GridViewColumn Header="Typ Zajęć" Width="90"/>
-                        <GridViewColumn Header="Godz." Width="50"/>
-                        <GridViewColumn Header="ETCS" Width="50"/>
-                        <GridViewColumn Header="Status" Width="55"/>
-                    </GridView>
-                </ListView.View>
-                <ListView.Background>
-                    <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03">
-                        <GradientStop Color="white" Offset="0"/>
-                        <GradientStop Color="#d5d4fd" Offset="0.567"/>
-                    </LinearGradientBrush>
-                </ListView.Background>
-            </ListView>-->
             <Border BorderThickness="15"
                     HorizontalAlignment="Right"  
                     VerticalAlignment="Bottom"
@@ -107,21 +85,9 @@
                 <Image VerticalAlignment="Top"
                             MaxHeight="150"
                             MaxWidth="150" 
-                            Source="/Images/TestPhoto.png"
-                            >
+                            Source="/Images/TestPhoto.png">
                 </Image>
             </Border>
-            <!--<TabControl x:Name="semesterTab"
-                        Grid.Column="0" Grid.ColumnSpan="5"
-                        Grid.Row="3" Grid.RowSpan="4">
-                <TabControl.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock>                            
-                <TextBlock Text="{Binding Nazwa}"/>
-            </TextBlock>
-                    </DataTemplate>
-                </TabControl.ItemTemplate>
-            </TabControl>-->
             <TabControl Name="tabDynamic" ItemsSource="{Binding Semesters}"
                         Grid.Column="0" Grid.ColumnSpan="5"
                         Grid.Row="3" Grid.RowSpan="4" SelectedIndex="{Binding WybranySemestr}">
@@ -132,51 +98,83 @@
                 </TabControl.ItemTemplate>
                 <TabControl.ContentTemplate>
                     <DataTemplate>
-                        <ListBox Grid.Row="1" ItemsSource="{Binding Przedmioty, Mode=OneWay}">
+                        <DockPanel>
+                                <StackPanel DockPanel.Dock="Top">
+                                <DockPanel>
+                                    
+                                        <StackPanel Width="200" Style="{StaticResource StackPanelListHeader}" DockPanel.Dock="Left"
+                                                Margin="7 0 0 0">
+                                        <TextBlock Text="{Binding NaglowekPrzedmiot}" HorizontalAlignment="Center" Foreground="White"/>
+                                        </StackPanel>
+                                    <StackPanel Width="220" Style="{StaticResource StackPanelListHeader}" DockPanel.Dock="Left">
+                                        <TextBlock Text="{Binding NaglowekWykladowca}" HorizontalAlignment="Center" Foreground="White">
+                                        <Run Text="  "/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Width="100" Style="{StaticResource StackPanelListHeader}" DockPanel.Dock="Left">
+                                        <TextBlock Text="{Binding NaglowekZajecia}" HorizontalAlignment="Center" Foreground="White"/>
+                                    </StackPanel>
+                                    <StackPanel Width="100" Style="{StaticResource StackPanelListHeader}" DockPanel.Dock="Left">
+                                        <TextBlock Text="{Binding NaglowekETCS}" HorizontalAlignment="Center" Foreground="White"/>
+                                    </StackPanel>
+                                    <StackPanel Width="100" Margin="-7 0 0 0 " Style="{StaticResource StackPanelListHeader}" DockPanel.Dock="Left">
+                                        <TextBlock Text="{Binding NaglowekGodzina}" HorizontalAlignment="Center" Foreground="White"/>
+                                    </StackPanel>
+                                </DockPanel>
+                            </StackPanel>
+                            <ListView Grid.Row="1" ItemsSource="{Binding Przedmioty}" >
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Przedmiot_Nazwa}" />
-                                        <!--<TextBlock Text="{Binding Przedmiot_Wykladowca.Wykladowca_Nazwisko}" />-->
-                                    </StackPanel>
+                                            <Border Style="{StaticResource StackPanelBorder}">
+                                                <StackPanel Width="196" Style="{StaticResource StackPanelList}">
+                                            <TextBlock Text="{Binding Przedmiot_Nazwa}" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                            </Border>
+                                            <Border Style="{StaticResource StackPanelBorder}">
+                                                <StackPanel Width="216" Style="{StaticResource StackPanelList}">
+                                            <TextBlock Text="{Binding Wykladowca.Wykladowca_Imie}" HorizontalAlignment="Center">
+                                                <Run Text="  "/>
+                                                <Run Text="{Binding Wykladowca.Wykladowca_Nazwisko}"/>
+                                            </TextBlock>
+                                        </StackPanel>
+                                            </Border>
+                                            <Border Style="{StaticResource StackPanelBorder}">
+                                        <StackPanel Width="96" Style="{StaticResource StackPanelList}">
+                                            <TextBlock Text="{Binding Typ_Zajec.Typ_Zajec_Nazwa}" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                            </Border>
+                                            <Border Style="{StaticResource StackPanelBorder}">
+                                        <StackPanel Width="96" Style="{StaticResource StackPanelList}">
+                                            <TextBlock Text="{Binding ZajeciaWartosci.PunktyETCS}" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                            </Border>
+                                            <Border Style="{StaticResource StackPanelBorder}">
+                                        <StackPanel Width="96" Style="{StaticResource StackPanelList}">
+                                            <TextBlock Text="{Binding ZajeciaWartosci.Liczba_Godzin}" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                            </Border>
+                                      </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
-                        </ListBox>
+                        </ListView>
+                        </DockPanel>
                     </DataTemplate>
                 </TabControl.ContentTemplate>
-                <TabControl.Resources>
-                    <!--<DataTemplate x:Key="TabHeader" DataType="TabItem">
-                        <DockPanel>
-                            <Button Name="btnDelete" DockPanel.Dock="Right" Margin="5,0,0,0" Padding="0" Click="btnDelete_Click" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type TabItem}}, Path=Name}">
-                                <Image Source="/Images/CloseButton.png" Height="11" Width="11"></Image>
-                            </Button>
-                            <TextBlock Text="{Binding Semestr_Nazwa}" />
-                        </DockPanel>
-                    </DataTemplate>-->
-                    <Style TargetType="TextBox">
-                        <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
-                        <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
-                        <Setter Property="AcceptsReturn" Value="True"></Setter>
-                        <Setter Property="TextWrapping" Value="WrapWithOverflow"></Setter>
-                        <Setter Property="MaxLines" Value="5000"></Setter>
-                        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"></Setter>
-                        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"></Setter>
-                    </Style>
-                </TabControl.Resources>
             </TabControl>
             <Button Grid.ColumnSpan="2" 
                     Content="DodajSemestr" 
                     HorizontalAlignment="Left" 
-                    Margin="90,47,0,0" 
+                    Margin="32,10,0,0" 
                     Grid.Row="2" 
                     VerticalAlignment="Top" Width="105"
                     Command="{Binding ExecuteOpenSemesterCommand}"/>
-            <Button HorizontalAlignment="Left" Margin="10,47,0,0" Grid.Row="2" VerticalAlignment="Top" Width="105" Grid.Column="2"
+            <Button HorizontalAlignment="Left" Margin="72,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="106" Grid.Column="1"
                     Content="Dodaj Kierunek"
-                    Command="{Binding ExecuteOpenGroupCommand}"/>
-            <ComboBox HorizontalAlignment="Left" Margin="90,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="3"
-                      ItemsSource="{Binding NumeryIndeksow}" SelectedItem="{Binding WybranyIndeks}"/>
-            <Button Grid.Column="3" HorizontalAlignment="Left" Margin="77,70,0,0" Grid.Row="1" VerticalAlignment="Top" Width="105"
+                    Command="{Binding ExecuteOpenGroupCommand}" Grid.ColumnSpan="2"/>
+            <ComboBox HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Width="314"
+                      ItemsSource="{Binding NumeryIndeksow}" SelectedItem="{Binding WybranyIndeks}" Grid.Column="3" Grid.ColumnSpan="2"/>
+            <Button Grid.Column="4" HorizontalAlignment="Left" Margin="65,84,0,0" Grid.Row="1" VerticalAlignment="Top" Width="105"
                     Content="Test Informacji"
                     Command="{Binding ExecuteTestButtonCommand}"/>
         </Grid>

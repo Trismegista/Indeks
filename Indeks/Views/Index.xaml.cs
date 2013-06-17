@@ -21,8 +21,8 @@ namespace Indeks
     public partial class Index : Window
     {
         private LoginVM _loginVm;
-        private List<TabItem> _tabItems;
-        private TabItem _tabAdd;   
+        //private List<TabItem> _tabItems;
+        //private TabItem _tabAdd;   
 
         public Index(LoginVM loginVm)
         {

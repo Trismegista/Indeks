@@ -15,19 +15,11 @@ using System.Windows.Shapes;
 
 namespace Indeks.Views
 {
-    /// <summary>
-    /// Interaction logic for Semester.xaml
-    /// </summary>
     public partial class Semester : Window
     {
         public Semester()
         {
             InitializeComponent();            
-        }
-
-        public Semester(LoginVM loginVm) : this()
-        {
-            DataContext = new SemesterVM(loginVm);
         }
     }
 }

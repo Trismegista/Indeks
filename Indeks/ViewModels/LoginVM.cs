@@ -14,9 +14,8 @@ namespace Indeks.ViewModels
     public class LoginVM : INotifyPropertyChanged
 
     {
-        public Login CurrentStudent { get; set; }
-
-        public Guid CurrentStudentId { get; set; }
+        public Login CurrentStudentLogin { get; set; }
+        public Guid CurrentUserId { get; set; }
 
         public LoginVM()
         {
@@ -25,13 +24,7 @@ namespace Indeks.ViewModels
             ExecuteCancelCommand = new Commanding(CancelApp,CanCancelApp);
         }
 
-        public ICommand ExecuteRegistrationCommand { get; set; }
-        public ICommand ExecuteLoginCommand { get; set; }
-        public ICommand ExecuteCancelCommand { get; set; }
-        
-
         public event PropertyChangedEventHandler PropertyChanged;
-
         private void OnPropertyChanged(String property)
         {
             if (PropertyChanged != null)
@@ -40,19 +33,17 @@ namespace Indeks.ViewModels
             }
         }
 
-        public string GetLogin()
-        {
-            return CurrentStudent.User_Login;
-        }
+        #region commands
+        public ICommand ExecuteRegistrationCommand { get; set; }
+        public ICommand ExecuteLoginCommand { get; set; }
+        public ICommand ExecuteCancelCommand { get; set; }
+        #endregion
+
+        #region commands Questions
 
         private bool CanCancelApp(object parameter)
         {
             return true;
-        }
-
-        private void CancelApp(object parameter)
-        {
-            Application.Current.Shutdown();
         }
 
         private bool CanLoginIntoApp(object parameter)
@@ -60,12 +51,25 @@ namespace Indeks.ViewModels
             return true;
         }
 
+        private bool CanOpenRegistration(object parameter)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region commands execute
+        private void CancelApp(object parameter)
+        {
+            Application.Current.Shutdown();
+        }
+
         private void LoginIntoApp(object parameter)
         {
             var model = new Login();
-            CurrentStudent = model.FindUserByLogin(_login);
-            CurrentStudentId = model.GetUserId(_login);
-            if (model.IsAuthenticated(CurrentStudent, _password, _login))
+            CurrentStudentLogin = model.FindUserByLogin(_login);
+            CurrentUserId = model.GetUserId(_login);
+            if (model.IsAuthenticated(CurrentStudentLogin, _password, _login))
             {
                 var login = (Window)parameter;
                 var frm = new Index(this);
@@ -78,16 +82,15 @@ namespace Indeks.ViewModels
             }
         }
 
-        private bool CanOpenRegistration(object parameter)
-        {
-            return true;
-        }
-
         private void OpenRegistration(object parameter)
         {
             var frm = new RegisterWindow();
             frm.Show();
         }
+
+        #endregion
+
+        #region bindings
 
         private string _login;
         public string Login
@@ -109,6 +112,13 @@ namespace Indeks.ViewModels
                 _password = value;
                 OnPropertyChanged("Password");
             }
+        }
+
+        #endregion
+
+        public string GetLogin()
+        {
+            return CurrentStudentLogin.User_Login;
         }
     }
 }

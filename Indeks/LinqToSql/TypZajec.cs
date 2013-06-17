@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Indeks.LinqToSql
 {
-    class TypZajecData : LinqToSql.Typ_Zajec
+    public partial class Typ_Zajec
     {
     }
 }

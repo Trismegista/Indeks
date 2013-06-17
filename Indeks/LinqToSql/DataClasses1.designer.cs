@@ -42,9 +42,6 @@ namespace Indeks.LinqToSql
     partial void InsertLogin(Login instance);
     partial void UpdateLogin(Login instance);
     partial void DeleteLogin(Login instance);
-    partial void InsertPrzedmiot(Przedmiot instance);
-    partial void UpdatePrzedmiot(Przedmiot instance);
-    partial void DeletePrzedmiot(Przedmiot instance);
     partial void InsertSemestrPrzedmiot(SemestrPrzedmiot instance);
     partial void UpdateSemestrPrzedmiot(SemestrPrzedmiot instance);
     partial void DeleteSemestrPrzedmiot(SemestrPrzedmiot instance);
@@ -60,9 +57,6 @@ namespace Indeks.LinqToSql
     partial void InsertWykladowcaPrzedmiot(WykladowcaPrzedmiot instance);
     partial void UpdateWykladowcaPrzedmiot(WykladowcaPrzedmiot instance);
     partial void DeleteWykladowcaPrzedmiot(WykladowcaPrzedmiot instance);
-    partial void InsertZajeciaPrzedmiot(ZajeciaPrzedmiot instance);
-    partial void UpdateZajeciaPrzedmiot(ZajeciaPrzedmiot instance);
-    partial void DeleteZajeciaPrzedmiot(ZajeciaPrzedmiot instance);
     partial void InsertKierunekCiagGrupaSemestr(KierunekCiagGrupaSemestr instance);
     partial void UpdateKierunekCiagGrupaSemestr(KierunekCiagGrupaSemestr instance);
     partial void DeleteKierunekCiagGrupaSemestr(KierunekCiagGrupaSemestr instance);
@@ -90,6 +84,15 @@ namespace Indeks.LinqToSql
     partial void InsertKierunekCiagGrupaStudent(KierunekCiagGrupaStudent instance);
     partial void UpdateKierunekCiagGrupaStudent(KierunekCiagGrupaStudent instance);
     partial void DeleteKierunekCiagGrupaStudent(KierunekCiagGrupaStudent instance);
+    partial void InsertPrzedmiot(Przedmiot instance);
+    partial void UpdatePrzedmiot(Przedmiot instance);
+    partial void DeletePrzedmiot(Przedmiot instance);
+    partial void InsertZajeciaWartosci(ZajeciaWartosci instance);
+    partial void UpdateZajeciaWartosci(ZajeciaWartosci instance);
+    partial void DeleteZajeciaWartosci(ZajeciaWartosci instance);
+    partial void InsertZajeciaPrzedmiot(ZajeciaPrzedmiot instance);
+    partial void UpdateZajeciaPrzedmiot(ZajeciaPrzedmiot instance);
+    partial void DeleteZajeciaPrzedmiot(ZajeciaPrzedmiot instance);
     #endregion
 		
 		public DataClasses1DataContext() : 
@@ -154,14 +157,6 @@ namespace Indeks.LinqToSql
 			}
 		}
 		
-		public System.Data.Linq.Table<Przedmiot> Przedmiots
-		{
-			get
-			{
-				return this.GetTable<Przedmiot>();
-			}
-		}
-		
 		public System.Data.Linq.Table<SemestrPrzedmiot> SemestrPrzedmiots
 		{
 			get
@@ -199,14 +194,6 @@ namespace Indeks.LinqToSql
 			get
 			{
 				return this.GetTable<WykladowcaPrzedmiot>();
-			}
-		}
-		
-		public System.Data.Linq.Table<ZajeciaPrzedmiot> ZajeciaPrzedmiots
-		{
-			get
-			{
-				return this.GetTable<ZajeciaPrzedmiot>();
 			}
 		}
 		
@@ -279,6 +266,30 @@ namespace Indeks.LinqToSql
 			get
 			{
 				return this.GetTable<KierunekCiagGrupaStudent>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Przedmiot> Przedmiots
+		{
+			get
+			{
+				return this.GetTable<Przedmiot>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ZajeciaWartosci> ZajeciaWartoscis
+		{
+			get
+			{
+				return this.GetTable<ZajeciaWartosci>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ZajeciaPrzedmiot> ZajeciaPrzedmiots
+		{
+			get
+			{
+				return this.GetTable<ZajeciaPrzedmiot>();
 			}
 		}
 	}
@@ -1032,224 +1043,6 @@ namespace Indeks.LinqToSql
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Przedmiot")]
-	public partial class Przedmiot : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _Id_Przedmiot;
-		
-		private System.Guid _Id_Wykladowcy;
-		
-		private System.Guid _Id_Zajecia;
-		
-		private string _Przedmiot_Nazwa;
-		
-		private EntitySet<SemestrPrzedmiot> _SemestrPrzedmiots;
-		
-		private EntitySet<WykladowcaPrzedmiot> _WykladowcaPrzedmiots;
-		
-		private EntitySet<ZajeciaPrzedmiot> _ZajeciaPrzedmiots;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnId_PrzedmiotChanging(System.Guid value);
-    partial void OnId_PrzedmiotChanged();
-    partial void OnId_WykladowcyChanging(System.Guid value);
-    partial void OnId_WykladowcyChanged();
-    partial void OnId_ZajeciaChanging(System.Guid value);
-    partial void OnId_ZajeciaChanged();
-    partial void OnPrzedmiot_NazwaChanging(string value);
-    partial void OnPrzedmiot_NazwaChanged();
-    #endregion
-		
-		public Przedmiot()
-		{
-			this._SemestrPrzedmiots = new EntitySet<SemestrPrzedmiot>(new Action<SemestrPrzedmiot>(this.attach_SemestrPrzedmiots), new Action<SemestrPrzedmiot>(this.detach_SemestrPrzedmiots));
-			this._WykladowcaPrzedmiots = new EntitySet<WykladowcaPrzedmiot>(new Action<WykladowcaPrzedmiot>(this.attach_WykladowcaPrzedmiots), new Action<WykladowcaPrzedmiot>(this.detach_WykladowcaPrzedmiots));
-			this._ZajeciaPrzedmiots = new EntitySet<ZajeciaPrzedmiot>(new Action<ZajeciaPrzedmiot>(this.attach_ZajeciaPrzedmiots), new Action<ZajeciaPrzedmiot>(this.detach_ZajeciaPrzedmiots));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Przedmiot", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
-		public System.Guid Id_Przedmiot
-		{
-			get
-			{
-				return this._Id_Przedmiot;
-			}
-			set
-			{
-				if ((this._Id_Przedmiot != value))
-				{
-					this.OnId_PrzedmiotChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Przedmiot = value;
-					this.SendPropertyChanged("Id_Przedmiot");
-					this.OnId_PrzedmiotChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Wykladowcy", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid Id_Wykladowcy
-		{
-			get
-			{
-				return this._Id_Wykladowcy;
-			}
-			set
-			{
-				if ((this._Id_Wykladowcy != value))
-				{
-					this.OnId_WykladowcyChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Wykladowcy = value;
-					this.SendPropertyChanged("Id_Wykladowcy");
-					this.OnId_WykladowcyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Zajecia", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid Id_Zajecia
-		{
-			get
-			{
-				return this._Id_Zajecia;
-			}
-			set
-			{
-				if ((this._Id_Zajecia != value))
-				{
-					this.OnId_ZajeciaChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Zajecia = value;
-					this.SendPropertyChanged("Id_Zajecia");
-					this.OnId_ZajeciaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Przedmiot_Nazwa", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string Przedmiot_Nazwa
-		{
-			get
-			{
-				return this._Przedmiot_Nazwa;
-			}
-			set
-			{
-				if ((this._Przedmiot_Nazwa != value))
-				{
-					this.OnPrzedmiot_NazwaChanging(value);
-					this.SendPropertyChanging();
-					this._Przedmiot_Nazwa = value;
-					this.SendPropertyChanged("Przedmiot_Nazwa");
-					this.OnPrzedmiot_NazwaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Przedmiot_SemestrPrzedmiot", Storage="_SemestrPrzedmiots", ThisKey="Id_Przedmiot", OtherKey="Id_Przedmio")]
-		public EntitySet<SemestrPrzedmiot> SemestrPrzedmiots
-		{
-			get
-			{
-				return this._SemestrPrzedmiots;
-			}
-			set
-			{
-				this._SemestrPrzedmiots.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Przedmiot_WykladowcaPrzedmiot", Storage="_WykladowcaPrzedmiots", ThisKey="Id_Przedmiot", OtherKey="Id_Przedmiotu")]
-		public EntitySet<WykladowcaPrzedmiot> WykladowcaPrzedmiots
-		{
-			get
-			{
-				return this._WykladowcaPrzedmiots;
-			}
-			set
-			{
-				this._WykladowcaPrzedmiots.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Przedmiot_ZajeciaPrzedmiot", Storage="_ZajeciaPrzedmiots", ThisKey="Id_Przedmiot", OtherKey="Id_Przedmiotu")]
-		public EntitySet<ZajeciaPrzedmiot> ZajeciaPrzedmiots
-		{
-			get
-			{
-				return this._ZajeciaPrzedmiots;
-			}
-			set
-			{
-				this._ZajeciaPrzedmiots.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_SemestrPrzedmiots(SemestrPrzedmiot entity)
-		{
-			this.SendPropertyChanging();
-			entity.Przedmiot = this;
-		}
-		
-		private void detach_SemestrPrzedmiots(SemestrPrzedmiot entity)
-		{
-			this.SendPropertyChanging();
-			entity.Przedmiot = null;
-		}
-		
-		private void attach_WykladowcaPrzedmiots(WykladowcaPrzedmiot entity)
-		{
-			this.SendPropertyChanging();
-			entity.Przedmiot = this;
-		}
-		
-		private void detach_WykladowcaPrzedmiots(WykladowcaPrzedmiot entity)
-		{
-			this.SendPropertyChanging();
-			entity.Przedmiot = null;
-		}
-		
-		private void attach_ZajeciaPrzedmiots(ZajeciaPrzedmiot entity)
-		{
-			this.SendPropertyChanging();
-			entity.Przedmiot = this;
-		}
-		
-		private void detach_ZajeciaPrzedmiots(ZajeciaPrzedmiot entity)
-		{
-			this.SendPropertyChanging();
-			entity.Przedmiot = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SemestrPrzedmiot")]
 	public partial class SemestrPrzedmiot : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1260,9 +1053,9 @@ namespace Indeks.LinqToSql
 		
 		private System.Guid _Id_Przedmio;
 		
-		private EntityRef<Przedmiot> _Przedmiot;
-		
 		private EntityRef<Semestr> _Semestr;
+		
+		private EntityRef<Przedmiot> _Przedmiot;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1276,8 +1069,8 @@ namespace Indeks.LinqToSql
 		
 		public SemestrPrzedmiot()
 		{
-			this._Przedmiot = default(EntityRef<Przedmiot>);
 			this._Semestr = default(EntityRef<Semestr>);
+			this._Przedmiot = default(EntityRef<Przedmiot>);
 			OnCreated();
 		}
 		
@@ -1329,40 +1122,6 @@ namespace Indeks.LinqToSql
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Przedmiot_SemestrPrzedmiot", Storage="_Przedmiot", ThisKey="Id_Przedmio", OtherKey="Id_Przedmiot", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Przedmiot Przedmiot
-		{
-			get
-			{
-				return this._Przedmiot.Entity;
-			}
-			set
-			{
-				Przedmiot previousValue = this._Przedmiot.Entity;
-				if (((previousValue != value) 
-							|| (this._Przedmiot.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Przedmiot.Entity = null;
-						previousValue.SemestrPrzedmiots.Remove(this);
-					}
-					this._Przedmiot.Entity = value;
-					if ((value != null))
-					{
-						value.SemestrPrzedmiots.Add(this);
-						this._Id_Przedmio = value.Id_Przedmiot;
-					}
-					else
-					{
-						this._Id_Przedmio = default(System.Guid);
-					}
-					this.SendPropertyChanged("Przedmiot");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Semestr_SemestrPrzedmiot", Storage="_Semestr", ThisKey="Id_Semestr", OtherKey="Id_Semestr", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Semestr Semestr
 		{
@@ -1393,6 +1152,40 @@ namespace Indeks.LinqToSql
 						this._Id_Semestr = default(System.Guid);
 					}
 					this.SendPropertyChanged("Semestr");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Przedmiot_SemestrPrzedmiot", Storage="_Przedmiot", ThisKey="Id_Przedmio", OtherKey="Id_Przedmiot", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Przedmiot Przedmiot
+		{
+			get
+			{
+				return this._Przedmiot.Entity;
+			}
+			set
+			{
+				Przedmiot previousValue = this._Przedmiot.Entity;
+				if (((previousValue != value) 
+							|| (this._Przedmiot.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Przedmiot.Entity = null;
+						previousValue.SemestrPrzedmiots.Remove(this);
+					}
+					this._Przedmiot.Entity = value;
+					if ((value != null))
+					{
+						value.SemestrPrzedmiots.Add(this);
+						this._Id_Przedmio = value.Id_Przedmiot;
+					}
+					else
+					{
+						this._Id_Przedmio = default(System.Guid);
+					}
+					this.SendPropertyChanged("Przedmiot");
 				}
 			}
 		}
@@ -1896,9 +1689,9 @@ namespace Indeks.LinqToSql
 		
 		private System.Guid _Id_Wykladowcy;
 		
-		private EntityRef<Przedmiot> _Przedmiot;
-		
 		private EntityRef<Wykladowca> _Wykladowca;
+		
+		private EntityRef<Przedmiot> _Przedmiot;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1912,8 +1705,8 @@ namespace Indeks.LinqToSql
 		
 		public WykladowcaPrzedmiot()
 		{
-			this._Przedmiot = default(EntityRef<Przedmiot>);
 			this._Wykladowca = default(EntityRef<Wykladowca>);
+			this._Przedmiot = default(EntityRef<Przedmiot>);
 			OnCreated();
 		}
 		
@@ -1965,40 +1758,6 @@ namespace Indeks.LinqToSql
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Przedmiot_WykladowcaPrzedmiot", Storage="_Przedmiot", ThisKey="Id_Przedmiotu", OtherKey="Id_Przedmiot", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Przedmiot Przedmiot
-		{
-			get
-			{
-				return this._Przedmiot.Entity;
-			}
-			set
-			{
-				Przedmiot previousValue = this._Przedmiot.Entity;
-				if (((previousValue != value) 
-							|| (this._Przedmiot.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Przedmiot.Entity = null;
-						previousValue.WykladowcaPrzedmiots.Remove(this);
-					}
-					this._Przedmiot.Entity = value;
-					if ((value != null))
-					{
-						value.WykladowcaPrzedmiots.Add(this);
-						this._Id_Przedmiotu = value.Id_Przedmiot;
-					}
-					else
-					{
-						this._Id_Przedmiotu = default(System.Guid);
-					}
-					this.SendPropertyChanged("Przedmiot");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Wykladowca_WykladowcaPrzedmiot", Storage="_Wykladowca", ThisKey="Id_Wykladowcy", OtherKey="Id_Wykladowcy", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Wykladowca Wykladowca
 		{
@@ -2033,155 +1792,7 @@ namespace Indeks.LinqToSql
 			}
 		}
 		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ZajeciaPrzedmiot")]
-	public partial class ZajeciaPrzedmiot : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _Id_Przedmiotu;
-		
-		private System.Guid _Id_Zajecia;
-		
-		private int _PunktyETCS;
-		
-		private int _LiczbaGodzin;
-		
-		private EntityRef<Przedmiot> _Przedmiot;
-		
-		private EntityRef<Typ_Zajec> _Typ_Zajec;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnId_PrzedmiotuChanging(System.Guid value);
-    partial void OnId_PrzedmiotuChanged();
-    partial void OnId_ZajeciaChanging(System.Guid value);
-    partial void OnId_ZajeciaChanged();
-    partial void OnPunktyETCSChanging(int value);
-    partial void OnPunktyETCSChanged();
-    partial void OnLiczbaGodzinChanging(int value);
-    partial void OnLiczbaGodzinChanged();
-    #endregion
-		
-		public ZajeciaPrzedmiot()
-		{
-			this._Przedmiot = default(EntityRef<Przedmiot>);
-			this._Typ_Zajec = default(EntityRef<Typ_Zajec>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Przedmiotu", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid Id_Przedmiotu
-		{
-			get
-			{
-				return this._Id_Przedmiotu;
-			}
-			set
-			{
-				if ((this._Id_Przedmiotu != value))
-				{
-					if (this._Przedmiot.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_PrzedmiotuChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Przedmiotu = value;
-					this.SendPropertyChanged("Id_Przedmiotu");
-					this.OnId_PrzedmiotuChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Zajecia", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid Id_Zajecia
-		{
-			get
-			{
-				return this._Id_Zajecia;
-			}
-			set
-			{
-				if ((this._Id_Zajecia != value))
-				{
-					if (this._Typ_Zajec.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_ZajeciaChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Zajecia = value;
-					this.SendPropertyChanged("Id_Zajecia");
-					this.OnId_ZajeciaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PunktyETCS", DbType="Int NOT NULL")]
-		public int PunktyETCS
-		{
-			get
-			{
-				return this._PunktyETCS;
-			}
-			set
-			{
-				if ((this._PunktyETCS != value))
-				{
-					this.OnPunktyETCSChanging(value);
-					this.SendPropertyChanging();
-					this._PunktyETCS = value;
-					this.SendPropertyChanged("PunktyETCS");
-					this.OnPunktyETCSChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LiczbaGodzin", DbType="Int NOT NULL")]
-		public int LiczbaGodzin
-		{
-			get
-			{
-				return this._LiczbaGodzin;
-			}
-			set
-			{
-				if ((this._LiczbaGodzin != value))
-				{
-					this.OnLiczbaGodzinChanging(value);
-					this.SendPropertyChanging();
-					this._LiczbaGodzin = value;
-					this.SendPropertyChanged("LiczbaGodzin");
-					this.OnLiczbaGodzinChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Przedmiot_ZajeciaPrzedmiot", Storage="_Przedmiot", ThisKey="Id_Przedmiotu", OtherKey="Id_Przedmiot", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Przedmiot_WykladowcaPrzedmiot", Storage="_Przedmiot", ThisKey="Id_Przedmiotu", OtherKey="Id_Przedmiot", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Przedmiot Przedmiot
 		{
 			get
@@ -2198,12 +1809,12 @@ namespace Indeks.LinqToSql
 					if ((previousValue != null))
 					{
 						this._Przedmiot.Entity = null;
-						previousValue.ZajeciaPrzedmiots.Remove(this);
+						previousValue.WykladowcaPrzedmiots.Remove(this);
 					}
 					this._Przedmiot.Entity = value;
 					if ((value != null))
 					{
-						value.ZajeciaPrzedmiots.Add(this);
+						value.WykladowcaPrzedmiots.Add(this);
 						this._Id_Przedmiotu = value.Id_Przedmiot;
 					}
 					else
@@ -2211,40 +1822,6 @@ namespace Indeks.LinqToSql
 						this._Id_Przedmiotu = default(System.Guid);
 					}
 					this.SendPropertyChanged("Przedmiot");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Typ_Zajec_ZajeciaPrzedmiot", Storage="_Typ_Zajec", ThisKey="Id_Zajecia", OtherKey="Id_Zajecia", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Typ_Zajec Typ_Zajec
-		{
-			get
-			{
-				return this._Typ_Zajec.Entity;
-			}
-			set
-			{
-				Typ_Zajec previousValue = this._Typ_Zajec.Entity;
-				if (((previousValue != value) 
-							|| (this._Typ_Zajec.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Typ_Zajec.Entity = null;
-						previousValue.ZajeciaPrzedmiots.Remove(this);
-					}
-					this._Typ_Zajec.Entity = value;
-					if ((value != null))
-					{
-						value.ZajeciaPrzedmiots.Add(this);
-						this._Id_Zajecia = value.Id_Zajecia;
-					}
-					else
-					{
-						this._Id_Zajecia = default(System.Guid);
-					}
-					this.SendPropertyChanged("Typ_Zajec");
 				}
 			}
 		}
@@ -3958,6 +3535,547 @@ namespace Indeks.LinqToSql
 						this._Id_Student = default(System.Guid);
 					}
 					this.SendPropertyChanged("Student");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Przedmiot")]
+	public partial class Przedmiot : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _Id_Przedmiot;
+		
+		private string _Przedmiot_Nazwa;
+		
+		private EntitySet<SemestrPrzedmiot> _SemestrPrzedmiots;
+		
+		private EntitySet<WykladowcaPrzedmiot> _WykladowcaPrzedmiots;
+		
+		private EntitySet<ZajeciaPrzedmiot> _ZajeciaPrzedmiots;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnId_PrzedmiotChanging(System.Guid value);
+    partial void OnId_PrzedmiotChanged();
+    partial void OnPrzedmiot_NazwaChanging(string value);
+    partial void OnPrzedmiot_NazwaChanged();
+    #endregion
+		
+		public Przedmiot()
+		{
+			this._SemestrPrzedmiots = new EntitySet<SemestrPrzedmiot>(new Action<SemestrPrzedmiot>(this.attach_SemestrPrzedmiots), new Action<SemestrPrzedmiot>(this.detach_SemestrPrzedmiots));
+			this._WykladowcaPrzedmiots = new EntitySet<WykladowcaPrzedmiot>(new Action<WykladowcaPrzedmiot>(this.attach_WykladowcaPrzedmiots), new Action<WykladowcaPrzedmiot>(this.detach_WykladowcaPrzedmiots));
+			this._ZajeciaPrzedmiots = new EntitySet<ZajeciaPrzedmiot>(new Action<ZajeciaPrzedmiot>(this.attach_ZajeciaPrzedmiots), new Action<ZajeciaPrzedmiot>(this.detach_ZajeciaPrzedmiots));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Przedmiot", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id_Przedmiot
+		{
+			get
+			{
+				return this._Id_Przedmiot;
+			}
+			set
+			{
+				if ((this._Id_Przedmiot != value))
+				{
+					this.OnId_PrzedmiotChanging(value);
+					this.SendPropertyChanging();
+					this._Id_Przedmiot = value;
+					this.SendPropertyChanged("Id_Przedmiot");
+					this.OnId_PrzedmiotChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Przedmiot_Nazwa", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Przedmiot_Nazwa
+		{
+			get
+			{
+				return this._Przedmiot_Nazwa;
+			}
+			set
+			{
+				if ((this._Przedmiot_Nazwa != value))
+				{
+					this.OnPrzedmiot_NazwaChanging(value);
+					this.SendPropertyChanging();
+					this._Przedmiot_Nazwa = value;
+					this.SendPropertyChanged("Przedmiot_Nazwa");
+					this.OnPrzedmiot_NazwaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Przedmiot_SemestrPrzedmiot", Storage="_SemestrPrzedmiots", ThisKey="Id_Przedmiot", OtherKey="Id_Przedmio")]
+		public EntitySet<SemestrPrzedmiot> SemestrPrzedmiots
+		{
+			get
+			{
+				return this._SemestrPrzedmiots;
+			}
+			set
+			{
+				this._SemestrPrzedmiots.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Przedmiot_WykladowcaPrzedmiot", Storage="_WykladowcaPrzedmiots", ThisKey="Id_Przedmiot", OtherKey="Id_Przedmiotu")]
+		public EntitySet<WykladowcaPrzedmiot> WykladowcaPrzedmiots
+		{
+			get
+			{
+				return this._WykladowcaPrzedmiots;
+			}
+			set
+			{
+				this._WykladowcaPrzedmiots.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Przedmiot_ZajeciaPrzedmiot", Storage="_ZajeciaPrzedmiots", ThisKey="Id_Przedmiot", OtherKey="Id_Przedmiotu")]
+		public EntitySet<ZajeciaPrzedmiot> ZajeciaPrzedmiots
+		{
+			get
+			{
+				return this._ZajeciaPrzedmiots;
+			}
+			set
+			{
+				this._ZajeciaPrzedmiots.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_SemestrPrzedmiots(SemestrPrzedmiot entity)
+		{
+			this.SendPropertyChanging();
+			entity.Przedmiot = this;
+		}
+		
+		private void detach_SemestrPrzedmiots(SemestrPrzedmiot entity)
+		{
+			this.SendPropertyChanging();
+			entity.Przedmiot = null;
+		}
+		
+		private void attach_WykladowcaPrzedmiots(WykladowcaPrzedmiot entity)
+		{
+			this.SendPropertyChanging();
+			entity.Przedmiot = this;
+		}
+		
+		private void detach_WykladowcaPrzedmiots(WykladowcaPrzedmiot entity)
+		{
+			this.SendPropertyChanging();
+			entity.Przedmiot = null;
+		}
+		
+		private void attach_ZajeciaPrzedmiots(ZajeciaPrzedmiot entity)
+		{
+			this.SendPropertyChanging();
+			entity.Przedmiot = this;
+		}
+		
+		private void detach_ZajeciaPrzedmiots(ZajeciaPrzedmiot entity)
+		{
+			this.SendPropertyChanging();
+			entity.Przedmiot = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ZajeciaWartosci")]
+	public partial class ZajeciaWartosci : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _Id_Zajecia_Wartosci;
+		
+		private int _PunktyETCS;
+		
+		private int _Liczba_Godzin;
+		
+		private EntitySet<ZajeciaPrzedmiot> _ZajeciaPrzedmiots;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnId_Zajecia_WartosciChanging(System.Guid value);
+    partial void OnId_Zajecia_WartosciChanged();
+    partial void OnPunktyETCSChanging(int value);
+    partial void OnPunktyETCSChanged();
+    partial void OnLiczba_GodzinChanging(int value);
+    partial void OnLiczba_GodzinChanged();
+    #endregion
+		
+		public ZajeciaWartosci()
+		{
+			this._ZajeciaPrzedmiots = new EntitySet<ZajeciaPrzedmiot>(new Action<ZajeciaPrzedmiot>(this.attach_ZajeciaPrzedmiots), new Action<ZajeciaPrzedmiot>(this.detach_ZajeciaPrzedmiots));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Zajecia_Wartosci", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id_Zajecia_Wartosci
+		{
+			get
+			{
+				return this._Id_Zajecia_Wartosci;
+			}
+			set
+			{
+				if ((this._Id_Zajecia_Wartosci != value))
+				{
+					this.OnId_Zajecia_WartosciChanging(value);
+					this.SendPropertyChanging();
+					this._Id_Zajecia_Wartosci = value;
+					this.SendPropertyChanged("Id_Zajecia_Wartosci");
+					this.OnId_Zajecia_WartosciChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PunktyETCS", DbType="Int NOT NULL")]
+		public int PunktyETCS
+		{
+			get
+			{
+				return this._PunktyETCS;
+			}
+			set
+			{
+				if ((this._PunktyETCS != value))
+				{
+					this.OnPunktyETCSChanging(value);
+					this.SendPropertyChanging();
+					this._PunktyETCS = value;
+					this.SendPropertyChanged("PunktyETCS");
+					this.OnPunktyETCSChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Liczba_Godzin", DbType="Int NOT NULL")]
+		public int Liczba_Godzin
+		{
+			get
+			{
+				return this._Liczba_Godzin;
+			}
+			set
+			{
+				if ((this._Liczba_Godzin != value))
+				{
+					this.OnLiczba_GodzinChanging(value);
+					this.SendPropertyChanging();
+					this._Liczba_Godzin = value;
+					this.SendPropertyChanged("Liczba_Godzin");
+					this.OnLiczba_GodzinChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ZajeciaWartosci_ZajeciaPrzedmiot", Storage="_ZajeciaPrzedmiots", ThisKey="Id_Zajecia_Wartosci", OtherKey="Id_Zajecia_Wartosci")]
+		public EntitySet<ZajeciaPrzedmiot> ZajeciaPrzedmiots
+		{
+			get
+			{
+				return this._ZajeciaPrzedmiots;
+			}
+			set
+			{
+				this._ZajeciaPrzedmiots.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ZajeciaPrzedmiots(ZajeciaPrzedmiot entity)
+		{
+			this.SendPropertyChanging();
+			entity.ZajeciaWartosci = this;
+		}
+		
+		private void detach_ZajeciaPrzedmiots(ZajeciaPrzedmiot entity)
+		{
+			this.SendPropertyChanging();
+			entity.ZajeciaWartosci = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ZajeciaPrzedmiot")]
+	public partial class ZajeciaPrzedmiot : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _Id_Przedmiotu;
+		
+		private System.Guid _Id_Zajecia;
+		
+		private System.Guid _Id_Zajecia_Wartosci;
+		
+		private EntityRef<Przedmiot> _Przedmiot;
+		
+		private EntityRef<Typ_Zajec> _Typ_Zajec;
+		
+		private EntityRef<ZajeciaWartosci> _ZajeciaWartosci;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnId_PrzedmiotuChanging(System.Guid value);
+    partial void OnId_PrzedmiotuChanged();
+    partial void OnId_ZajeciaChanging(System.Guid value);
+    partial void OnId_ZajeciaChanged();
+    partial void OnId_Zajecia_WartosciChanging(System.Guid value);
+    partial void OnId_Zajecia_WartosciChanged();
+    #endregion
+		
+		public ZajeciaPrzedmiot()
+		{
+			this._Przedmiot = default(EntityRef<Przedmiot>);
+			this._Typ_Zajec = default(EntityRef<Typ_Zajec>);
+			this._ZajeciaWartosci = default(EntityRef<ZajeciaWartosci>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Przedmiotu", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id_Przedmiotu
+		{
+			get
+			{
+				return this._Id_Przedmiotu;
+			}
+			set
+			{
+				if ((this._Id_Przedmiotu != value))
+				{
+					if (this._Przedmiot.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnId_PrzedmiotuChanging(value);
+					this.SendPropertyChanging();
+					this._Id_Przedmiotu = value;
+					this.SendPropertyChanged("Id_Przedmiotu");
+					this.OnId_PrzedmiotuChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Zajecia", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id_Zajecia
+		{
+			get
+			{
+				return this._Id_Zajecia;
+			}
+			set
+			{
+				if ((this._Id_Zajecia != value))
+				{
+					if (this._Typ_Zajec.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnId_ZajeciaChanging(value);
+					this.SendPropertyChanging();
+					this._Id_Zajecia = value;
+					this.SendPropertyChanged("Id_Zajecia");
+					this.OnId_ZajeciaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Zajecia_Wartosci", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id_Zajecia_Wartosci
+		{
+			get
+			{
+				return this._Id_Zajecia_Wartosci;
+			}
+			set
+			{
+				if ((this._Id_Zajecia_Wartosci != value))
+				{
+					if (this._ZajeciaWartosci.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnId_Zajecia_WartosciChanging(value);
+					this.SendPropertyChanging();
+					this._Id_Zajecia_Wartosci = value;
+					this.SendPropertyChanged("Id_Zajecia_Wartosci");
+					this.OnId_Zajecia_WartosciChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Przedmiot_ZajeciaPrzedmiot", Storage="_Przedmiot", ThisKey="Id_Przedmiotu", OtherKey="Id_Przedmiot", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Przedmiot Przedmiot
+		{
+			get
+			{
+				return this._Przedmiot.Entity;
+			}
+			set
+			{
+				Przedmiot previousValue = this._Przedmiot.Entity;
+				if (((previousValue != value) 
+							|| (this._Przedmiot.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Przedmiot.Entity = null;
+						previousValue.ZajeciaPrzedmiots.Remove(this);
+					}
+					this._Przedmiot.Entity = value;
+					if ((value != null))
+					{
+						value.ZajeciaPrzedmiots.Add(this);
+						this._Id_Przedmiotu = value.Id_Przedmiot;
+					}
+					else
+					{
+						this._Id_Przedmiotu = default(System.Guid);
+					}
+					this.SendPropertyChanged("Przedmiot");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Typ_Zajec_ZajeciaPrzedmiot", Storage="_Typ_Zajec", ThisKey="Id_Zajecia", OtherKey="Id_Zajecia", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Typ_Zajec Typ_Zajec
+		{
+			get
+			{
+				return this._Typ_Zajec.Entity;
+			}
+			set
+			{
+				Typ_Zajec previousValue = this._Typ_Zajec.Entity;
+				if (((previousValue != value) 
+							|| (this._Typ_Zajec.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Typ_Zajec.Entity = null;
+						previousValue.ZajeciaPrzedmiots.Remove(this);
+					}
+					this._Typ_Zajec.Entity = value;
+					if ((value != null))
+					{
+						value.ZajeciaPrzedmiots.Add(this);
+						this._Id_Zajecia = value.Id_Zajecia;
+					}
+					else
+					{
+						this._Id_Zajecia = default(System.Guid);
+					}
+					this.SendPropertyChanged("Typ_Zajec");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ZajeciaWartosci_ZajeciaPrzedmiot", Storage="_ZajeciaWartosci", ThisKey="Id_Zajecia_Wartosci", OtherKey="Id_Zajecia_Wartosci", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public ZajeciaWartosci ZajeciaWartosci
+		{
+			get
+			{
+				return this._ZajeciaWartosci.Entity;
+			}
+			set
+			{
+				ZajeciaWartosci previousValue = this._ZajeciaWartosci.Entity;
+				if (((previousValue != value) 
+							|| (this._ZajeciaWartosci.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ZajeciaWartosci.Entity = null;
+						previousValue.ZajeciaPrzedmiots.Remove(this);
+					}
+					this._ZajeciaWartosci.Entity = value;
+					if ((value != null))
+					{
+						value.ZajeciaPrzedmiots.Add(this);
+						this._Id_Zajecia_Wartosci = value.Id_Zajecia_Wartosci;
+					}
+					else
+					{
+						this._Id_Zajecia_Wartosci = default(System.Guid);
+					}
+					this.SendPropertyChanged("ZajeciaWartosci");
 				}
 			}
 		}

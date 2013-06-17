@@ -23,7 +23,7 @@ namespace Indeks.ViewModels
             ExecuteOpenSemesterCommand = new Commanding(AddSemesterCommand, CanAddSemesterCommand);
             ExecuteOpenGroupCommand = new Commanding(AddGroupCommand, CanAddGroupCommand);
             //ExecuteTestButtonCommand = new Commanding(TestInformation, CanTestInformation);
-            NumeryIndeksow = Student.CurentStudentIndexList(_loginVm.CurrentStudentId);            
+            NumeryIndeksow = Student.CurentStudentIndexList(_loginVm.CurrentUserId);            
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -34,40 +34,8 @@ namespace Indeks.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
             }
         }
-        #region Bindings   
-     
-        private IQueryable<Semestr> _semesters;
-        public IQueryable<Semestr> Semesters
-        {
-            get
-            {
-                return _semesters;
-            }
-            set
-            {
-                //if (value != _semesters)
-                {
-                    _semesters = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
 
-        private List<int> _numeryIndeksow;
-        public List<int> NumeryIndeksow
-        {
-            get
-            {
-                return _numeryIndeksow;
-            }
-            set
-            {
-                _numeryIndeksow = value;
-                OnPropertyChanged();
-            }
-        }
-        #endregion
-        #region commands
+        #region Commands
 
         public ICommand ExecuteTestButtonCommand { get; set; }
         public ICommand ExecuteOpenGroupCommand { get; set; }
@@ -93,10 +61,10 @@ namespace Indeks.ViewModels
 
         #endregion
 
-        #region Execute Commands
+        #region Commands Execute
         private void AddSemesterCommand(object parameter)
         {
-            Semester frm = new Semester(_loginVm);
+            Semester frm = new Semester();
             Nullable<bool> dialogResult = frm.ShowDialog();
         }
 
@@ -120,7 +88,6 @@ namespace Indeks.ViewModels
             }
         }
 
-
         private int _wybranyIndex;
         public int WybranyIndeks
         {
@@ -139,15 +106,39 @@ namespace Indeks.ViewModels
                 }
             }
         }
+        #endregion
 
+        #region Bindings
 
-        //private void TestInformation(object parameter)
-        //{
-        //    Student st = new Student();
-        //    var test = st.CurentStudentIndexList(_loginVm.CurrentStudentId);
-        //    MessageBox.Show(test[0].ToString());
-        //}
+        private IQueryable<Semestr> _semesters;
+        public IQueryable<Semestr> Semesters
+        {
+            get
+            {
+                return _semesters;
+            }
+            set
+            {
+                {
+                    _semesters = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
+        private List<int> _numeryIndeksow;
+        public List<int> NumeryIndeksow
+        {
+            get
+            {
+                return _numeryIndeksow;
+            }
+            set
+            {
+                _numeryIndeksow = value;
+                OnPropertyChanged();
+            }
+        }
         #endregion
 
       }

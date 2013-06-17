@@ -13,6 +13,27 @@
         </Setter>
     </Style>
     
+    <Style x:Key="StackPanelList" TargetType="StackPanel">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03">
+                    <GradientStop Color="white" Offset="0"/>
+                    <GradientStop Color="#d5d4fd" Offset="0.567"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="StackPanelListHeader" TargetType="StackPanel">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03">
+                    <GradientStop Color="#7d7def" Offset="0"/>
+                    <GradientStop Color="#3a3aa6" Offset="0.567"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <!--<Style TargetType="TabControl">
         <Setter Property="ContentTemplate">
             <Setter.Value>
@@ -31,7 +52,10 @@
         <Setter Property="WindowStyle" Value="None"/>
         <Setter Property="AllowsTransparency" Value="True"/>
     </Style>
-    
+    <Style x:Key="StackPanelBorder" TargetType="Border">
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="#d5d4fd"/>
+    </Style>
     <Style x:Key="MainBorder" TargetType="Border">
         <Setter Property="CornerRadius" Value="10"/>
         <Setter Property="BorderThickness" Value="3"/>

@@ -14,10 +14,12 @@ namespace Indeks.ViewModels
     public class RegistrationGroupVM : ApplicationVM, INotifyPropertyChanged
     {
         Guid _groupId;
+
         public RegistrationGroupVM()
         {
             ExecuteRegisterGroupCommand = new Commanding(RegisterGroup,CanRegisterGroup);
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(String property)
         {
@@ -164,6 +166,7 @@ namespace Indeks.ViewModels
             frm.Close();
         }
         #endregion
+
         public Guid CurrentGroupId
         {
             get { return _groupId; }

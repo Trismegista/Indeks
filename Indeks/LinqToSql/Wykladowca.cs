@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Indeks.LinqToSql
 {
-    class PrzedmiotData : LinqToSql.Przedmiot
+    public partial class Wykladowca
     {
     }
 }

@@ -15,5 +15,10 @@ namespace Indeks.LinqToSql
                 return SemestrPrzedmiots.Select(x => x.Przedmiot).ToList();
             }
         }
+        public string NaglowekPrzedmiot { get { return "Przedmiot"; } }
+        public string NaglowekWykladowca { get { return "Wykładowca"; } }
+        public string NaglowekZajecia { get { return "Zajęcia"; } }
+        public string NaglowekETCS { get { return "ETCS"; } }
+        public string NaglowekGodzina { get { return "Godziny"; } }
     }
 }

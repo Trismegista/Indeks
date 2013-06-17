@@ -25,6 +25,11 @@ namespace Indeks.ViewModels
             return true;
         }
 
+        private bool CanMinimizeCurentWindow(object parameter)
+        {
+            return true;
+        }
+
         private void CloseCurentWindow(object parameter)
         {
             Window window = (Window)parameter;
@@ -32,11 +37,6 @@ namespace Indeks.ViewModels
             Application.Current.Shutdown();
             else
             window.Close();
-        }
-
-        private bool CanMinimizeCurentWindow(object parameter)
-        {
-            return true;
         }
 
         private void MinimizeCurentWindow(object parameter)

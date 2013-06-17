@@ -37,23 +37,12 @@
       <Association Name="Adre_Login" Member="Adre" ThisKey="Id_Adres" OtherKey="Id_Adres" Type="Adre" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Przedmiot" Member="Przedmiots">
-    <Type Name="Przedmiot">
-      <Column Name="Id_Przedmiot" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Id_Wykladowcy" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="Id_Zajecia" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="Przedmiot_Nazwa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="Przedmiot_SemestrPrzedmiot" Member="SemestrPrzedmiots" ThisKey="Id_Przedmiot" OtherKey="Id_Przedmio" Type="SemestrPrzedmiot" />
-      <Association Name="Przedmiot_WykladowcaPrzedmiot" Member="WykladowcaPrzedmiots" ThisKey="Id_Przedmiot" OtherKey="Id_Przedmiotu" Type="WykladowcaPrzedmiot" />
-      <Association Name="Przedmiot_ZajeciaPrzedmiot" Member="ZajeciaPrzedmiots" ThisKey="Id_Przedmiot" OtherKey="Id_Przedmiotu" Type="ZajeciaPrzedmiot" />
-    </Type>
-  </Table>
   <Table Name="dbo.SemestrPrzedmiot" Member="SemestrPrzedmiots">
     <Type Name="SemestrPrzedmiot">
       <Column Name="Id_Semestr" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Id_Przedmio" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="Przedmiot_SemestrPrzedmiot" Member="Przedmiot" ThisKey="Id_Przedmio" OtherKey="Id_Przedmiot" Type="Przedmiot" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="Semestr_SemestrPrzedmiot" Member="Semestr" ThisKey="Id_Semestr" OtherKey="Id_Semestr" Type="Semestr" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Przedmiot_SemestrPrzedmiot" Member="Przedmiot" ThisKey="Id_Przedmio" OtherKey="Id_Przedmiot" Type="Przedmiot" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.StudentSemestr" Member="StudentSemestrs">
@@ -85,18 +74,8 @@
     <Type Name="WykladowcaPrzedmiot">
       <Column Name="Id_Przedmiotu" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Id_Wykladowcy" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="Przedmiot_WykladowcaPrzedmiot" Member="Przedmiot" ThisKey="Id_Przedmiotu" OtherKey="Id_Przedmiot" Type="Przedmiot" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="Wykladowca_WykladowcaPrzedmiot" Member="Wykladowca" ThisKey="Id_Wykladowcy" OtherKey="Id_Wykladowcy" Type="Wykladowca" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.ZajeciaPrzedmiot" Member="ZajeciaPrzedmiots">
-    <Type Name="ZajeciaPrzedmiot">
-      <Column Name="Id_Przedmiotu" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Id_Zajecia" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="PunktyETCS" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="LiczbaGodzin" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Przedmiot_ZajeciaPrzedmiot" Member="Przedmiot" ThisKey="Id_Przedmiotu" OtherKey="Id_Przedmiot" Type="Przedmiot" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-      <Association Name="Typ_Zajec_ZajeciaPrzedmiot" Member="Typ_Zajec" ThisKey="Id_Zajecia" OtherKey="Id_Zajecia" Type="Typ_Zajec" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Przedmiot_WykladowcaPrzedmiot" Member="Przedmiot" ThisKey="Id_Przedmiotu" OtherKey="Id_Przedmiot" Type="Przedmiot" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.KierunekCiagGrupaSemestr" Member="KierunekCiagGrupaSemestrs">
@@ -183,6 +162,33 @@
       <Column Name="Id_Student" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="Grupa_KierunekCiagGrupaStudent" Member="Grupa" ThisKey="Id_Grupa" OtherKey="Id_Grupa" Type="Grupa" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="Student_KierunekCiagGrupaStudent" Member="Student" ThisKey="Id_Student" OtherKey="Id_Student" Type="Student" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Przedmiot" Member="Przedmiots">
+    <Type Name="Przedmiot">
+      <Column Name="Id_Przedmiot" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Przedmiot_Nazwa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Przedmiot_SemestrPrzedmiot" Member="SemestrPrzedmiots" ThisKey="Id_Przedmiot" OtherKey="Id_Przedmio" Type="SemestrPrzedmiot" />
+      <Association Name="Przedmiot_WykladowcaPrzedmiot" Member="WykladowcaPrzedmiots" ThisKey="Id_Przedmiot" OtherKey="Id_Przedmiotu" Type="WykladowcaPrzedmiot" />
+      <Association Name="Przedmiot_ZajeciaPrzedmiot" Member="ZajeciaPrzedmiots" ThisKey="Id_Przedmiot" OtherKey="Id_Przedmiotu" Type="ZajeciaPrzedmiot" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ZajeciaWartosci" Member="ZajeciaWartoscis">
+    <Type Name="ZajeciaWartosci">
+      <Column Name="Id_Zajecia_Wartosci" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PunktyETCS" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Liczba_Godzin" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="ZajeciaWartosci_ZajeciaPrzedmiot" Member="ZajeciaPrzedmiots" ThisKey="Id_Zajecia_Wartosci" OtherKey="Id_Zajecia_Wartosci" Type="ZajeciaPrzedmiot" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ZajeciaPrzedmiot" Member="ZajeciaPrzedmiots">
+    <Type Name="ZajeciaPrzedmiot">
+      <Column Name="Id_Przedmiotu" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Id_Zajecia" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Id_Zajecia_Wartosci" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Przedmiot_ZajeciaPrzedmiot" Member="Przedmiot" ThisKey="Id_Przedmiotu" OtherKey="Id_Przedmiot" Type="Przedmiot" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Typ_Zajec_ZajeciaPrzedmiot" Member="Typ_Zajec" ThisKey="Id_Zajecia" OtherKey="Id_Zajecia" Type="Typ_Zajec" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="ZajeciaWartosci_ZajeciaPrzedmiot" Member="ZajeciaWartosci" ThisKey="Id_Zajecia_Wartosci" OtherKey="Id_Zajecia_Wartosci" Type="ZajeciaWartosci" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
 </Database>
