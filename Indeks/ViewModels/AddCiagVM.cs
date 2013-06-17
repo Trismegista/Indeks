@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Indeks.ViewModels
@@ -56,6 +57,9 @@ namespace Indeks.ViewModels
             };
             context.Ciags.InsertOnSubmit(ciag);
             context.SubmitChanges();
+
+            Window frm = (Window)parameter;
+            frm.Close();
         }
 
         private List<string> _stopienStudiowNazwa;
