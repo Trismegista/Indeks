@@ -29,7 +29,7 @@ namespace Indeks.LinqToSql
             return ListaCiag;
         }
 
-        public static Guid FineCiagIdByName(string name)
+        public static Guid FindCiagIdByName(string name)
         {
             DataClasses1DataContext db = new DataClasses1DataContext();
             return db.Ciags.Where(x => x.Ciag_Nazwa == name).Select(x => x.Id_Ciag).SingleOrDefault();

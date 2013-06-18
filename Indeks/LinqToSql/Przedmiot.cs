@@ -31,5 +31,17 @@ namespace Indeks.LinqToSql
                 return ZajeciaPrzedmiots.Where(x => x.Przedmiot.Id_Przedmiot == this.Id_Przedmiot).Select(x => x.ZajeciaWartosci).SingleOrDefault();
             }
         }
+
+        public static List<string> GetPrzedmiots()
+        {
+                DataClasses1DataContext db = new DataClasses1DataContext();
+                return db.Przedmiots.OrderBy(x => x.Przedmiot_Nazwa).Select(x => x.Przedmiot_Nazwa).ToList();
+        }
+
+        public static Guid FindPrzedmiotIdByNazwa(string name)
+        {
+            DataClasses1DataContext db = new DataClasses1DataContext();
+            return db.Przedmiots.Where(x => x.Przedmiot_Nazwa == name).Select(x => x.Id_Przedmiot).SingleOrDefault();
+        }
     }
 }

@@ -88,7 +88,7 @@ namespace Indeks.ViewModels
 
             Guid idTypStudiow = TypStudiow.FindTypStudiowIdByName(typName);
             Guid idStopienStudiow = StopienStudiow.FindStupienStudiowIdByName(stopienName);
-            Guid idCiag = Ciag.FineCiagIdByName(ciagName);
+            Guid idCiag = Ciag.FindCiagIdByName(ciagName);
             Guid idKierunek = Kierunek.FindKierunekIdByName(_selectedKierunek);
             Guid idGrupa = Grupa.FindGrupaIdByName(_selectedGroup);
 

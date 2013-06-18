@@ -75,11 +75,15 @@
     <Compile Include="ViewModels\AddCiagVM.cs" />
     <Compile Include="ViewModels\AddGroupVM.cs" />
     <Compile Include="ViewModels\AddKierunekVM.cs" />
+    <Compile Include="ViewModels\AddPrzedmiotNameVM.cs" />
     <Compile Include="ViewModels\AddSemestrNameVM.cs" />
+    <Compile Include="ViewModels\AddTypNameVM.cs" />
+    <Compile Include="ViewModels\AddWykladowcaVM.cs" />
     <Compile Include="ViewModels\ApplicationVm.cs" />
     <Compile Include="ViewModels\IndexVM.cs" />
     <Compile Include="ViewModels\LoginVM.cs" />
     <Compile Include="ViewModels\RegistrationGroupVM.cs" />
+    <Compile Include="ViewModels\RegistrationLyricsVM.cs" />
     <Compile Include="ViewModels\RegistrationSemesterVM.cs" />
     <Compile Include="ViewModels\StudentServiceVM.cs" />
     <Compile Include="ViewModels\RegistrationVM.cs" />
@@ -92,8 +96,20 @@
     <Compile Include="Views\AddKierunek.xaml.cs">
       <DependentUpon>AddKierunek.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AddPrzedmiot.xaml.cs">
+      <DependentUpon>AddPrzedmiot.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddPrzedmiotName.xaml.cs">
+      <DependentUpon>AddPrzedmiotName.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddSemesterName.xaml.cs">
       <DependentUpon>AddSemesterName.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddTypName.xaml.cs">
+      <DependentUpon>AddTypName.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddWykladowca.xaml.cs">
+      <DependentUpon>AddWykladowca.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GroupRegistration.xaml.cs">
       <DependentUpon>GroupRegistration.xaml</DependentUpon>
@@ -116,7 +132,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AddPrzedmiot.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddPrzedmiotName.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AddSemesterName.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddTypName.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddWykladowca.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

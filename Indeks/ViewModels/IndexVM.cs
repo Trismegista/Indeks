@@ -17,13 +17,14 @@ namespace Indeks.ViewModels
     {
         LoginVM _loginVm;
         Guid CurrentStudentId;
+        Guid CurrentSemesterId;
 
         public IndexVM(LoginVM loginVm)
         {
             _loginVm = loginVm;
             ExecuteOpenSemesterCommand = new Commanding(AddSemesterCommand, CanAddSemesterCommand);
             ExecuteOpenGroupCommand = new Commanding(AddGroupCommand, CanAddGroupCommand);
-            //ExecuteTestButtonCommand = new Commanding(TestInformation, CanTestInformation);
+            ExecuteOpenPrzedmiotCommand = new Commanding(AddPrzedmiotCommand, CanAddPrzedmiotCommand);
             NumeryIndeksow = Student.CurentStudentIndexList(_loginVm.CurrentUserId);            
         }
 
@@ -38,6 +39,7 @@ namespace Indeks.ViewModels
 
         #region Commands
 
+        public ICommand ExecuteOpenPrzedmiotCommand { get; set; }
         public ICommand ExecuteTestButtonCommand { get; set; }
         public ICommand ExecuteOpenGroupCommand { get; set; }
         public ICommand ExecuteOpenSemesterCommand { get; set; }
@@ -45,6 +47,11 @@ namespace Indeks.ViewModels
         #endregion
 
         #region Command Questions
+        private bool CanAddPrzedmiotCommand(object parameter)
+        {
+            return true;
+        }
+
         private bool CanAddGroupCommand(object parameter)
         {
             return true;
@@ -63,6 +70,12 @@ namespace Indeks.ViewModels
         #endregion
 
         #region Commands Execute
+        private void AddPrzedmiotCommand(object parameter)
+        {
+            AddPrzedmiot frm = new AddPrzedmiot(CurrentSemesterId);
+            Nullable<bool> dialogResult = frm.ShowDialog();
+        }
+
         private void AddSemesterCommand(object parameter)
         {
             Semester frm = new Semester(CurrentStudentId);
@@ -75,39 +88,6 @@ namespace Indeks.ViewModels
             Nullable<bool> dialogResult = frm.ShowDialog();
         }
 
-        private int _wybranySemestr;
-        public int WybranySemestr
-        {
-            get { return _wybranySemestr; }
-            set
-            {
-                if (value != _wybranySemestr)
-                {
-                    _wybranySemestr = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private int _wybranyIndex;
-        public int WybranyIndeks
-        {
-            get
-            {
-                return _wybranyIndex;
-            }
-            set
-            {
-                if (_wybranyIndex != value)
-                {
-                    _wybranyIndex = value;
-                    OnPropertyChanged();
-                    Semesters = Student.Semesters(_wybranyIndex);
-                    CurrentStudentId = Student.FindStudentIdByIndex(_wybranyIndex);
-                    WybranySemestr = 0;
-                }
-            }
-        }
         #endregion
 
         #region Bindings
@@ -139,6 +119,43 @@ namespace Indeks.ViewModels
             {
                 _numeryIndeksow = value;
                 OnPropertyChanged();
+            }
+        }
+
+
+        private int _wybranySemestr;
+        public int WybranySemestr
+        {
+            get { return _wybranySemestr; }
+            set
+            {
+                if (value != _wybranySemestr )
+                {
+                    _wybranySemestr = value;
+                    OnPropertyChanged();
+                    CurrentSemesterId = _semesters.ToList()[_wybranySemestr].Id_Semestr;
+                }
+            }
+        }
+
+        private int _wybranyIndex;
+        public int WybranyIndeks
+        {
+            get
+            {
+                return _wybranyIndex;
+            }
+            set
+            {
+                if (_wybranyIndex != value)
+                {
+                    _wybranyIndex = value;
+                    OnPropertyChanged();
+                    Semesters = Student.Semesters(_wybranyIndex);
+                    CurrentStudentId = Student.FindStudentIdByIndex(_wybranyIndex);
+                    WybranySemestr = 0;
+                    CurrentSemesterId = _semesters.ToList()[_wybranySemestr].Id_Semestr;
+                }
             }
         }
         #endregion
