@@ -9,18 +9,42 @@ namespace Indeks.LinqToSql
 {
     public partial class Student
     {        
-        public static List<int> CurentStudentIndexList(Guid login)
+        public static List<int> CurentUserIndexList(Guid login)
         {
             DataClasses1DataContext db = new DataClasses1DataContext();
             var result = db.Students.Where(x => x.Id_Login == login);
             var indexNr = result.Select(x => x.Nr_Indeksu).ToList();
             return indexNr;
         }
-
-        public static IQueryable<Semestr> Semesters(int index)
+        public static List<string> CurentStudentGroupList(int index)
         {
             DataClasses1DataContext db = new DataClasses1DataContext();
-            return db.Students.Where(x => x.Nr_Indeksu == index).SingleOrDefault().StudentSemestrs.Select(x=>x.Semestr).OrderBy(x=>x.Semestr_Nazwa).AsQueryable();
+            Guid idStudent = db.Students.Where(x => x.Nr_Indeksu == index).Select(x => x.Id_Student).SingleOrDefault();
+            List<Grupa> grupaList = db.StudentGrupas.Where(x => x.Id_Student == idStudent).Select(x => x.Grupa).ToList();
+            List<string> grupaStringList = new List<string>();
+            foreach (Grupa grupa in grupaList)
+            {
+            string nazwaKierunku = db.Kieruneks.Where(x => x.Id_Kierunek == grupa.Id_Kierunek).Select(x => x.Kierunek_Nazwa).SingleOrDefault().ToString();
+            string nazwaCiagu = db.Ciags.Where(x => x.Id_Ciag == grupa.Id_Ciag).Select(x => x.Ciag_Nazwa).SingleOrDefault().ToString();
+            string nazwaGrupy = db.GrupaNazwas.Where(x => x.Id_Grupa_Nazwa == grupa.Id_Grupa_Nazwa).Select(x => x.Grupa_Nazwa).SingleOrDefault().ToString();
+                string fullName = nazwaKierunku+"-"+nazwaCiagu+"-"+nazwaGrupy;
+                grupaStringList.Add(fullName);
+            }
+
+            return grupaStringList;
+        }
+
+        public static IQueryable<Semestr> Semesters(string fullGrupaName)
+        {
+            DataClasses1DataContext db = new DataClasses1DataContext();
+            string[] splitGrupa = fullGrupaName.Split('-');
+            Guid idKierunek = db.Kieruneks.Where(x => x.Kierunek_Nazwa == splitGrupa[0]).Select(x => x.Id_Kierunek).SingleOrDefault();
+            Guid idCiag = db.Ciags.Where(x => x.Ciag_Nazwa == splitGrupa[1]).Select(x => x.Id_Ciag).SingleOrDefault();
+            Guid idGrupaNazwa = db.GrupaNazwas.Where(x => x.Grupa_Nazwa == splitGrupa[2]).Select(x => x.Id_Grupa_Nazwa).SingleOrDefault();
+            Guid idgrupa = db.Grupas.Where(x => x.Id_Kierunek == idKierunek).Where(x => x.Id_Ciag == idCiag).Where(x => x.Id_Grupa_Nazwa == idGrupaNazwa).Select(x => x.Id_Grupa).SingleOrDefault();
+
+            return db.Grupas.Where(x => x.Id_Grupa == idgrupa).SingleOrDefault().GrupaSemestrPrzedmiotWykladowcas.Select(x => x.Semestr).OrderBy(x => x.Semestr_Nazwa).AsQueryable();
+            //return db.Students.Where(x => x.Nr_Indeksu == index).SingleOrDefault().StudentSemestrs.Select(x=>x.Semestr).OrderBy(x=>x.Semestr_Nazwa).AsQueryable();
         }
 
         public static Guid FindStudentIdByIndex(int index)

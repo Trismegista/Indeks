@@ -18,6 +18,8 @@ namespace Indeks.ViewModels
         LoginVM _loginVm;
         Guid CurrentStudentId;
         Guid CurrentSemesterId;
+        Guid CurrentGrupa;
+        int _val;
 
         public IndexVM(LoginVM loginVm)
         {
@@ -25,7 +27,7 @@ namespace Indeks.ViewModels
             ExecuteOpenSemesterCommand = new Commanding(AddSemesterCommand, CanAddSemesterCommand);
             ExecuteOpenGroupCommand = new Commanding(AddGroupCommand, CanAddGroupCommand);
             ExecuteOpenPrzedmiotCommand = new Commanding(AddPrzedmiotCommand, CanAddPrzedmiotCommand);
-            NumeryIndeksow = Student.CurentStudentIndexList(_loginVm.CurrentUserId);            
+            NumeryIndeksow = Student.CurentUserIndexList(_loginVm.CurrentUserId);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -72,7 +74,7 @@ namespace Indeks.ViewModels
         #region Commands Execute
         private void AddPrzedmiotCommand(object parameter)
         {
-            AddPrzedmiot frm = new AddPrzedmiot(CurrentSemesterId);
+            AddPrzedmiot frm = new AddPrzedmiot(CurrentSemesterId, CurrentGrupa);
             Nullable<bool> dialogResult = frm.ShowDialog();
         }
 
@@ -108,6 +110,22 @@ namespace Indeks.ViewModels
             }
         }
 
+        private List<string> _listaGrup;
+        public List<string> ListaGrup
+        {
+            get
+            {
+                return _listaGrup;
+            }
+            set
+            {
+                {
+                    _listaGrup = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private List<int> _numeryIndeksow;
         public List<int> NumeryIndeksow
         {
@@ -133,7 +151,26 @@ namespace Indeks.ViewModels
                 {
                     _wybranySemestr = value;
                     OnPropertyChanged();
-                    CurrentSemesterId = _semesters.ToList()[_wybranySemestr].Id_Semestr;
+                    if (value >= 0)
+                    {
+                        CurrentSemesterId = _semesters.ToList()[_wybranySemestr].Id_Semestr;
+                    }
+                }
+            }
+        }
+
+        private string _wybranaGrupa;
+        public string WybranaGrupa
+        {
+            get { return _wybranaGrupa; }
+            set
+            {
+                if (_wybranaGrupa != value)
+                {
+                    _wybranaGrupa = value;
+                    OnPropertyChanged();
+                    Semesters = Student.Semesters(_wybranaGrupa);
+                    WybranySemestr = 0;
                 }
             }
         }
@@ -151,10 +188,8 @@ namespace Indeks.ViewModels
                 {
                     _wybranyIndex = value;
                     OnPropertyChanged();
-                    Semesters = Student.Semesters(_wybranyIndex);
+                    ListaGrup = Student.CurentStudentGroupList(_wybranyIndex);
                     CurrentStudentId = Student.FindStudentIdByIndex(_wybranyIndex);
-                    WybranySemestr = 0;
-                    CurrentSemesterId = _semesters.ToList()[_wybranySemestr].Id_Semestr;
                 }
             }
         }

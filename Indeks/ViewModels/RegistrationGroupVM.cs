@@ -104,66 +104,66 @@ namespace Indeks.ViewModels
 
         private void RegisterGroup(object parameter)
         {
-            DataClasses1DataContext context = new DataClasses1DataContext();
+            //DataClasses1DataContext context = new DataClasses1DataContext();
 
-            var kierunek = new Kierunek
-            {
-                Kierunek_Nazwa = _kierunek
-            };
-            context.Kieruneks.InsertOnSubmit(kierunek);
-            context.SubmitChanges();
+            //var kierunek = new Kierunek
+            //{
+            //    Kierunek_Nazwa = _kierunek
+            //};
+            //context.Kieruneks.InsertOnSubmit(kierunek);
+            //context.SubmitChanges();
 
-            var typStudiow = new TypStudiow
-            {
-                Typ_Studiow_Nazwa = _typStudiow
-            };
-            context.TypStudiows.InsertOnSubmit(typStudiow);
-            context.SubmitChanges();
+            //var typStudiow = new TypStudiow
+            //{
+            //    Typ_Studiow_Nazwa = _typStudiow
+            //};
+            //context.TypStudiows.InsertOnSubmit(typStudiow);
+            //context.SubmitChanges();
 
-            var stopienStudiow = new StopienStudiow
-            {
-                Stopien_Studiow_Nazwa = _rodzajStudiow
-            };
-            context.StopienStudiows.InsertOnSubmit(stopienStudiow);
-            context.SubmitChanges();
+            //var stopienStudiow = new StopienStudiow
+            //{
+            //    Stopien_Studiow_Nazwa = _rodzajStudiow
+            //};
+            //context.StopienStudiows.InsertOnSubmit(stopienStudiow);
+            //context.SubmitChanges();
 
-            var ciag = new Ciag
-            {
-                Ciag_Nazwa = _ciag,
-                Id_Stopien_Studiow = stopienStudiow.Id_Stopien_Studiow,
-                Id_Typ_Studiow = typStudiow.Id_Typ_Studiow
-            };
-            context.Ciags.InsertOnSubmit(ciag);
-            context.SubmitChanges();
+            //var ciag = new Ciag
+            //{
+            //    Ciag_Nazwa = _ciag,
+            //    Id_Stopien_Studiow = stopienStudiow.Id_Stopien_Studiow,
+            //    Id_Typ_Studiow = typStudiow.Id_Typ_Studiow
+            //};
+            //context.Ciags.InsertOnSubmit(ciag);
+            //context.SubmitChanges();
 
-            var kierunekCiag = new LinqToSql.KierunekCiag
-            {
-                Id_Kierunek = kierunek.Id_Kierunek,
-                Id_Ciag = ciag.Id_Ciag
-            };
-            context.KierunekCiags.InsertOnSubmit(kierunekCiag);
-            context.SubmitChanges();
+            //var kierunekCiag = new LinqToSql.KierunekCiag
+            //{
+            //    Id_Kierunek = kierunek.Id_Kierunek,
+            //    Id_Ciag = ciag.Id_Ciag
+            //};
+            //context.KierunekCiags.InsertOnSubmit(kierunekCiag);
+            //context.SubmitChanges();
 
-            var grupa = new Grupa
-            {
-                Grupa_Nazwa = _grupa
-            };
-            context.Grupas.InsertOnSubmit(grupa);
-            context.SubmitChanges();
+            //var grupa = new Grupa
+            //{
+            //    Grupa_Nazwa = _grupa
+            //};
+            //context.Grupas.InsertOnSubmit(grupa);
+            //context.SubmitChanges();
 
-            var kierunekCiagGrupa = new LinqToSql.KierunekCiagGrupa
-            {
-                Id_Ciag = ciag.Id_Ciag,
-                Id_Grupa = grupa.Id_Grupa
-            };
+            //var kierunekCiagGrupa = new LinqToSql.KierunekCiagGrupa
+            //{
+            //    Id_Ciag = ciag.Id_Ciag,
+            //    Id_Grupa = grupa.Id_Grupa
+            //};
 
-            context.KierunekCiagGrupas.InsertOnSubmit(kierunekCiagGrupa);
-            context.SubmitChanges();
+            //context.KierunekCiagGrupas.InsertOnSubmit(kierunekCiagGrupa);
+            //context.SubmitChanges();
 
-            _groupId = grupa.Id_Grupa;
+            //_groupId = grupa.Id_Grupa;
 
-            Window frm = (Window)parameter;
-            frm.Close();
+            //Window frm = (Window)parameter;
+            //frm.Close();
         }
         #endregion
 

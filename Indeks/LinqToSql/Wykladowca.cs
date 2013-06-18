@@ -15,32 +15,21 @@ namespace Indeks.LinqToSql
             List<string> nazwiskoImieList = new List<string>();
             foreach (Guid val in idWykladowcasList)
             {
-                var imieWykladowcy = db.Wykladowcas.Where(x => x.Id_Wykladowcy == val).Select(x => x.Wykladowca_Nazwisko).SingleOrDefault();
-                var nazwiskoWykladowcy = db.Wykladowcas.Where(x => x.Id_Wykladowcy == val).Select(x => x.Wykladowca_Imie).SingleOrDefault();
-                string nazwiskoImie = nazwiskoWykladowcy.ToString() + imieWykladowcy.ToString();
+                var nazwiskoWykladowcy = db.Wykladowcas.Where(x => x.Id_Wykladowcy == val).Select(x => x.Wykladowca_Nazwisko).SingleOrDefault();
+                var imieWykladowcy = db.Wykladowcas.Where(x => x.Id_Wykladowcy == val).Select(x => x.Wykladowca_Imie).SingleOrDefault();
+                var nrWykladowcy = db.Wykladowcas.Where(x => x.Id_Wykladowcy == val).Select(x => x.Nr_Wykladowcy).SingleOrDefault().ToString();
+
+                string nazwiskoImie = nrWykladowcy.ToString()+"-"+nazwiskoWykladowcy.ToString()+"-"+ imieWykladowcy.ToString();
                 nazwiskoImieList.Add(nazwiskoImie);
             }
             return nazwiskoImieList;
         }
 
-        public static Guid FindWykladowcaIdByNameAndLectureId(Guid idLecture, string name)
+        public static Guid FindWykladowcaIdByName(string name)
         {
             DataClasses1DataContext db = new DataClasses1DataContext();
-            string[] nazwiskoImie = name.Split('-');
-            string imie = nazwiskoImie[1];
-            string nazwisko = nazwiskoImie[0];
-            var listaWykladowcow = db.Wykladowcas.Where(x => x._Wykladowca_Nazwisko == nazwisko).Where(x => x._Wykladowca_Imie == imie).Select(x => x._Id_Wykladowcy);
-            Guid idWykladowcy = Guid.NewGuid();
-            foreach (Guid val in listaWykladowcow)
-            {
-                Guid tempWykladowca = db.WykladowcaPrzedmiots.Where(x => x.Id_Przedmiotu == idLecture).Where(x => x.Id_Wykladowcy == val).Select(x => x.Id_Wykladowcy).SingleOrDefault();
-                if (tempWykladowca != null && tempWykladowca.ToString() != "00000000-0000-0000-0000-000000000000" )
-                {
-                    idWykladowcy = tempWykladowca;
-                    break;
-                }
-            }
-            return idWykladowcy;
+            string[] nrNazwiskoImie = name.Split('-');
+            return db.Wykladowcas.Where(x => x.Nr_Wykladowcy.ToString() == nrNazwiskoImie[0]).Select(x => x.Id_Wykladowcy).SingleOrDefault();
         }
     }
 }

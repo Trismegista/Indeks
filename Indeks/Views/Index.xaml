@@ -177,6 +177,8 @@
                     Command="{Binding ExecuteOpenPrzedmiotCommand}" Grid.ColumnSpan="3"/>
             <ComboBox HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Width="314"
                       ItemsSource="{Binding NumeryIndeksow}" SelectedItem="{Binding WybranyIndeks}" Grid.Column="3" Grid.ColumnSpan="2"/>
+            <ComboBox HorizontalAlignment="Left" Margin="0,70,0,0" VerticalAlignment="Top" Width="314"
+                      ItemsSource="{Binding ListaGrup}" SelectedItem="{Binding WybranaGrupa}" Grid.Column="3" Grid.ColumnSpan="2"/>
             <Button Grid.Column="4" HorizontalAlignment="Left" Margin="65,84,0,0" Grid.Row="1" VerticalAlignment="Top" Width="105"
                     Content="Test Informacji"
                     Command="{Binding ExecuteTestButtonCommand}"/>

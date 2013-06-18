@@ -12,13 +12,13 @@ namespace Indeks.LinqToSql
         public static List<string> GetGrupas()
         {
             DataClasses1DataContext db = new DataClasses1DataContext();
-            return db.Grupas.Select(x => x.Grupa_Nazwa).ToList();
+            return db.GrupaNazwas.Select(x => x.Grupa_Nazwa).ToList();
         }
 
         public static Guid FindGrupaIdByName(string name)
         {
             DataClasses1DataContext db = new DataClasses1DataContext();
-            return db.Grupas.Where(x => x.Grupa_Nazwa == name).Select(x => x.Id_Grupa).SingleOrDefault();
+            return db.GrupaNazwas.Where(x => x.Grupa_Nazwa == name).Select(x => x.Id_Grupa_Nazwa).SingleOrDefault();
         }
     }
 }

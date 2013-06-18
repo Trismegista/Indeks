@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Indeks.ViewModels
@@ -15,15 +16,15 @@ namespace Indeks.ViewModels
     class RegistrationLyricsVM : ApplicationVM
     {
         Guid _idSemester;
-        public RegistrationLyricsVM(Guid idSemester)
+        public RegistrationLyricsVM(Guid idSemester, Guid idGrupa)
         {
             _idSemester = idSemester;
 
             ExecuteAddPrzedmiotCommand = new Commanding(AddPrzedmiotCommand, CanAddPrzedmiotCommand);
+            ExecuteAddPrzedmiotContinueCommand = new Commanding(AddPrzedmiotAndContinueCommand, CanAddPrzedmiotAndContinueCommand);
             ExecuteAddPrzedmiotNameCommand = new Commanding(AddPrzedmiotNameCommand, CanAddPrzedmiotNameCommand);
             ExecuteAddTypCommand = new Commanding(AddTypNameCommand, CanAddTypNameCommand);
             ExecuteAddWykladowcaCommand = new Commanding(AddWykladowcaCommand, CanAddWykladowcaCommand);
-
 
             TypName = Typ_Zajec.GetZajecias();
             PrzedmiotName = Przedmiot.GetPrzedmiots();
@@ -31,6 +32,7 @@ namespace Indeks.ViewModels
         }
 
         public ICommand ExecuteAddPrzedmiotCommand { get; set; }
+        public ICommand ExecuteAddPrzedmiotContinueCommand { get; set; }
         public ICommand ExecuteAddPrzedmiotNameCommand { get; set; }
         public ICommand ExecuteAddTypCommand { get; set; }
         public ICommand ExecuteAddWykladowcaCommand { get; set; }
@@ -48,7 +50,13 @@ namespace Indeks.ViewModels
 
         private bool CanAddPrzedmiotCommand(object parameter)
         {
-            if ( _selectedPrzedmiot == null && _selectedTyp == null && _selectedWykladowca == null && _punktyETCS == null && _liczbaGodzin == null ) return false;
+            if (String.IsNullOrEmpty(_selectedTyp) || String.IsNullOrEmpty(_selectedPrzedmiot) || String.IsNullOrEmpty(_selectedWykladowca) || String.IsNullOrEmpty(_liczbaGodzin) || String.IsNullOrEmpty(_punktyETCS)) return false;
+            return true;
+        }
+
+        private bool CanAddPrzedmiotAndContinueCommand(object parameter)
+        {
+            if (String.IsNullOrEmpty(_selectedTyp) || String.IsNullOrEmpty(_selectedPrzedmiot) || String.IsNullOrEmpty(_selectedWykladowca) || String.IsNullOrEmpty(_liczbaGodzin) || String.IsNullOrEmpty(_punktyETCS)) return false;
             return true;
         }
 
@@ -71,14 +79,66 @@ namespace Indeks.ViewModels
 
         #region CommandExecute
 
-        private void AddPrzedmiotCommand(object parameter)
+        private void dodaj_przedmiot()
         {
             DataClasses1DataContext context = new DataClasses1DataContext();
-            var przedmiot = new Przedmiot
-            {
-                Przedmiot_Nazwa = _selectedPrzedmiot
-            };
 
+            Guid idWykladowcy = Wykladowca.FindWykladowcaIdByName(_selectedWykladowca);
+            Guid idTyp = Typ_Zajec.FindZajeciasIdByName(_selectedTyp);
+            Guid idPrzedmiot = Przedmiot.FindPrzedmiotNazwaIdByNazwa(_selectedPrzedmiot);
+            var cos =_idSemester;
+
+            
+            //var wartosc = new ZajeciaWartosci
+            //{
+            //    PunktyETCS = Convert.ToInt32(_punktyETCS),
+            //    Liczba_Godzin = Convert.ToInt32(_liczbaGodzin)
+            //};
+            //context.ZajeciaWartoscis.InsertOnSubmit(wartosc);
+            //context.SubmitChanges();
+
+            //var przedmiotWartosc = new ZajeciaPrzedmiot
+            //{
+            //    Id_Przedmiotu = idPrzedmiot,
+            //    Id_Zajecia = idTyp,
+            //    Id_Zajecia_Wartosci = wartosc.Id_Zajecia_Wartosci
+            //};
+            //context.ZajeciaPrzedmiots.InsertOnSubmit(przedmiotWartosc);
+            //context.SubmitChanges();
+
+            //var wykladowcaPrzedmiot = new WykladowcaPrzedmiot
+            //{
+            //    Id_Wykladowcy = idWykladowcy,
+            //    Id_Przedmiotu = idPrzedmiot
+            //};
+            //context.WykladowcaPrzedmiots.InsertOnSubmit(wykladowcaPrzedmiot);
+            //context.SubmitChanges();
+
+            //var semestrPrzedmiot = new SemestrPrzedmiot
+            //{
+            //    Id_Przedmio = idPrzedmiot,
+            //    Id_Semestr = _idSemester
+            //};
+            //context.SemestrPrzedmiots.InsertOnSubmit(semestrPrzedmiot);
+            //context.SubmitChanges();
+        }
+
+        private void AddPrzedmiotCommand(object parameter)
+        {
+            dodaj_przedmiot();
+
+            Window frm = (Window)parameter;
+            frm.Close();
+        }
+
+        private void AddPrzedmiotAndContinueCommand(object parameter)
+        {
+            dodaj_przedmiot();
+            _selectedPrzedmiot = string.Empty;
+            _selectedTyp = string.Empty;
+            _selectedWykladowca = string.Empty;
+            _punktyETCS = string.Empty;
+            _liczbaGodzin = string.Empty;
         }
 
         private void AddWykladowcaCommand(object parameter)

@@ -12,7 +12,8 @@ namespace Indeks.LinqToSql
         {
             get
             {
-                return SemestrPrzedmiots.Select(x => x.Przedmiot).ToList();
+                return this.GrupaSemestrPrzedmiotWykladowcas.Select(x => x.Przedmiot).ToList(); 
+
             }
         }
         public static List<string> GetSemestersNames()

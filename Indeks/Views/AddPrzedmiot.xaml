@@ -80,7 +80,7 @@
                      Height="22"
                      Margin="10,20,155,20"
                      Name="LiczbaGodzin"
-                     Text="{Binding LiczbaGodzin}">
+                     Text="{Binding LiczbaGodzin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </TextBox>
             <TextBlock Grid.Column="1"
                      Grid.Row="4"
@@ -94,7 +94,7 @@
                      Height="22" 
                      Margin="145,20,20,20"
                      Name="PunktyETCS"
-                     Text="{Binding PunktyETCS}"></TextBox>
+                     Text="{Binding PunktyETCS, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <StackPanel Grid.Column="2" 
                         Grid.Row="0" 
                         Margin="-20,-12,60,34" 
@@ -137,17 +137,26 @@
                     </Button.Template>
                 </Button>
             </StackPanel>
-            <StackPanel Grid.Column="0" Grid.ColumnSpan="3"
-                        Grid.Row="7"
-                        VerticalAlignment="Center">
                 <Button Command="{Binding ExecuteAddPrzedmiotCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                        Content="Dodaj"
-                        Margin="5,20" 
-                        Width="80"
-                        Height="40">
+                        Content="Dodaj i zamknij"
+                        Margin="-140 20 0 20" 
+                        Width="120"
+                        Height="40"
+                        Grid.Column="0" Grid.ColumnSpan="3"
+                        Grid.Row="7"
+                        VerticalAlignment="Center">
                 </Button>
-            </StackPanel>
+                <Button Command="{Binding ExecuteAddPrzedmiotContinueCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                        Content="Dodaj i kontynuuj"
+                        Margin="140 20 0 20" 
+                        Width="120"
+                        Height="40"
+                        Grid.Column="0" Grid.ColumnSpan="3"
+                        Grid.Row="7"
+                        VerticalAlignment="Center">
+                </Button>
         </Grid>
     </Border>
 </Window>

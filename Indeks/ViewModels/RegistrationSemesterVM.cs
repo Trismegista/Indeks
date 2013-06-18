@@ -19,8 +19,7 @@ namespace Indeks.ViewModels
         public RegistrationSemesterVM(Guid studentId)
         {
             _studentId = studentId;
-            ExecuteAddSemesterCommand = new Commanding(AddSemesterCommand, CanAddSemesterCommand);
-            ExecuteAddSemesterName = new Commanding(AddSemesterNameCommand, CanAddSemesterNameCommand);
+            ExecuteAddKierunekCommand = new Commanding(AddKierunekCiagGroupCommand, CanAddKierunekCiagGroupCommand);
             ExecuteAddKierunek = new Commanding(AddKierunekCommand, CanAddKierunekCommand);
             ExecuteAddCiag = new Commanding(AddCiagCommand, CanAddCiagCommand);
             ExecuteAddGroup = new Commanding(AddGroupCommand, CanAddGroupCommand);
@@ -42,17 +41,16 @@ namespace Indeks.ViewModels
         }
 
         #region Commands
-        public ICommand ExecuteAddSemesterName { get; set; }
         public ICommand ExecuteAddKierunek { get; set; }
         public ICommand ExecuteAddCiag { get; set; }
         public ICommand ExecuteAddGroup { get; set; }
-        public ICommand ExecuteAddSemesterCommand { get; set; }
+        public ICommand ExecuteAddKierunekCommand { get; set; }
         #endregion
         
         #region CommandQuestions
-        private bool CanAddSemesterCommand(object parameter)
+        private bool CanAddKierunekCiagGroupCommand(object parameter)
         {
-            if (String.IsNullOrEmpty(_selectedKierunek) || String.IsNullOrEmpty(_selectedCiag) || String.IsNullOrEmpty(_selectedGroup) || String.IsNullOrEmpty(_selectedSemester)) return false;
+            if (String.IsNullOrEmpty(_selectedKierunek) || String.IsNullOrEmpty(_selectedCiag) || String.IsNullOrEmpty(_selectedGroup)) return false;
             return true;
         }
         private bool CanAddGroupCommand(object parameter)
@@ -77,59 +75,31 @@ namespace Indeks.ViewModels
         #endregion
 
         #region CommandExecutes
-        private void AddSemesterCommand(object parameter)
+        private void AddKierunekCiagGroupCommand(object parameter)
         {
             DataClasses1DataContext context = new DataClasses1DataContext();
 
             string[] nameSeparator = _selectedCiag.Split('-');
-            string typName = nameSeparator[2];
-            string stopienName = nameSeparator[1];
-            string ciagName = nameSeparator[0];
 
-            Guid idTypStudiow = TypStudiow.FindTypStudiowIdByName(typName);
-            Guid idStopienStudiow = StopienStudiow.FindStupienStudiowIdByName(stopienName);
-            Guid idCiag = Ciag.FindCiagIdByName(ciagName);
+            Guid idCiag = Ciag.FindCiagIdByName(nameSeparator[0]);
             Guid idKierunek = Kierunek.FindKierunekIdByName(_selectedKierunek);
             Guid idGrupa = Grupa.FindGrupaIdByName(_selectedGroup);
 
-            var kierunekCiag = new LinqToSql.KierunekCiag
-            {
-                Id_Kierunek = idKierunek,
-                Id_Ciag = idCiag
-            };
-            context.KierunekCiags.InsertOnSubmit(kierunekCiag);
-            context.SubmitChanges();
-
-            var kierunekCiagGrupa = new LinqToSql.KierunekCiagGrupa
+            var grupa = new Grupa
             {
                 Id_Ciag = idCiag,
-                Id_Grupa = idGrupa
+                Id_Kierunek = idKierunek,
+                Id_Grupa_Nazwa = Grupa.FindGrupaIdByName(_selectedGroup)
             };
-            context.KierunekCiagGrupas.InsertOnSubmit(kierunekCiagGrupa);
+            context.Grupas.InsertOnSubmit(grupa);
             context.SubmitChanges();
 
-            var semestr = new Semestr
+            var studentGrupa = new StudentGrupa
             {
-                Semestr_Nazwa = _selectedSemester
-            };
-            context.Semestrs.InsertOnSubmit(semestr);
-            context.SubmitChanges();
-
-
-            var kierunekCiagGrupaSemestr = new LinqToSql.KierunekCiagGrupaSemestr
-            {
-                Id_Grupa = idGrupa,
-                Id_Semestr = semestr.Id_Semestr
-            };
-            context.KierunekCiagGrupaSemestrs.InsertOnSubmit(kierunekCiagGrupaSemestr);
-            context.SubmitChanges();
-
-            var studentSemestr = new LinqToSql.StudentSemestr
-            {
-                Id_Semestr = semestr.Id_Semestr,
+                Id_Grupa = grupa.Id_Grupa,
                 Id_Student = _studentId
             };
-            context.StudentSemestrs.InsertOnSubmit(studentSemestr);
+            context.StudentGrupas.InsertOnSubmit(studentGrupa);
             context.SubmitChanges();
 
             Window frm = (Window)parameter;

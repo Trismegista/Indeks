@@ -22,7 +22,7 @@ namespace Indeks.Views
         {
             _studentId = studentId;
             DataContext = new RegistrationSemesterVM(_studentId);
-            InitializeComponent();            
+            InitializeComponent();
         }
     }
 }

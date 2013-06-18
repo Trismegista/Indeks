@@ -39,11 +39,11 @@ namespace Indeks.ViewModels
         private void AddGrupaCommand(object parameter)
         {
             DataClasses1DataContext context = new DataClasses1DataContext();
-            var grupa = new Grupa
+            var grupa = new GrupaNazwa
             {
                 Grupa_Nazwa = _grupaName
             };
-            context.Grupas.InsertOnSubmit(grupa);
+            context.GrupaNazwas.InsertOnSubmit(grupa);
             context.SubmitChanges();
 
             Window frm = (Window)parameter;
