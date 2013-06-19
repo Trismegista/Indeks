@@ -42,9 +42,9 @@ namespace Indeks.LinqToSql
     partial void InsertGrupaNazwa(GrupaNazwa instance);
     partial void UpdateGrupaNazwa(GrupaNazwa instance);
     partial void DeleteGrupaNazwa(GrupaNazwa instance);
-    partial void InsertGrupaSemestrPrzedmiotWykladowca(GrupaSemestrPrzedmiotWykladowca instance);
-    partial void UpdateGrupaSemestrPrzedmiotWykladowca(GrupaSemestrPrzedmiotWykladowca instance);
-    partial void DeleteGrupaSemestrPrzedmiotWykladowca(GrupaSemestrPrzedmiotWykladowca instance);
+    partial void InsertGrupaSemestrPrzedmiot(GrupaSemestrPrzedmiot instance);
+    partial void UpdateGrupaSemestrPrzedmiot(GrupaSemestrPrzedmiot instance);
+    partial void DeleteGrupaSemestrPrzedmiot(GrupaSemestrPrzedmiot instance);
     partial void InsertKierunek(Kierunek instance);
     partial void UpdateKierunek(Kierunek instance);
     partial void DeleteKierunek(Kierunek instance);
@@ -57,12 +57,12 @@ namespace Indeks.LinqToSql
     partial void InsertPrzedmiotNazwa(PrzedmiotNazwa instance);
     partial void UpdatePrzedmiotNazwa(PrzedmiotNazwa instance);
     partial void DeletePrzedmiotNazwa(PrzedmiotNazwa instance);
+    partial void InsertPrzedmiotSemestr(PrzedmiotSemestr instance);
+    partial void UpdatePrzedmiotSemestr(PrzedmiotSemestr instance);
+    partial void DeletePrzedmiotSemestr(PrzedmiotSemestr instance);
     partial void InsertSemestr(Semestr instance);
     partial void UpdateSemestr(Semestr instance);
     partial void DeleteSemestr(Semestr instance);
-    partial void InsertSemestrPrzedmiot(SemestrPrzedmiot instance);
-    partial void UpdateSemestrPrzedmiot(SemestrPrzedmiot instance);
-    partial void DeleteSemestrPrzedmiot(SemestrPrzedmiot instance);
     partial void InsertStopienStudiow(StopienStudiow instance);
     partial void UpdateStopienStudiow(StopienStudiow instance);
     partial void DeleteStopienStudiow(StopienStudiow instance);
@@ -145,11 +145,11 @@ namespace Indeks.LinqToSql
 			}
 		}
 		
-		public System.Data.Linq.Table<GrupaSemestrPrzedmiotWykladowca> GrupaSemestrPrzedmiotWykladowcas
+		public System.Data.Linq.Table<GrupaSemestrPrzedmiot> GrupaSemestrPrzedmiots
 		{
 			get
 			{
-				return this.GetTable<GrupaSemestrPrzedmiotWykladowca>();
+				return this.GetTable<GrupaSemestrPrzedmiot>();
 			}
 		}
 		
@@ -185,19 +185,19 @@ namespace Indeks.LinqToSql
 			}
 		}
 		
+		public System.Data.Linq.Table<PrzedmiotSemestr> PrzedmiotSemestrs
+		{
+			get
+			{
+				return this.GetTable<PrzedmiotSemestr>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Semestr> Semestrs
 		{
 			get
 			{
 				return this.GetTable<Semestr>();
-			}
-		}
-		
-		public System.Data.Linq.Table<SemestrPrzedmiot> SemestrPrzedmiots
-		{
-			get
-			{
-				return this.GetTable<SemestrPrzedmiot>();
 			}
 		}
 		
@@ -314,7 +314,7 @@ namespace Indeks.LinqToSql
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Adres", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Adres", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
 		public System.Guid Id_Adres
 		{
 			get
@@ -622,7 +622,7 @@ namespace Indeks.LinqToSql
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Ciag", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Ciag", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
 		public System.Guid Id_Ciag
 		{
 			get
@@ -838,7 +838,7 @@ namespace Indeks.LinqToSql
 		
 		private System.Guid _Id_Grupa_Nazwa;
 		
-		private EntitySet<GrupaSemestrPrzedmiotWykladowca> _GrupaSemestrPrzedmiotWykladowcas;
+		private EntitySet<GrupaSemestrPrzedmiot> _GrupaSemestrPrzedmiots;
 		
 		private EntitySet<StudentGrupa> _StudentGrupas;
 		
@@ -864,7 +864,7 @@ namespace Indeks.LinqToSql
 		
 		public Grupa()
 		{
-			this._GrupaSemestrPrzedmiotWykladowcas = new EntitySet<GrupaSemestrPrzedmiotWykladowca>(new Action<GrupaSemestrPrzedmiotWykladowca>(this.attach_GrupaSemestrPrzedmiotWykladowcas), new Action<GrupaSemestrPrzedmiotWykladowca>(this.detach_GrupaSemestrPrzedmiotWykladowcas));
+			this._GrupaSemestrPrzedmiots = new EntitySet<GrupaSemestrPrzedmiot>(new Action<GrupaSemestrPrzedmiot>(this.attach_GrupaSemestrPrzedmiots), new Action<GrupaSemestrPrzedmiot>(this.detach_GrupaSemestrPrzedmiots));
 			this._StudentGrupas = new EntitySet<StudentGrupa>(new Action<StudentGrupa>(this.attach_StudentGrupas), new Action<StudentGrupa>(this.detach_StudentGrupas));
 			this._Ciag = default(EntityRef<Ciag>);
 			this._GrupaNazwa = default(EntityRef<GrupaNazwa>);
@@ -872,7 +872,7 @@ namespace Indeks.LinqToSql
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Grupa", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Grupa", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
 		public System.Guid Id_Grupa
 		{
 			get
@@ -964,16 +964,16 @@ namespace Indeks.LinqToSql
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Grupa_GrupaSemestrPrzedmiotWykladowca", Storage="_GrupaSemestrPrzedmiotWykladowcas", ThisKey="Id_Grupa", OtherKey="Id_Grupa")]
-		public EntitySet<GrupaSemestrPrzedmiotWykladowca> GrupaSemestrPrzedmiotWykladowcas
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Grupa_GrupaSemestrPrzedmiot", Storage="_GrupaSemestrPrzedmiots", ThisKey="Id_Grupa", OtherKey="Id_Grupa")]
+		public EntitySet<GrupaSemestrPrzedmiot> GrupaSemestrPrzedmiots
 		{
 			get
 			{
-				return this._GrupaSemestrPrzedmiotWykladowcas;
+				return this._GrupaSemestrPrzedmiots;
 			}
 			set
 			{
-				this._GrupaSemestrPrzedmiotWykladowcas.Assign(value);
+				this._GrupaSemestrPrzedmiots.Assign(value);
 			}
 		}
 		
@@ -1112,13 +1112,13 @@ namespace Indeks.LinqToSql
 			}
 		}
 		
-		private void attach_GrupaSemestrPrzedmiotWykladowcas(GrupaSemestrPrzedmiotWykladowca entity)
+		private void attach_GrupaSemestrPrzedmiots(GrupaSemestrPrzedmiot entity)
 		{
 			this.SendPropertyChanging();
 			entity.Grupa = this;
 		}
 		
-		private void detach_GrupaSemestrPrzedmiotWykladowcas(GrupaSemestrPrzedmiotWykladowca entity)
+		private void detach_GrupaSemestrPrzedmiots(GrupaSemestrPrzedmiot entity)
 		{
 			this.SendPropertyChanging();
 			entity.Grupa = null;
@@ -1165,7 +1165,7 @@ namespace Indeks.LinqToSql
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Grupa_Nazwa", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Grupa_Nazwa", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
 		public System.Guid Id_Grupa_Nazwa
 		{
 			get
@@ -1251,19 +1251,17 @@ namespace Indeks.LinqToSql
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.GrupaSemestrPrzedmiotWykladowca")]
-	public partial class GrupaSemestrPrzedmiotWykladowca : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.GrupaSemestrPrzedmiot")]
+	public partial class GrupaSemestrPrzedmiot : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private System.Guid _Id_Grupa;
 		
-		private System.Guid _Id_Semestr;
-		
 		private System.Guid _Id_Przedmiot;
 		
-		private System.Guid _Id_Wykladowca;
+		private System.Guid _Id_Semestr;
 		
 		private EntityRef<Grupa> _Grupa;
 		
@@ -1271,28 +1269,23 @@ namespace Indeks.LinqToSql
 		
 		private EntityRef<Semestr> _Semestr;
 		
-		private EntityRef<Wykladowca> _Wykladowca;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
     partial void OnId_GrupaChanging(System.Guid value);
     partial void OnId_GrupaChanged();
-    partial void OnId_SemestrChanging(System.Guid value);
-    partial void OnId_SemestrChanged();
     partial void OnId_PrzedmiotChanging(System.Guid value);
     partial void OnId_PrzedmiotChanged();
-    partial void OnId_WykladowcaChanging(System.Guid value);
-    partial void OnId_WykladowcaChanged();
+    partial void OnId_SemestrChanging(System.Guid value);
+    partial void OnId_SemestrChanged();
     #endregion
 		
-		public GrupaSemestrPrzedmiotWykladowca()
+		public GrupaSemestrPrzedmiot()
 		{
 			this._Grupa = default(EntityRef<Grupa>);
 			this._Przedmiot = default(EntityRef<Przedmiot>);
 			this._Semestr = default(EntityRef<Semestr>);
-			this._Wykladowca = default(EntityRef<Wykladowca>);
 			OnCreated();
 		}
 		
@@ -1316,30 +1309,6 @@ namespace Indeks.LinqToSql
 					this._Id_Grupa = value;
 					this.SendPropertyChanged("Id_Grupa");
 					this.OnId_GrupaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Semestr", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid Id_Semestr
-		{
-			get
-			{
-				return this._Id_Semestr;
-			}
-			set
-			{
-				if ((this._Id_Semestr != value))
-				{
-					if (this._Semestr.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_SemestrChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Semestr = value;
-					this.SendPropertyChanged("Id_Semestr");
-					this.OnId_SemestrChanged();
 				}
 			}
 		}
@@ -1368,31 +1337,31 @@ namespace Indeks.LinqToSql
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Wykladowca", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid Id_Wykladowca
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Semestr", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id_Semestr
 		{
 			get
 			{
-				return this._Id_Wykladowca;
+				return this._Id_Semestr;
 			}
 			set
 			{
-				if ((this._Id_Wykladowca != value))
+				if ((this._Id_Semestr != value))
 				{
-					if (this._Wykladowca.HasLoadedOrAssignedValue)
+					if (this._Semestr.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnId_WykladowcaChanging(value);
+					this.OnId_SemestrChanging(value);
 					this.SendPropertyChanging();
-					this._Id_Wykladowca = value;
-					this.SendPropertyChanged("Id_Wykladowca");
-					this.OnId_WykladowcaChanged();
+					this._Id_Semestr = value;
+					this.SendPropertyChanged("Id_Semestr");
+					this.OnId_SemestrChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Grupa_GrupaSemestrPrzedmiotWykladowca", Storage="_Grupa", ThisKey="Id_Grupa", OtherKey="Id_Grupa", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Grupa_GrupaSemestrPrzedmiot", Storage="_Grupa", ThisKey="Id_Grupa", OtherKey="Id_Grupa", IsForeignKey=true)]
 		public Grupa Grupa
 		{
 			get
@@ -1409,12 +1378,12 @@ namespace Indeks.LinqToSql
 					if ((previousValue != null))
 					{
 						this._Grupa.Entity = null;
-						previousValue.GrupaSemestrPrzedmiotWykladowcas.Remove(this);
+						previousValue.GrupaSemestrPrzedmiots.Remove(this);
 					}
 					this._Grupa.Entity = value;
 					if ((value != null))
 					{
-						value.GrupaSemestrPrzedmiotWykladowcas.Add(this);
+						value.GrupaSemestrPrzedmiots.Add(this);
 						this._Id_Grupa = value.Id_Grupa;
 					}
 					else
@@ -1426,7 +1395,7 @@ namespace Indeks.LinqToSql
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Przedmiot_GrupaSemestrPrzedmiotWykladowca", Storage="_Przedmiot", ThisKey="Id_Przedmiot", OtherKey="Id_Przedmiot", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Przedmiot_GrupaSemestrPrzedmiot", Storage="_Przedmiot", ThisKey="Id_Przedmiot", OtherKey="Id_Przedmiot", IsForeignKey=true)]
 		public Przedmiot Przedmiot
 		{
 			get
@@ -1443,12 +1412,12 @@ namespace Indeks.LinqToSql
 					if ((previousValue != null))
 					{
 						this._Przedmiot.Entity = null;
-						previousValue.GrupaSemestrPrzedmiotWykladowcas.Remove(this);
+						previousValue.GrupaSemestrPrzedmiots.Remove(this);
 					}
 					this._Przedmiot.Entity = value;
 					if ((value != null))
 					{
-						value.GrupaSemestrPrzedmiotWykladowcas.Add(this);
+						value.GrupaSemestrPrzedmiots.Add(this);
 						this._Id_Przedmiot = value.Id_Przedmiot;
 					}
 					else
@@ -1460,7 +1429,7 @@ namespace Indeks.LinqToSql
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Semestr_GrupaSemestrPrzedmiotWykladowca", Storage="_Semestr", ThisKey="Id_Semestr", OtherKey="Id_Semestr", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Semestr_GrupaSemestrPrzedmiot", Storage="_Semestr", ThisKey="Id_Semestr", OtherKey="Id_Semestr", IsForeignKey=true)]
 		public Semestr Semestr
 		{
 			get
@@ -1477,12 +1446,12 @@ namespace Indeks.LinqToSql
 					if ((previousValue != null))
 					{
 						this._Semestr.Entity = null;
-						previousValue.GrupaSemestrPrzedmiotWykladowcas.Remove(this);
+						previousValue.GrupaSemestrPrzedmiots.Remove(this);
 					}
 					this._Semestr.Entity = value;
 					if ((value != null))
 					{
-						value.GrupaSemestrPrzedmiotWykladowcas.Add(this);
+						value.GrupaSemestrPrzedmiots.Add(this);
 						this._Id_Semestr = value.Id_Semestr;
 					}
 					else
@@ -1490,40 +1459,6 @@ namespace Indeks.LinqToSql
 						this._Id_Semestr = default(System.Guid);
 					}
 					this.SendPropertyChanged("Semestr");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Wykladowca_GrupaSemestrPrzedmiotWykladowca", Storage="_Wykladowca", ThisKey="Id_Wykladowca", OtherKey="Id_Wykladowcy", IsForeignKey=true)]
-		public Wykladowca Wykladowca
-		{
-			get
-			{
-				return this._Wykladowca.Entity;
-			}
-			set
-			{
-				Wykladowca previousValue = this._Wykladowca.Entity;
-				if (((previousValue != value) 
-							|| (this._Wykladowca.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Wykladowca.Entity = null;
-						previousValue.GrupaSemestrPrzedmiotWykladowcas.Remove(this);
-					}
-					this._Wykladowca.Entity = value;
-					if ((value != null))
-					{
-						value.GrupaSemestrPrzedmiotWykladowcas.Add(this);
-						this._Id_Wykladowca = value.Id_Wykladowcy;
-					}
-					else
-					{
-						this._Id_Wykladowca = default(System.Guid);
-					}
-					this.SendPropertyChanged("Wykladowca");
 				}
 			}
 		}
@@ -1577,7 +1512,7 @@ namespace Indeks.LinqToSql
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Kierunek", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Kierunek", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
 		public System.Guid Id_Kierunek
 		{
 			get
@@ -1718,7 +1653,7 @@ namespace Indeks.LinqToSql
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Login", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Login", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
 		public System.Guid Id_Login
 		{
 			get
@@ -1974,15 +1909,21 @@ namespace Indeks.LinqToSql
 		
 		private System.Guid _Id_PrzedmiotNazwa;
 		
+		private System.Guid _Id_Wykladowcy;
+		
 		private int _PunktyETCS;
 		
 		private int _Godziny;
 		
-		private EntitySet<GrupaSemestrPrzedmiotWykladowca> _GrupaSemestrPrzedmiotWykladowcas;
+		private EntitySet<GrupaSemestrPrzedmiot> _GrupaSemestrPrzedmiots;
+		
+		private EntitySet<PrzedmiotSemestr> _PrzedmiotSemestrs;
 		
 		private EntityRef<PrzedmiotNazwa> _PrzedmiotNazwa;
 		
 		private EntityRef<Typ_Zajec> _Typ_Zajec;
+		
+		private EntityRef<Wykladowca> _Wykladowca;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1994,6 +1935,8 @@ namespace Indeks.LinqToSql
     partial void OnId_Typ_ZajecChanged();
     partial void OnId_PrzedmiotNazwaChanging(System.Guid value);
     partial void OnId_PrzedmiotNazwaChanged();
+    partial void OnId_WykladowcyChanging(System.Guid value);
+    partial void OnId_WykladowcyChanged();
     partial void OnPunktyETCSChanging(int value);
     partial void OnPunktyETCSChanged();
     partial void OnGodzinyChanging(int value);
@@ -2002,13 +1945,15 @@ namespace Indeks.LinqToSql
 		
 		public Przedmiot()
 		{
-			this._GrupaSemestrPrzedmiotWykladowcas = new EntitySet<GrupaSemestrPrzedmiotWykladowca>(new Action<GrupaSemestrPrzedmiotWykladowca>(this.attach_GrupaSemestrPrzedmiotWykladowcas), new Action<GrupaSemestrPrzedmiotWykladowca>(this.detach_GrupaSemestrPrzedmiotWykladowcas));
+			this._GrupaSemestrPrzedmiots = new EntitySet<GrupaSemestrPrzedmiot>(new Action<GrupaSemestrPrzedmiot>(this.attach_GrupaSemestrPrzedmiots), new Action<GrupaSemestrPrzedmiot>(this.detach_GrupaSemestrPrzedmiots));
+			this._PrzedmiotSemestrs = new EntitySet<PrzedmiotSemestr>(new Action<PrzedmiotSemestr>(this.attach_PrzedmiotSemestrs), new Action<PrzedmiotSemestr>(this.detach_PrzedmiotSemestrs));
 			this._PrzedmiotNazwa = default(EntityRef<PrzedmiotNazwa>);
 			this._Typ_Zajec = default(EntityRef<Typ_Zajec>);
+			this._Wykladowca = default(EntityRef<Wykladowca>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Przedmiot", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Przedmiot", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
 		public System.Guid Id_Przedmiot
 		{
 			get
@@ -2076,6 +2021,30 @@ namespace Indeks.LinqToSql
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Wykladowcy", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid Id_Wykladowcy
+		{
+			get
+			{
+				return this._Id_Wykladowcy;
+			}
+			set
+			{
+				if ((this._Id_Wykladowcy != value))
+				{
+					if (this._Wykladowca.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnId_WykladowcyChanging(value);
+					this.SendPropertyChanging();
+					this._Id_Wykladowcy = value;
+					this.SendPropertyChanged("Id_Wykladowcy");
+					this.OnId_WykladowcyChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PunktyETCS", DbType="Int NOT NULL")]
 		public int PunktyETCS
 		{
@@ -2116,16 +2085,29 @@ namespace Indeks.LinqToSql
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Przedmiot_GrupaSemestrPrzedmiotWykladowca", Storage="_GrupaSemestrPrzedmiotWykladowcas", ThisKey="Id_Przedmiot", OtherKey="Id_Przedmiot")]
-		public EntitySet<GrupaSemestrPrzedmiotWykladowca> GrupaSemestrPrzedmiotWykladowcas
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Przedmiot_GrupaSemestrPrzedmiot", Storage="_GrupaSemestrPrzedmiots", ThisKey="Id_Przedmiot", OtherKey="Id_Przedmiot")]
+		public EntitySet<GrupaSemestrPrzedmiot> GrupaSemestrPrzedmiots
 		{
 			get
 			{
-				return this._GrupaSemestrPrzedmiotWykladowcas;
+				return this._GrupaSemestrPrzedmiots;
 			}
 			set
 			{
-				this._GrupaSemestrPrzedmiotWykladowcas.Assign(value);
+				this._GrupaSemestrPrzedmiots.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Przedmiot_PrzedmiotSemestr", Storage="_PrzedmiotSemestrs", ThisKey="Id_Przedmiot", OtherKey="Id_Przedmiot")]
+		public EntitySet<PrzedmiotSemestr> PrzedmiotSemestrs
+		{
+			get
+			{
+				return this._PrzedmiotSemestrs;
+			}
+			set
+			{
+				this._PrzedmiotSemestrs.Assign(value);
 			}
 		}
 		
@@ -2197,6 +2179,40 @@ namespace Indeks.LinqToSql
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Wykladowca_Przedmiot", Storage="_Wykladowca", ThisKey="Id_Wykladowcy", OtherKey="Id_Wykladowcy", IsForeignKey=true)]
+		public Wykladowca Wykladowca
+		{
+			get
+			{
+				return this._Wykladowca.Entity;
+			}
+			set
+			{
+				Wykladowca previousValue = this._Wykladowca.Entity;
+				if (((previousValue != value) 
+							|| (this._Wykladowca.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Wykladowca.Entity = null;
+						previousValue.Przedmiots.Remove(this);
+					}
+					this._Wykladowca.Entity = value;
+					if ((value != null))
+					{
+						value.Przedmiots.Add(this);
+						this._Id_Wykladowcy = value.Id_Wykladowcy;
+					}
+					else
+					{
+						this._Id_Wykladowcy = default(System.Guid);
+					}
+					this.SendPropertyChanged("Wykladowca");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -2217,13 +2233,25 @@ namespace Indeks.LinqToSql
 			}
 		}
 		
-		private void attach_GrupaSemestrPrzedmiotWykladowcas(GrupaSemestrPrzedmiotWykladowca entity)
+		private void attach_GrupaSemestrPrzedmiots(GrupaSemestrPrzedmiot entity)
 		{
 			this.SendPropertyChanging();
 			entity.Przedmiot = this;
 		}
 		
-		private void detach_GrupaSemestrPrzedmiotWykladowcas(GrupaSemestrPrzedmiotWykladowca entity)
+		private void detach_GrupaSemestrPrzedmiots(GrupaSemestrPrzedmiot entity)
+		{
+			this.SendPropertyChanging();
+			entity.Przedmiot = null;
+		}
+		
+		private void attach_PrzedmiotSemestrs(PrzedmiotSemestr entity)
+		{
+			this.SendPropertyChanging();
+			entity.Przedmiot = this;
+		}
+		
+		private void detach_PrzedmiotSemestrs(PrzedmiotSemestr entity)
 		{
 			this.SendPropertyChanging();
 			entity.Przedmiot = null;
@@ -2258,7 +2286,7 @@ namespace Indeks.LinqToSql
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Przedmiot_Nazwa", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Przedmiot_Nazwa", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
 		public System.Guid Id_Przedmiot_Nazwa
 		{
 			get
@@ -2344,6 +2372,174 @@ namespace Indeks.LinqToSql
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PrzedmiotSemestr")]
+	public partial class PrzedmiotSemestr : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _Id_Przedmiot;
+		
+		private System.Guid _Id_Semestr;
+		
+		private EntityRef<Przedmiot> _Przedmiot;
+		
+		private EntityRef<Semestr> _Semestr;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnId_PrzedmiotChanging(System.Guid value);
+    partial void OnId_PrzedmiotChanged();
+    partial void OnId_SemestrChanging(System.Guid value);
+    partial void OnId_SemestrChanged();
+    #endregion
+		
+		public PrzedmiotSemestr()
+		{
+			this._Przedmiot = default(EntityRef<Przedmiot>);
+			this._Semestr = default(EntityRef<Semestr>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Przedmiot", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id_Przedmiot
+		{
+			get
+			{
+				return this._Id_Przedmiot;
+			}
+			set
+			{
+				if ((this._Id_Przedmiot != value))
+				{
+					if (this._Przedmiot.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnId_PrzedmiotChanging(value);
+					this.SendPropertyChanging();
+					this._Id_Przedmiot = value;
+					this.SendPropertyChanged("Id_Przedmiot");
+					this.OnId_PrzedmiotChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Semestr", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id_Semestr
+		{
+			get
+			{
+				return this._Id_Semestr;
+			}
+			set
+			{
+				if ((this._Id_Semestr != value))
+				{
+					if (this._Semestr.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnId_SemestrChanging(value);
+					this.SendPropertyChanging();
+					this._Id_Semestr = value;
+					this.SendPropertyChanged("Id_Semestr");
+					this.OnId_SemestrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Przedmiot_PrzedmiotSemestr", Storage="_Przedmiot", ThisKey="Id_Przedmiot", OtherKey="Id_Przedmiot", IsForeignKey=true)]
+		public Przedmiot Przedmiot
+		{
+			get
+			{
+				return this._Przedmiot.Entity;
+			}
+			set
+			{
+				Przedmiot previousValue = this._Przedmiot.Entity;
+				if (((previousValue != value) 
+							|| (this._Przedmiot.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Przedmiot.Entity = null;
+						previousValue.PrzedmiotSemestrs.Remove(this);
+					}
+					this._Przedmiot.Entity = value;
+					if ((value != null))
+					{
+						value.PrzedmiotSemestrs.Add(this);
+						this._Id_Przedmiot = value.Id_Przedmiot;
+					}
+					else
+					{
+						this._Id_Przedmiot = default(System.Guid);
+					}
+					this.SendPropertyChanged("Przedmiot");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Semestr_PrzedmiotSemestr", Storage="_Semestr", ThisKey="Id_Semestr", OtherKey="Id_Semestr", IsForeignKey=true)]
+		public Semestr Semestr
+		{
+			get
+			{
+				return this._Semestr.Entity;
+			}
+			set
+			{
+				Semestr previousValue = this._Semestr.Entity;
+				if (((previousValue != value) 
+							|| (this._Semestr.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Semestr.Entity = null;
+						previousValue.PrzedmiotSemestrs.Remove(this);
+					}
+					this._Semestr.Entity = value;
+					if ((value != null))
+					{
+						value.PrzedmiotSemestrs.Add(this);
+						this._Id_Semestr = value.Id_Semestr;
+					}
+					else
+					{
+						this._Id_Semestr = default(System.Guid);
+					}
+					this.SendPropertyChanged("Semestr");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Semestr")]
 	public partial class Semestr : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -2354,7 +2550,9 @@ namespace Indeks.LinqToSql
 		
 		private string _Semestr_Nazwa;
 		
-		private EntitySet<GrupaSemestrPrzedmiotWykladowca> _GrupaSemestrPrzedmiotWykladowcas;
+		private EntitySet<GrupaSemestrPrzedmiot> _GrupaSemestrPrzedmiots;
+		
+		private EntitySet<PrzedmiotSemestr> _PrzedmiotSemestrs;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -2368,11 +2566,12 @@ namespace Indeks.LinqToSql
 		
 		public Semestr()
 		{
-			this._GrupaSemestrPrzedmiotWykladowcas = new EntitySet<GrupaSemestrPrzedmiotWykladowca>(new Action<GrupaSemestrPrzedmiotWykladowca>(this.attach_GrupaSemestrPrzedmiotWykladowcas), new Action<GrupaSemestrPrzedmiotWykladowca>(this.detach_GrupaSemestrPrzedmiotWykladowcas));
+			this._GrupaSemestrPrzedmiots = new EntitySet<GrupaSemestrPrzedmiot>(new Action<GrupaSemestrPrzedmiot>(this.attach_GrupaSemestrPrzedmiots), new Action<GrupaSemestrPrzedmiot>(this.detach_GrupaSemestrPrzedmiots));
+			this._PrzedmiotSemestrs = new EntitySet<PrzedmiotSemestr>(new Action<PrzedmiotSemestr>(this.attach_PrzedmiotSemestrs), new Action<PrzedmiotSemestr>(this.detach_PrzedmiotSemestrs));
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Semestr", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Semestr", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
 		public System.Guid Id_Semestr
 		{
 			get
@@ -2412,16 +2611,29 @@ namespace Indeks.LinqToSql
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Semestr_GrupaSemestrPrzedmiotWykladowca", Storage="_GrupaSemestrPrzedmiotWykladowcas", ThisKey="Id_Semestr", OtherKey="Id_Semestr")]
-		public EntitySet<GrupaSemestrPrzedmiotWykladowca> GrupaSemestrPrzedmiotWykladowcas
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Semestr_GrupaSemestrPrzedmiot", Storage="_GrupaSemestrPrzedmiots", ThisKey="Id_Semestr", OtherKey="Id_Semestr")]
+		public EntitySet<GrupaSemestrPrzedmiot> GrupaSemestrPrzedmiots
 		{
 			get
 			{
-				return this._GrupaSemestrPrzedmiotWykladowcas;
+				return this._GrupaSemestrPrzedmiots;
 			}
 			set
 			{
-				this._GrupaSemestrPrzedmiotWykladowcas.Assign(value);
+				this._GrupaSemestrPrzedmiots.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Semestr_PrzedmiotSemestr", Storage="_PrzedmiotSemestrs", ThisKey="Id_Semestr", OtherKey="Id_Semestr")]
+		public EntitySet<PrzedmiotSemestr> PrzedmiotSemestrs
+		{
+			get
+			{
+				return this._PrzedmiotSemestrs;
+			}
+			set
+			{
+				this._PrzedmiotSemestrs.Assign(value);
 			}
 		}
 		
@@ -2445,102 +2657,28 @@ namespace Indeks.LinqToSql
 			}
 		}
 		
-		private void attach_GrupaSemestrPrzedmiotWykladowcas(GrupaSemestrPrzedmiotWykladowca entity)
+		private void attach_GrupaSemestrPrzedmiots(GrupaSemestrPrzedmiot entity)
 		{
 			this.SendPropertyChanging();
 			entity.Semestr = this;
 		}
 		
-		private void detach_GrupaSemestrPrzedmiotWykladowcas(GrupaSemestrPrzedmiotWykladowca entity)
+		private void detach_GrupaSemestrPrzedmiots(GrupaSemestrPrzedmiot entity)
 		{
 			this.SendPropertyChanging();
 			entity.Semestr = null;
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SemestrPrzedmiot")]
-	public partial class SemestrPrzedmiot : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _Id_Semestr;
-		
-		private System.Guid _Id_Przedmiot;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnId_SemestrChanging(System.Guid value);
-    partial void OnId_SemestrChanged();
-    partial void OnId_PrzedmiotChanging(System.Guid value);
-    partial void OnId_PrzedmiotChanged();
-    #endregion
-		
-		public SemestrPrzedmiot()
+		private void attach_PrzedmiotSemestrs(PrzedmiotSemestr entity)
 		{
-			OnCreated();
+			this.SendPropertyChanging();
+			entity.Semestr = this;
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Semestr", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid Id_Semestr
+		private void detach_PrzedmiotSemestrs(PrzedmiotSemestr entity)
 		{
-			get
-			{
-				return this._Id_Semestr;
-			}
-			set
-			{
-				if ((this._Id_Semestr != value))
-				{
-					this.OnId_SemestrChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Semestr = value;
-					this.SendPropertyChanged("Id_Semestr");
-					this.OnId_SemestrChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Przedmiot", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid Id_Przedmiot
-		{
-			get
-			{
-				return this._Id_Przedmiot;
-			}
-			set
-			{
-				if ((this._Id_Przedmiot != value))
-				{
-					this.OnId_PrzedmiotChanging(value);
-					this.SendPropertyChanging();
-					this._Id_Przedmiot = value;
-					this.SendPropertyChanged("Id_Przedmiot");
-					this.OnId_PrzedmiotChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
+			this.SendPropertyChanging();
+			entity.Semestr = null;
 		}
 	}
 	
@@ -2572,7 +2710,7 @@ namespace Indeks.LinqToSql
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Stopien_Studiow", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Stopien_Studiow", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
 		public System.Guid Id_Stopien_Studiow
 		{
 			get
@@ -2693,7 +2831,7 @@ namespace Indeks.LinqToSql
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Student", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Student", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
 		public System.Guid Id_Student
 		{
 			get
@@ -3033,7 +3171,7 @@ namespace Indeks.LinqToSql
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Zajecia", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Zajecia", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
 		public System.Guid Id_Zajecia
 		{
 			get
@@ -3147,7 +3285,7 @@ namespace Indeks.LinqToSql
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Typ_Studiow", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Typ_Studiow", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
 		public System.Guid Id_Typ_Studiow
 		{
 			get
@@ -3251,7 +3389,7 @@ namespace Indeks.LinqToSql
 		
 		private int _Nr_Wykladowcy;
 		
-		private EntitySet<GrupaSemestrPrzedmiotWykladowca> _GrupaSemestrPrzedmiotWykladowcas;
+		private EntitySet<Przedmiot> _Przedmiots;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -3273,11 +3411,11 @@ namespace Indeks.LinqToSql
 		
 		public Wykladowca()
 		{
-			this._GrupaSemestrPrzedmiotWykladowcas = new EntitySet<GrupaSemestrPrzedmiotWykladowca>(new Action<GrupaSemestrPrzedmiotWykladowca>(this.attach_GrupaSemestrPrzedmiotWykladowcas), new Action<GrupaSemestrPrzedmiotWykladowca>(this.detach_GrupaSemestrPrzedmiotWykladowcas));
+			this._Przedmiots = new EntitySet<Przedmiot>(new Action<Przedmiot>(this.attach_Przedmiots), new Action<Przedmiot>(this.detach_Przedmiots));
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Wykladowcy", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_Wykladowcy", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
 		public System.Guid Id_Wykladowcy
 		{
 			get
@@ -3397,16 +3535,16 @@ namespace Indeks.LinqToSql
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Wykladowca_GrupaSemestrPrzedmiotWykladowca", Storage="_GrupaSemestrPrzedmiotWykladowcas", ThisKey="Id_Wykladowcy", OtherKey="Id_Wykladowca")]
-		public EntitySet<GrupaSemestrPrzedmiotWykladowca> GrupaSemestrPrzedmiotWykladowcas
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Wykladowca_Przedmiot", Storage="_Przedmiots", ThisKey="Id_Wykladowcy", OtherKey="Id_Wykladowcy")]
+		public EntitySet<Przedmiot> Przedmiots
 		{
 			get
 			{
-				return this._GrupaSemestrPrzedmiotWykladowcas;
+				return this._Przedmiots;
 			}
 			set
 			{
-				this._GrupaSemestrPrzedmiotWykladowcas.Assign(value);
+				this._Przedmiots.Assign(value);
 			}
 		}
 		
@@ -3430,13 +3568,13 @@ namespace Indeks.LinqToSql
 			}
 		}
 		
-		private void attach_GrupaSemestrPrzedmiotWykladowcas(GrupaSemestrPrzedmiotWykladowca entity)
+		private void attach_Przedmiots(Przedmiot entity)
 		{
 			this.SendPropertyChanging();
 			entity.Wykladowca = this;
 		}
 		
-		private void detach_GrupaSemestrPrzedmiotWykladowcas(GrupaSemestrPrzedmiotWykladowca entity)
+		private void detach_Przedmiots(Przedmiot entity)
 		{
 			this.SendPropertyChanging();
 			entity.Wykladowca = null;

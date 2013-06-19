@@ -172,7 +172,7 @@ namespace Indeks.ViewModels
                     OnPropertyChanged();
                     Semesters = Student.Semesters(_wybranaGrupa);
                     WybranySemestr = 0;
-                    CurrentGrupa = Grupa.FindGrupaIdByName(_wybranaGrupa);
+                    CurrentGrupa = Grupa.FindGrupaIdByFullName(_wybranaGrupa);
                 }
             }
         }

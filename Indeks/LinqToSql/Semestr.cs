@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Indeks.LinqToSql
 {
@@ -12,7 +13,8 @@ namespace Indeks.LinqToSql
         {
             get
             {
-                return this.GrupaSemestrPrzedmiotWykladowcas.Select(x => x.Przedmiot).ToList(); 
+                var grupa_id = (Guid)Application.Current.Properties["idgrupa"];
+                return GrupaSemestrPrzedmiots.Where(x => x.Id_Semestr == this.Id_Semestr && x.Id_Grupa == grupa_id).Select(x => x.Przedmiot).ToList();
 
             }
         }

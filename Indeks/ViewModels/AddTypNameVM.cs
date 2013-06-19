@@ -46,6 +46,9 @@ namespace Indeks.ViewModels
             };
             context.Typ_Zajecs.InsertOnSubmit(typname);
             context.SubmitChanges();
+
+            Window frm = (Window)parameter;
+            frm.Close();
         }
 
         private string _selectedTyp;

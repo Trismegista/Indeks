@@ -20,14 +20,28 @@ namespace Indeks.ViewModels
             ExecuteAddPrzedmiotCommand = new Commanding(AddPrzedmiotCommand, CanAddPrzedmiotCommand);
             ExecuteAddPrzedmiotNameCommand = new Commanding(AddPrzedmiotNameCommand, CanAddPrzedmiotNameCommand);
             ExecuteAddTypCommand = new Commanding(AddTypNameCommand, CanAddTypNameCommand);
+            ExecuteAddWykladowca = new Commanding(AddWykladowcaCommand, CanAddWykladowcaCommand);
 
             TypName = Typ_Zajec.GetZajecias();
             PrzedmiotName = Przedmiot.GetPrzedmiotsNames();
+            WykladowcaName = Wykladowca.GetWykladowcas();
+        }
+
+        private bool CanAddWykladowcaCommand(object parameter)
+        {
+            return true;
+        }
+
+        private void AddWykladowcaCommand(object parameter)
+        {
+            AddWykladowca frm = new AddWykladowca();
+            Nullable<bool> dialogResult = frm.ShowDialog(); 
         }
 
         public ICommand ExecuteAddPrzedmiotCommand { get; set; }
         public ICommand ExecuteAddPrzedmiotNameCommand { get; set; }
         public ICommand ExecuteAddTypCommand { get; set; }
+        public ICommand ExecuteAddWykladowca { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string property = "")
@@ -66,13 +80,14 @@ namespace Indeks.ViewModels
 
             Guid idTyp = Typ_Zajec.FindZajeciasIdByName(_selectedTyp);
             Guid idPrzedmiotNazwa = Przedmiot.FindPrzedmiotNazwaIdByNazwa(_selectedPrzedmiot);
-
+            Guid idWykladowca = Wykladowca.FindWykladowcaIdByName(_selectedWykladowca);
             var przedmiot = new Przedmiot
             {
                 Id_PrzedmiotNazwa = idPrzedmiotNazwa,
                 Id_Typ_Zajec = idTyp,
                 Godziny = Convert.ToInt32(_liczbaGodzin),
-                PunktyETCS = Convert.ToInt32(_punktyETCS)
+                PunktyETCS = Convert.ToInt32(_punktyETCS),
+                Id_Wykladowcy = idWykladowca
             };
             context.Przedmiots.InsertOnSubmit(przedmiot);
             context.SubmitChanges();
@@ -124,6 +139,20 @@ namespace Indeks.ViewModels
             }
         }
 
+        private List<string> _wykladowcaName;
+        public List<string> WykladowcaName
+        {
+            get
+            {
+                return _wykladowcaName;
+            }
+            set
+            {
+                _wykladowcaName = value;
+                OnPropertyChanged();
+            }
+        }
+        
         #endregion
 
         #region From <-
@@ -157,6 +186,22 @@ namespace Indeks.ViewModels
                 if (value != _selectedTyp)
                 {
                     _selectedTyp = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _selectedWykladowca;
+        public string SelectedWykladowca
+        {
+            get
+            {
+                return _selectedWykladowca;
+            }
+            set
+            {
+                if (value != _selectedWykladowca)
+                {
+                    _selectedWykladowca = value;
                     OnPropertyChanged();
                 }
             }

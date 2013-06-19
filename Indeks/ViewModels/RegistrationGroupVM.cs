@@ -89,7 +89,7 @@ namespace Indeks.ViewModels
             {
                 Id_Ciag = idCiag,
                 Id_Kierunek = idKierunek,
-                Id_Grupa_Nazwa = Grupa.FindGrupaIdByName(_selectedGroup)
+                Id_Grupa_Nazwa = idGrupa
             };
             context.Grupas.InsertOnSubmit(grupa);
             context.SubmitChanges();

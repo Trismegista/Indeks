@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Indeks.LinqToSql
 {
@@ -30,7 +31,6 @@ namespace Indeks.LinqToSql
                 string fullName = nazwaKierunku+"-"+nazwaCiagu+"-"+nazwaGrupy;
                 grupaStringList.Add(fullName);
             }
-
             return grupaStringList;
         }
 
@@ -42,9 +42,10 @@ namespace Indeks.LinqToSql
             Guid idCiag = db.Ciags.Where(x => x.Ciag_Nazwa == splitGrupa[1]).Select(x => x.Id_Ciag).SingleOrDefault();
             Guid idGrupaNazwa = db.GrupaNazwas.Where(x => x.Grupa_Nazwa == splitGrupa[2]).Select(x => x.Id_Grupa_Nazwa).SingleOrDefault();
             Guid idgrupa = db.Grupas.Where(x => x.Id_Kierunek == idKierunek).Where(x => x.Id_Ciag == idCiag).Where(x => x.Id_Grupa_Nazwa == idGrupaNazwa).Select(x => x.Id_Grupa).SingleOrDefault();
+            //var cos = db.GrupaSemestrPrzedmiotWykladowcas.Where(x => x.Id_Grupa == idgrupa).Select(x => x.Semestr);            
+            Application.Current.Properties["idgrupa"] = idgrupa;
+            return db.GrupaSemestrPrzedmiots.Where(x => x.Id_Grupa == idgrupa).Select(x => x.Semestr).GroupBy(x => x.Id_Semestr).Select(x => x.First());
 
-            return db.Grupas.Where(x => x.Id_Grupa == idgrupa).SingleOrDefault().GrupaSemestrPrzedmiotWykladowcas.Select(x => x.Semestr).OrderBy(x => x.Semestr_Nazwa).AsQueryable();
-            //return db.Students.Where(x => x.Nr_Indeksu == index).SingleOrDefault().StudentSemestrs.Select(x=>x.Semestr).OrderBy(x=>x.Semestr_Nazwa).AsQueryable();
         }
 
         public static Guid FindStudentIdByIndex(int index)

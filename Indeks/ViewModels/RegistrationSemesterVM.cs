@@ -23,11 +23,9 @@ namespace Indeks.ViewModels
             ExecuteAddSemesterCommand = new Commanding(RegisterSemester, CanRegisterSemester);
             ExecuteAddSemesterNameCommand = new Commanding(AddSemesterName, CanAddSemesterName);
             ExecuteAddPrzedmiotName = new Commanding(AddPrzedmiot, CanAddPrzedmiotName);
-            ExecuteAddWykladowcaCommand = new Commanding(AddWykladowca, CanAddWykladowca);
 
             SemesterName = Semestr.GetSemestersNames();
             PrzedmiotName = Przedmiot.GetPrzedmiots();
-            WykladowcaName = Wykladowca.GetWykladowcas();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -63,16 +61,6 @@ namespace Indeks.ViewModels
             }
         }
 
-        private string _selectedWykladowca;
-        public string SelectedWykladowca
-        {
-            get { return _selectedWykladowca; }
-            set
-            {
-                _selectedWykladowca = value;
-                OnPropertyChanged("RodzajStudiow");
-            }
-        }
         private List<string> _semesterName;
         public List<string> SemesterName
         {
@@ -101,19 +89,6 @@ namespace Indeks.ViewModels
             }
         }
 
-        private List<string> _wykladowcaName;
-        public List<string> WykladowcaName
-        {
-            get
-            {
-                return _wykladowcaName;
-            }
-            set
-            {
-                _wykladowcaName = value;
-                OnPropertyChanged();
-            }
-        }
         #endregion
 
         #region Commands
@@ -121,7 +96,6 @@ namespace Indeks.ViewModels
         public ICommand ExecuteAddSemesterCommand { get; set; }
         public ICommand ExecuteAddSemesterNameCommand { get; set; }
         public ICommand ExecuteAddPrzedmiotName { get; set; }
-        public ICommand ExecuteAddWykladowcaCommand { get; set; }
 
         #endregion
 
@@ -130,11 +104,6 @@ namespace Indeks.ViewModels
         private bool CanRegisterSemester(object parameter)
         {
  	        return true;
-        }
-
-        private bool CanAddWykladowca(object parameter)
-        {
-            return true;
         }
 
         private bool CanAddPrzedmiotName(object parameter)
@@ -155,27 +124,19 @@ namespace Indeks.ViewModels
             DataClasses1DataContext context = new DataClasses1DataContext();
             Guid idSemestr = Semestr.FindSemestrIdByName(_selectedSemester);
             Guid idPrzedmiot = Przedmiot.FindPrzedmiotIdByFullName(_selectedPrzedmiot);
-            Guid idWykladowca = Wykladowca.FindWykladowcaIdByName(_selectedWykladowca);
 
-            var grupaSemestrWykladowcaPrzedmiot = new GrupaSemestrPrzedmiotWykladowca
+            var grupaSemestrPrzedmiot = new GrupaSemestrPrzedmiot
             {
                 Id_Grupa = CurrentGroupId,
                 Id_Przedmiot = idPrzedmiot,
-                Id_Wykladowca = idWykladowca,
                 Id_Semestr = idSemestr
             };
 
-            context.GrupaSemestrPrzedmiotWykladowcas.InsertOnSubmit(grupaSemestrWykladowcaPrzedmiot);
+            context.GrupaSemestrPrzedmiots.InsertOnSubmit(grupaSemestrPrzedmiot);
             context.SubmitChanges();
 
             Window frm = (Window)parameter;
             frm.Close();
-        }
-
-        private void AddWykladowca(object parameter)
-        {
-            AddWykladowca frm = new AddWykladowca();
-            Nullable<bool> dialogResult = frm.ShowDialog();
         }
 
         private void AddPrzedmiot(object parameter)
@@ -188,6 +149,7 @@ namespace Indeks.ViewModels
         {
             AddSemesterName frm = new AddSemesterName();
             Nullable<bool> dialogResult = frm.ShowDialog();
+            SemesterName = Semestr.GetSemestersNames();
         }
         #endregion
 

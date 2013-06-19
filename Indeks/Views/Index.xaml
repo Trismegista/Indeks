@@ -122,7 +122,7 @@
                                     </StackPanel>
                                 </DockPanel>
                             </StackPanel>
-                            <ListView Grid.Row="1" ItemsSource="{Binding Przedmioty}" >
+                            <ListView Grid.Row="1" ItemsSource="{Binding Przedmioty}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">

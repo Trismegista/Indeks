@@ -58,20 +58,6 @@
                         Grid.Column="3"
                         Grid.Row="2"/>
             <TextBlock Grid.Column="0"
-                   Grid.Row="3">Wykładowca:
-            </TextBlock>
-            <ComboBox Grid.Column="1"
-                     Grid.Row="3"
-                     ItemsSource="{Binding WykladowcaName}" SelectedItem="{Binding SelectedWykladowca}">
-            </ComboBox>
-            <Button Command="{Binding ExecuteAddWykladowcaCommand}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                        Content="+" 
-                        Width="30"
-                        Height="30"
-                        Grid.Column="3"
-                        Grid.Row="3"/>
-            <TextBlock Grid.Column="0"
                    Grid.Row="4">Liczba godzin:
             </TextBlock>
             <TextBlock Grid.Column="1"

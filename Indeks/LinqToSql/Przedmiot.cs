@@ -7,26 +7,19 @@ using System.Threading.Tasks;
 namespace Indeks.LinqToSql
 {
     public partial class Przedmiot
-    {
-        public Wykladowca Wykladowca
-        {
-            get
-            {
-                return GrupaSemestrPrzedmiotWykladowcas.Where(x => x.Id_Przedmiot == this.Id_Przedmiot).Select(x => x.Wykladowca).SingleOrDefault();
-            }
-        }
+    {        
         public PrzedmiotNazwa Przedmiot_Nazwa
         {
             get
             {
-                return GrupaSemestrPrzedmiotWykladowcas.Where(x => x.Przedmiot.Id_Przedmiot == this.Id_Przedmiot).SingleOrDefault().Przedmiot.PrzedmiotNazwa;
+                return PrzedmiotNazwa;
             }
         }
         public Typ_Zajec TypZajec
         {
             get
             {
-                return GrupaSemestrPrzedmiotWykladowcas.Where(x => x.Przedmiot.Id_Przedmiot == this.Id_Przedmiot).SingleOrDefault().Przedmiot.Typ_Zajec;
+                return GrupaSemestrPrzedmiots.Where(x => x.Przedmiot.Id_Przedmiot == this.Id_Przedmiot).SingleOrDefault().Przedmiot.Typ_Zajec;
             }
         }
 

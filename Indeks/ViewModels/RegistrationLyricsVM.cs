@@ -91,22 +91,22 @@ namespace Indeks.ViewModels
 
             var newPrzedmiot = new Przedmiot
             {
-                Id_Przedmiot = PrzedmiotNazwaId,
+                Id_PrzedmiotNazwa = PrzedmiotNazwaId,
                 Id_Typ_Zajec = idTyp,
                 PunktyETCS = Convert.ToInt32(_punktyETCS),
-                Godziny = Convert.ToInt32(_liczbaGodzin)
+                Godziny = Convert.ToInt32(_liczbaGodzin),
+                Id_Wykladowcy = idWykladowcy
             };
             context.Przedmiots.InsertOnSubmit(newPrzedmiot);
             context.SubmitChanges();
 
-            var grupaPrzedmiotSemestrWykladowca = new GrupaSemestrPrzedmiotWykladowca
+            var grupaPrzedmiotSemestr = new GrupaSemestrPrzedmiot
             {
                 Id_Grupa = _idGrupa,
                 Id_Semestr = _idSemestr,
-                Id_Wykladowca = idWykladowcy,
                 Id_Przedmiot = newPrzedmiot.Id_Przedmiot
             };
-            context.GrupaSemestrPrzedmiotWykladowcas.InsertOnSubmit(grupaPrzedmiotSemestrWykladowca);
+            context.GrupaSemestrPrzedmiots.InsertOnSubmit(grupaPrzedmiotSemestr);
             context.SubmitChanges();
         }
 
