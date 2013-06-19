@@ -75,6 +75,7 @@
     <Compile Include="ViewModels\AddCiagVM.cs" />
     <Compile Include="ViewModels\AddGroupVM.cs" />
     <Compile Include="ViewModels\AddKierunekVM.cs" />
+    <Compile Include="ViewModels\AddNewPrzedmiot.cs" />
     <Compile Include="ViewModels\AddPrzedmiotNameVM.cs" />
     <Compile Include="ViewModels\AddSemestrNameVM.cs" />
     <Compile Include="ViewModels\AddTypNameVM.cs" />
@@ -95,6 +96,9 @@
     </Compile>
     <Compile Include="Views\AddKierunek.xaml.cs">
       <DependentUpon>AddKierunek.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddNewPrzedmiot.xaml.cs">
+      <DependentUpon>AddNewPrzedmiot.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AddPrzedmiot.xaml.cs">
       <DependentUpon>AddPrzedmiot.xaml</DependentUpon>
@@ -129,6 +133,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddKierunek.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddNewPrzedmiot.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

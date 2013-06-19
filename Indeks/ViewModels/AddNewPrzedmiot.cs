@@ -13,31 +13,21 @@ using System.Windows.Input;
 
 namespace Indeks.ViewModels
 {
-    class RegistrationLyricsVM : ApplicationVM
+    public class AddNewPrzedmiotVM : ApplicationVM
     {
-        Guid _idGrupa;
-        Guid _idSemestr;
-
-        public RegistrationLyricsVM(Guid idGrupa, Guid idSemestr)
+        public AddNewPrzedmiotVM()
         {
-            _idGrupa = idGrupa;
-            _idSemestr = idSemestr;
             ExecuteAddPrzedmiotCommand = new Commanding(AddPrzedmiotCommand, CanAddPrzedmiotCommand);
-            ExecuteAddPrzedmiotContinueCommand = new Commanding(AddPrzedmiotAndContinueCommand, CanAddPrzedmiotAndContinueCommand);
             ExecuteAddPrzedmiotNameCommand = new Commanding(AddPrzedmiotNameCommand, CanAddPrzedmiotNameCommand);
             ExecuteAddTypCommand = new Commanding(AddTypNameCommand, CanAddTypNameCommand);
-            ExecuteAddWykladowcaCommand = new Commanding(AddWykladowcaCommand, CanAddWykladowcaCommand);
 
             TypName = Typ_Zajec.GetZajecias();
             PrzedmiotName = Przedmiot.GetPrzedmiotsNames();
-            WykladowcaName = Wykladowca.GetWykladowcas();
         }
 
         public ICommand ExecuteAddPrzedmiotCommand { get; set; }
-        public ICommand ExecuteAddPrzedmiotContinueCommand { get; set; }
         public ICommand ExecuteAddPrzedmiotNameCommand { get; set; }
         public ICommand ExecuteAddTypCommand { get; set; }
-        public ICommand ExecuteAddWykladowcaCommand { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string property = "")
@@ -52,18 +42,7 @@ namespace Indeks.ViewModels
 
         private bool CanAddPrzedmiotCommand(object parameter)
         {
-            if (String.IsNullOrEmpty(_selectedTyp) || String.IsNullOrEmpty(_selectedPrzedmiot) || String.IsNullOrEmpty(_selectedWykladowca) || String.IsNullOrEmpty(_liczbaGodzin) || String.IsNullOrEmpty(_punktyETCS)) return false;
-            return true;
-        }
-
-        private bool CanAddPrzedmiotAndContinueCommand(object parameter)
-        {
-            if (String.IsNullOrEmpty(_selectedTyp) || String.IsNullOrEmpty(_selectedPrzedmiot) || String.IsNullOrEmpty(_selectedWykladowca) || String.IsNullOrEmpty(_liczbaGodzin) || String.IsNullOrEmpty(_punktyETCS)) return false;
-            return true;
-        }
-
-        private bool CanAddWykladowcaCommand(object parameter)
-        {
+            if (String.IsNullOrEmpty(_selectedTyp) || String.IsNullOrEmpty(_selectedPrzedmiot) || String.IsNullOrEmpty(_liczbaGodzin) || String.IsNullOrEmpty(_punktyETCS)) return false;
             return true;
         }
 
@@ -81,57 +60,25 @@ namespace Indeks.ViewModels
 
         #region CommandExecute
 
-        private void dodaj_przedmiot()
+        private void AddPrzedmiotCommand(object parameter)
         {
             DataClasses1DataContext context = new DataClasses1DataContext();
 
-            Guid idWykladowcy = Wykladowca.FindWykladowcaIdByName(_selectedWykladowca);
             Guid idTyp = Typ_Zajec.FindZajeciasIdByName(_selectedTyp);
-            Guid PrzedmiotNazwaId = Przedmiot.FindPrzedmiotNazwaIdByNazwa(_selectedPrzedmiot);
+            Guid idPrzedmiotNazwa = Przedmiot.FindPrzedmiotNazwaIdByNazwa(_selectedPrzedmiot);
 
-            var newPrzedmiot = new Przedmiot
+            var przedmiot = new Przedmiot
             {
-                Id_Przedmiot = PrzedmiotNazwaId,
+                Id_PrzedmiotNazwa = idPrzedmiotNazwa,
                 Id_Typ_Zajec = idTyp,
-                PunktyETCS = Convert.ToInt32(_punktyETCS),
-                Godziny = Convert.ToInt32(_liczbaGodzin)
+                Godziny = Convert.ToInt32(_liczbaGodzin),
+                PunktyETCS = Convert.ToInt32(_punktyETCS)
             };
-            context.Przedmiots.InsertOnSubmit(newPrzedmiot);
+            context.Przedmiots.InsertOnSubmit(przedmiot);
             context.SubmitChanges();
-
-            var grupaPrzedmiotSemestrWykladowca = new GrupaSemestrPrzedmiotWykladowca
-            {
-                Id_Grupa = _idGrupa,
-                Id_Semestr = _idSemestr,
-                Id_Wykladowca = idWykladowcy,
-                Id_Przedmiot = newPrzedmiot.Id_Przedmiot
-            };
-            context.GrupaSemestrPrzedmiotWykladowcas.InsertOnSubmit(grupaPrzedmiotSemestrWykladowca);
-            context.SubmitChanges();
-        }
-
-        private void AddPrzedmiotCommand(object parameter)
-        {
-            dodaj_przedmiot();
 
             Window frm = (Window)parameter;
             frm.Close();
-        }
-
-        private void AddPrzedmiotAndContinueCommand(object parameter)
-        {
-            dodaj_przedmiot();
-            _selectedPrzedmiot = string.Empty;
-            _selectedTyp = string.Empty;
-            _selectedWykladowca = string.Empty;
-            _punktyETCS = string.Empty;
-            _liczbaGodzin = string.Empty;
-        }
-
-        private void AddWykladowcaCommand(object parameter)
-        {
-            AddWykladowca frm = new AddWykladowca();
-            Nullable<bool> dialogResult = frm.ShowDialog();
         }
 
         private void AddTypNameCommand(object parameter)
@@ -177,19 +124,6 @@ namespace Indeks.ViewModels
             }
         }
 
-        private List<string> _wykladowcaName;
-        public List<string> WykladowcaName
-        {
-            get
-            {
-                return _wykladowcaName;
-            }
-            set
-            {
-                _wykladowcaName = value;
-                OnPropertyChanged();
-            }
-        }
         #endregion
 
         #region From <-
@@ -223,23 +157,6 @@ namespace Indeks.ViewModels
                 if (value != _selectedTyp)
                 {
                     _selectedTyp = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string _selectedWykladowca;
-        public string SelectedWykladowca
-        {
-            get
-            {
-                return _selectedWykladowca;
-            }
-            set
-            {
-                if (value != _selectedWykladowca)
-                {
-                    _selectedWykladowca = value;
                     OnPropertyChanged();
                 }
             }
@@ -280,6 +197,7 @@ namespace Indeks.ViewModels
         }
 
         #endregion
+
         #endregion
     }
 }

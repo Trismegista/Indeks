@@ -25,7 +25,7 @@ namespace Indeks.ViewModels
         {
             _loginVm = loginVm;
             ExecuteOpenKierunekCommand = new Commanding(AddKierunekCommand, CanAddKierunekCommand);
-            ExecuteOpenGroupCommand = new Commanding(AddGroupCommand, CanAddGroupCommand);
+            ExecuteOpenSemestrCommand = new Commanding(AddSemesterCommand, CanAddSemesterCommand);
             ExecuteOpenPrzedmiotCommand = new Commanding(AddPrzedmiotCommand, CanAddPrzedmiotCommand);
             NumeryIndeksow = Student.CurentUserIndexList(_loginVm.CurrentUserId);
         }
@@ -43,7 +43,7 @@ namespace Indeks.ViewModels
 
         public ICommand ExecuteOpenPrzedmiotCommand { get; set; }
         public ICommand ExecuteTestButtonCommand { get; set; }
-        public ICommand ExecuteOpenGroupCommand { get; set; }
+        public ICommand ExecuteOpenSemestrCommand { get; set; }
         public ICommand ExecuteOpenKierunekCommand { get; set; }
 
         #endregion
@@ -55,7 +55,7 @@ namespace Indeks.ViewModels
             return true;
         }
 
-        private bool CanAddGroupCommand(object parameter)
+        private bool CanAddSemesterCommand(object parameter)
         {
             return true;
         }
@@ -75,19 +75,19 @@ namespace Indeks.ViewModels
         #region Commands Execute
         private void AddPrzedmiotCommand(object parameter)
         {
-            AddPrzedmiot frm = new AddPrzedmiot();
+            AddPrzedmiot frm = new AddPrzedmiot(CurrentGrupa,CurrentSemesterId);
             Nullable<bool> dialogResult = frm.ShowDialog();
         }
 
         private void AddKierunekCommand(object parameter)
         {
-            GroupRegistration frm = new GroupRegistration();
+            GroupRegistration frm = new GroupRegistration(CurrentStudentId);
             Nullable<bool> dialogResult = frm.ShowDialog();
         }
 
-        private void AddGroupCommand(object parameter)
+        private void AddSemesterCommand(object parameter)
         {
-            Window frm = new GroupRegistration();
+            SemesterRegistration frm = new SemesterRegistration(CurrentGrupa);
             Nullable<bool> dialogResult = frm.ShowDialog();
         }
 

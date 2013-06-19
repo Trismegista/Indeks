@@ -152,10 +152,24 @@ namespace Indeks.ViewModels
 
         private void RegisterSemester(object parameter)
         {
-            
+            DataClasses1DataContext context = new DataClasses1DataContext();
+            Guid idSemestr = Semestr.FindSemestrIdByName(_selectedSemester);
+            Guid idPrzedmiot = Przedmiot.FindPrzedmiotIdByFullName(_selectedPrzedmiot);
+            Guid idWykladowca = Wykladowca.FindWykladowcaIdByName(_selectedWykladowca);
 
-            //Window frm = (Window)parameter;
-            //frm.Close();
+            var grupaSemestrWykladowcaPrzedmiot = new GrupaSemestrPrzedmiotWykladowca
+            {
+                Id_Grupa = CurrentGroupId,
+                Id_Przedmiot = idPrzedmiot,
+                Id_Wykladowca = idWykladowca,
+                Id_Semestr = idSemestr
+            };
+
+            context.GrupaSemestrPrzedmiotWykladowcas.InsertOnSubmit(grupaSemestrWykladowcaPrzedmiot);
+            context.SubmitChanges();
+
+            Window frm = (Window)parameter;
+            frm.Close();
         }
 
         private void AddWykladowca(object parameter)
@@ -166,7 +180,7 @@ namespace Indeks.ViewModels
 
         private void AddPrzedmiot(object parameter)
         {
-            AddPrzedmiot frm = new AddPrzedmiot();
+            AddNewPrzedmiot frm = new AddNewPrzedmiot();
             Nullable<bool> dialogResult = frm.ShowDialog();
         }
 

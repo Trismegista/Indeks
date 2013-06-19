@@ -128,7 +128,7 @@
                                     <StackPanel Orientation="Horizontal">
                                             <Border Style="{StaticResource StackPanelBorder}">
                                                 <StackPanel Width="196" Style="{StaticResource StackPanelList}">
-                                            <TextBlock Text="{Binding Przedmiot_Nazwa}" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="{Binding Przedmiot_Nazwa.Przedmiot_Nazwa}" HorizontalAlignment="Center"/>
                                             </StackPanel>
                                             </Border>
                                             <Border Style="{StaticResource StackPanelBorder}">
@@ -146,12 +146,12 @@
                                             </Border>
                                             <Border Style="{StaticResource StackPanelBorder}">
                                         <StackPanel Width="96" Style="{StaticResource StackPanelList}">
-                                            <TextBlock Text="{Binding ZajeciaWartosci.PunktyETCS}" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="{Binding PunktyETCS}" HorizontalAlignment="Center"/>
                                         </StackPanel>
                                             </Border>
                                             <Border Style="{StaticResource StackPanelBorder}">
                                         <StackPanel Width="96" Style="{StaticResource StackPanelList}">
-                                            <TextBlock Text="{Binding ZajeciaWartosci.Liczba_Godzin}" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="{Binding Godziny}" HorizontalAlignment="Center"/>
                                         </StackPanel>
                                             </Border>
                                       </StackPanel>
@@ -171,7 +171,7 @@
                     Command="{Binding ExecuteOpenKierunekCommand}"/>
             <Button HorizontalAlignment="Left" Margin="72,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="106" Grid.Column="1"
                     Content="Dodaj Semestr"
-                    Command="{Binding ExecuteOpenGroupCommand}" Grid.ColumnSpan="2"/>
+                    Command="{Binding ExecuteOpenSemestrCommand}" Grid.ColumnSpan="2"/>
             <Button HorizontalAlignment="Left" Margin="192,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="106" Grid.Column="1"
                     Content="Dodaj Przedmiot"
                     Command="{Binding ExecuteOpenPrzedmiotCommand}" Grid.ColumnSpan="3"/>

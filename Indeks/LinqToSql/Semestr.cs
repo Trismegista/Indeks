@@ -20,7 +20,12 @@ namespace Indeks.LinqToSql
         {
             DataClasses1DataContext db = new DataClasses1DataContext();
             return db.Semestrs.Where(x => x.Semestr_Nazwa != "").OrderBy(x => x.Semestr_Nazwa).Select(x => x.Semestr_Nazwa).ToList();
-            
+        }
+
+        public static Guid FindSemestrIdByName(string name)
+        {
+            DataClasses1DataContext db = new DataClasses1DataContext();
+            return db.Semestrs.Where(x => x.Semestr_Nazwa == name).Select(x => x.Id_Semestr).SingleOrDefault();
         }
         public string NaglowekPrzedmiot { get { return "Przedmiot"; } }
         public string NaglowekWykladowca { get { return "Wykładowca"; } }

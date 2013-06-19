@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using Indeks.LinqToSql;
 
 namespace Indeks.ViewModels
 {
@@ -15,10 +16,10 @@ namespace Indeks.ViewModels
     {
         public AddTypNameVM()
         {
-            ExecuteAddTypCommand = new Commanding(AddTypCommand, CanAddTypCommand);
+            ExecuteAddTypNameCommand = new Commanding(AddTypNameCommand, CanAddTypNameCommand);
         }
 
-        public ICommand ExecuteAddTypCommand { get; set; }
+        public ICommand ExecuteAddTypNameCommand { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string property = "")
@@ -29,14 +30,22 @@ namespace Indeks.ViewModels
             }
         }
 
-        private bool CanAddTypCommand(object parameter)
+        private bool CanAddTypNameCommand(object parameter)
         {
+            if (String.IsNullOrEmpty(_typNazwa)) return false;
             return true;
         }
 
-        private void AddTypCommand(object parameter)
+        private void AddTypNameCommand(object parameter)
         {
-            throw new NotImplementedException();
+            DataClasses1DataContext context = new DataClasses1DataContext();
+
+            var typname = new Typ_Zajec
+            {
+                Typ_Zajec_Nazwa = _typNazwa
+            };
+            context.Typ_Zajecs.InsertOnSubmit(typname);
+            context.SubmitChanges();
         }
 
         private string _selectedTyp;
@@ -51,6 +60,23 @@ namespace Indeks.ViewModels
                 if (value != _selectedTyp)
                 {
                     _selectedTyp = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _typNazwa;
+        public string TypNazwa
+        {
+            get
+            {
+                return _typNazwa;
+            }
+            set
+            {
+                if (value != _typNazwa)
+                {
+                    _typNazwa = value;
                     OnPropertyChanged();
                 }
             }

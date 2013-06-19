@@ -46,6 +46,9 @@ namespace Indeks.ViewModels
             };
             context.PrzedmiotNazwas.InsertOnSubmit(nazwaPrzedmiot);
             context.SubmitChanges();
+
+            Window frm = (Window)parameter;
+            frm.Close();
         }
 
         private string _przedmiotName;

@@ -16,17 +16,13 @@ using System.Windows.Shapes;
 namespace Indeks.Views
 {
     /// <summary>
-    /// Interaction logic for AddPrzedmiot.xaml
+    /// Interaction logic for AddNewPrzedmiotVM.xaml
     /// </summary>
-    public partial class AddPrzedmiot : Window
+    public partial class AddNewPrzedmiot : Window
     {
-        Guid _idGrupa;
-        Guid _idSemestr;
-        public AddPrzedmiot(Guid idGrupa, Guid idSemestr)
+        public AddNewPrzedmiot()
         {
-            _idSemestr = idSemestr;
-            _idGrupa = idGrupa;
-            DataContext = new RegistrationLyricsVM(_idGrupa,_idSemestr);
+            DataContext = new AddNewPrzedmiotVM();
             InitializeComponent();
         }
     }

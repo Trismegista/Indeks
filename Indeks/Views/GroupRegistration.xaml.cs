@@ -15,10 +15,10 @@ using System.Windows.Shapes;
 
 namespace Indeks.Views
 {
-    public partial class Semester : Window
+    public partial class GroupRegistration : Window
     {
         private Guid _studentId;
-        public Semester(Guid studentId)
+        public GroupRegistration(Guid studentId)
         {
             _studentId = studentId;
             DataContext = new RegistrationGroupVM(_studentId);

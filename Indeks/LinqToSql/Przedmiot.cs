@@ -13,17 +13,23 @@ namespace Indeks.LinqToSql
             get
             {
                 return GrupaSemestrPrzedmiotWykladowcas.Where(x => x.Id_Przedmiot == this.Id_Przedmiot).Select(x => x.Wykladowca).SingleOrDefault();
-                //return WykladowcaPrzedmiots.Where(x => x.Przedmiot.Id_Przedmiot == this.Id_Przedmiot).Select(x => x.Wykladowca).SingleOrDefault();
+            }
+        }
+        public PrzedmiotNazwa Przedmiot_Nazwa
+        {
+            get
+            {
+                return GrupaSemestrPrzedmiotWykladowcas.Where(x => x.Przedmiot.Id_Przedmiot == this.Id_Przedmiot).SingleOrDefault().Przedmiot.PrzedmiotNazwa;
+            }
+        }
+        public Typ_Zajec TypZajec
+        {
+            get
+            {
+                return GrupaSemestrPrzedmiotWykladowcas.Where(x => x.Przedmiot.Id_Przedmiot == this.Id_Przedmiot).SingleOrDefault().Przedmiot.Typ_Zajec;
             }
         }
 
-        //public Typ_Zajec Typ_Zajec
-        //{
-        //    get
-        //    {
-        //        return ZajeciaPrzedmiots.Where(x => x.Przedmiot.Id_Przedmiot == this.Id_Przedmiot).Select(x => x.Typ_Zajec).SingleOrDefault();
-        //    }
-        //}
 
         public static List<string> GetPrzedmiots()
         {
@@ -37,7 +43,7 @@ namespace Indeks.LinqToSql
                     string punktyETCS = db.Przedmiots.Where(x => x.Id_Przedmiot == val.Id_Przedmiot).Select(x => x.PunktyETCS).SingleOrDefault().ToString();
                     string liczbaGodzin = db.Przedmiots.Where(x => x.Id_Przedmiot == val.Id_Przedmiot).Select(x => x.Godziny).SingleOrDefault().ToString();
 
-                    string nazwyPrzedmiotow = nazwaPrzedmiotu + '-' + nazwaTypZajec + '-' + punktyETCS + '-' + liczbaGodzin;
+                    string nazwyPrzedmiotow = nazwaPrzedmiotu + "-" + nazwaTypZajec + "-Punkty:" + punktyETCS + "-Godz.:" + liczbaGodzin;
                     listaPrzedmiotow.Add(nazwyPrzedmiotow);
                 }
 
@@ -54,6 +60,15 @@ namespace Indeks.LinqToSql
         {
             DataClasses1DataContext db = new DataClasses1DataContext();
             return db.PrzedmiotNazwas.Where(x => x.Przedmiot_Nazwa == name).Select(x => x.Id_Przedmiot_Nazwa).SingleOrDefault();
+        }
+
+        public static Guid FindPrzedmiotIdByFullName(string name)
+        {
+            DataClasses1DataContext db = new DataClasses1DataContext();
+            string[] grupyTematycznePrzedmiotu = name.Split('-');
+            Guid idPrzedmiotNazwa = db.PrzedmiotNazwas.Where(x => x.Przedmiot_Nazwa == grupyTematycznePrzedmiotu[0]).Select(x => x.Id_Przedmiot_Nazwa).SingleOrDefault();
+            Guid idTyp = db.Typ_Zajecs.Where(x => x.Typ_Zajec_Nazwa == grupyTematycznePrzedmiotu[1]).Select(x => x.Id_Zajecia).SingleOrDefault();
+            return db.Przedmiots.Where(x => x.Id_PrzedmiotNazwa == idPrzedmiotNazwa).Where(x => x.Id_Typ_Zajec == idTyp).Select(x=>x.Id_Przedmiot).SingleOrDefault();
         }
     }
 }
