@@ -15,11 +15,8 @@ namespace Indeks.ViewModels
 {
     class RegistrationLyricsVM : ApplicationVM
     {
-        Guid _idSemester;
-        public RegistrationLyricsVM(Guid idSemester, Guid idGrupa)
+        public RegistrationLyricsVM()
         {
-            _idSemester = idSemester;
-
             ExecuteAddPrzedmiotCommand = new Commanding(AddPrzedmiotCommand, CanAddPrzedmiotCommand);
             ExecuteAddPrzedmiotContinueCommand = new Commanding(AddPrzedmiotAndContinueCommand, CanAddPrzedmiotAndContinueCommand);
             ExecuteAddPrzedmiotNameCommand = new Commanding(AddPrzedmiotNameCommand, CanAddPrzedmiotNameCommand);
@@ -27,7 +24,7 @@ namespace Indeks.ViewModels
             ExecuteAddWykladowcaCommand = new Commanding(AddWykladowcaCommand, CanAddWykladowcaCommand);
 
             TypName = Typ_Zajec.GetZajecias();
-            PrzedmiotName = Przedmiot.GetPrzedmiots();
+            PrzedmiotName = Przedmiot.GetPrzedmiotsNames();
             WykladowcaName = Wykladowca.GetWykladowcas();
         }
 
@@ -86,7 +83,6 @@ namespace Indeks.ViewModels
             Guid idWykladowcy = Wykladowca.FindWykladowcaIdByName(_selectedWykladowca);
             Guid idTyp = Typ_Zajec.FindZajeciasIdByName(_selectedTyp);
             Guid idPrzedmiot = Przedmiot.FindPrzedmiotNazwaIdByNazwa(_selectedPrzedmiot);
-            var cos =_idSemester;
 
             
             //var wartosc = new ZajeciaWartosci

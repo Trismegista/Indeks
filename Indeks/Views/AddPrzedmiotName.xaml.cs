@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace Indeks.Views
 {
     /// <summary>
-    /// Interaction logic for AddPrzedmiotName.xaml
+    /// Interaction logic for AddPrzedmiot.xaml
     /// </summary>
     public partial class AddPrzedmiotName : Window
     {

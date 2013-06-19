@@ -15,15 +15,14 @@ using System.Windows.Shapes;
 
 namespace Indeks.Views
 {
-    /// <summary>
-    /// Interaction logic for GroupRegistration.xaml
-    /// </summary>
-    public partial class GroupRegistration : Window
+    public partial class Semester : Window
     {
-        public GroupRegistration()
+        private Guid _studentId;
+        public Semester(Guid studentId)
         {
+            _studentId = studentId;
+            DataContext = new RegistrationGroupVM(_studentId);
             InitializeComponent();
-            DataContext = new RegistrationGroupVM();
         }
     }
 }

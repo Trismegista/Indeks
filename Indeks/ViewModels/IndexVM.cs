@@ -24,7 +24,7 @@ namespace Indeks.ViewModels
         public IndexVM(LoginVM loginVm)
         {
             _loginVm = loginVm;
-            ExecuteOpenSemesterCommand = new Commanding(AddSemesterCommand, CanAddSemesterCommand);
+            ExecuteOpenKierunekCommand = new Commanding(AddKierunekCommand, CanAddKierunekCommand);
             ExecuteOpenGroupCommand = new Commanding(AddGroupCommand, CanAddGroupCommand);
             ExecuteOpenPrzedmiotCommand = new Commanding(AddPrzedmiotCommand, CanAddPrzedmiotCommand);
             NumeryIndeksow = Student.CurentUserIndexList(_loginVm.CurrentUserId);
@@ -44,13 +44,14 @@ namespace Indeks.ViewModels
         public ICommand ExecuteOpenPrzedmiotCommand { get; set; }
         public ICommand ExecuteTestButtonCommand { get; set; }
         public ICommand ExecuteOpenGroupCommand { get; set; }
-        public ICommand ExecuteOpenSemesterCommand { get; set; }
+        public ICommand ExecuteOpenKierunekCommand { get; set; }
 
         #endregion
 
         #region Command Questions
         private bool CanAddPrzedmiotCommand(object parameter)
         {
+            if (String.IsNullOrEmpty(_wybranaGrupa)) return false;
             return true;
         }
 
@@ -59,7 +60,7 @@ namespace Indeks.ViewModels
             return true;
         }
 
-        private bool CanAddSemesterCommand(object parameter)
+        private bool CanAddKierunekCommand(object parameter)
         {
             return true;
         }
@@ -74,13 +75,13 @@ namespace Indeks.ViewModels
         #region Commands Execute
         private void AddPrzedmiotCommand(object parameter)
         {
-            AddPrzedmiot frm = new AddPrzedmiot(CurrentSemesterId, CurrentGrupa);
+            AddPrzedmiot frm = new AddPrzedmiot();
             Nullable<bool> dialogResult = frm.ShowDialog();
         }
 
-        private void AddSemesterCommand(object parameter)
+        private void AddKierunekCommand(object parameter)
         {
-            Semester frm = new Semester(CurrentStudentId);
+            GroupRegistration frm = new GroupRegistration();
             Nullable<bool> dialogResult = frm.ShowDialog();
         }
 
@@ -171,6 +172,7 @@ namespace Indeks.ViewModels
                     OnPropertyChanged();
                     Semesters = Student.Semesters(_wybranaGrupa);
                     WybranySemestr = 0;
+                    CurrentGrupa = Grupa.FindGrupaIdByName(_wybranaGrupa);
                 }
             }
         }

@@ -15,13 +15,16 @@ using System.Windows.Shapes;
 
 namespace Indeks.Views
 {
-    public partial class Semester : Window
+    /// <summary>
+    /// Interaction logic for SemesterRegistration.xaml
+    /// </summary>
+    public partial class SemesterRegistration : Window
     {
-        private Guid _studentId;
-        public Semester(Guid studentId)
+        private Guid _idGrupa;
+        public SemesterRegistration(Guid idGrupa)
         {
-            _studentId = studentId;
-            DataContext = new RegistrationSemesterVM(_studentId);
+            _idGrupa = idGrupa;
+            DataContext = new RegistrationSemesterVM(_idGrupa);
             InitializeComponent();
         }
     }

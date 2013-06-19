@@ -82,9 +82,9 @@
     <Compile Include="ViewModels\ApplicationVm.cs" />
     <Compile Include="ViewModels\IndexVM.cs" />
     <Compile Include="ViewModels\LoginVM.cs" />
-    <Compile Include="ViewModels\RegistrationGroupVM.cs" />
-    <Compile Include="ViewModels\RegistrationLyricsVM.cs" />
     <Compile Include="ViewModels\RegistrationSemesterVM.cs" />
+    <Compile Include="ViewModels\RegistrationLyricsVM.cs" />
+    <Compile Include="ViewModels\RegistrationGroupVM.cs" />
     <Compile Include="ViewModels\StudentServiceVM.cs" />
     <Compile Include="ViewModels\RegistrationVM.cs" />
     <Compile Include="Views\AddCiag.xaml.cs">
@@ -111,14 +111,14 @@
     <Compile Include="Views\AddWykladowca.xaml.cs">
       <DependentUpon>AddWykladowca.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\GroupRegistration.xaml.cs">
-      <DependentUpon>GroupRegistration.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\RegisterWindow.xaml.cs">
       <DependentUpon>RegisterWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Semester.xaml.cs">
-      <DependentUpon>Semester.xaml</DependentUpon>
+    <Compile Include="Views\GroupRegistration.xaml.cs">
+      <DependentUpon>GroupRegistration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SemesterRegistration.xaml.cs">
+      <DependentUpon>SemesterRegistration.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\AddCiag.xaml">
       <SubType>Designer</SubType>
@@ -152,10 +152,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\GroupRegistration.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\LogInView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -183,7 +179,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Semester.xaml">
+    <Page Include="Views\GroupRegistration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SemesterRegistration.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -163,14 +163,14 @@
                 </TabControl.ContentTemplate>
             </TabControl>
             <Button Grid.ColumnSpan="2" 
-                    Content="DodajSemestr" 
+                    Content="Dodaj Kierunek" 
                     HorizontalAlignment="Left" 
                     Margin="32,10,0,0" 
                     Grid.Row="2" 
                     VerticalAlignment="Top" Width="105"
-                    Command="{Binding ExecuteOpenSemesterCommand}"/>
+                    Command="{Binding ExecuteOpenKierunekCommand}"/>
             <Button HorizontalAlignment="Left" Margin="72,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="106" Grid.Column="1"
-                    Content="Dodaj Kierunek"
+                    Content="Dodaj Semestr"
                     Command="{Binding ExecuteOpenGroupCommand}" Grid.ColumnSpan="2"/>
             <Button HorizontalAlignment="Left" Margin="192,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="106" Grid.Column="1"
                     Content="Dodaj Przedmiot"

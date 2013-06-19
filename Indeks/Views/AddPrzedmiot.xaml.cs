@@ -20,13 +20,9 @@ namespace Indeks.Views
     /// </summary>
     public partial class AddPrzedmiot : Window
     {
-        Guid _idSemester;
-        Guid _idGrupa;
-        public AddPrzedmiot(Guid idSemester, Guid idGrupa)
+        public AddPrzedmiot()
         {
-            _idSemester = idSemester;
-            _idGrupa = idGrupa;
-            DataContext = new RegistrationLyricsVM(_idSemester, _idGrupa);
+            DataContext = new RegistrationLyricsVM();
             InitializeComponent();
         }
     }

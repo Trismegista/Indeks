@@ -1,9 +1,11 @@
 ﻿using Indeks.Interfaces;
 using Indeks.LinqToSql;
+using Indeks.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,17 +13,26 @@ using System.Windows.Input;
 
 namespace Indeks.ViewModels
 {
-    public class RegistrationGroupVM : ApplicationVM, INotifyPropertyChanged
+    public class RegistrationGroupVM : ApplicationVM
     {
-        Guid _groupId;
-
-        public RegistrationGroupVM()
+        private Guid _studentId;
+        public RegistrationGroupVM(Guid studentId)
         {
-            ExecuteRegisterGroupCommand = new Commanding(RegisterGroup,CanRegisterGroup);
+            _studentId = studentId;
+            ExecuteAddKierunekCommand = new Commanding(AddKierunekCiagGroupCommand, CanAddKierunekCiagGroupCommand);
+            ExecuteAddKierunek = new Commanding(AddKierunekCommand, CanAddKierunekCommand);
+            ExecuteAddCiag = new Commanding(AddCiagCommand, CanAddCiagCommand);
+            ExecuteAddGroup = new Commanding(AddGroupCommand, CanAddGroupCommand);
+
+            SemesterName = Semestr.GetSemestersNames();
+            KierunekName = Kierunek.GetKieruneks();
+            CiagName = Ciag.GetCiags();
+            GroupName = Grupa.GetGrupas();
+            MessageBox.Show(_studentId.ToString());
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(String property)
+        private void OnPropertyChanged([CallerMemberName] string property = "")
         {
             if (PropertyChanged != null)
             {
@@ -29,147 +40,228 @@ namespace Indeks.ViewModels
             }
         }
 
-        #region Bindings
-        private string _kierunek;
-        public string Kierunek
-        {
-            get { return _kierunek; }
-            set
-            {
-                _kierunek = value;
-                OnPropertyChanged("Kierunek");
-            }
-        }
-
-        private string _typStudiow;
-        public string TypStudiow
-        {
-            get { return _typStudiow; }
-            set
-            {
-                _typStudiow = value;
-                OnPropertyChanged("TypStudiow");
-            }
-        }
-
-        private string _rodzajStudiow;
-        public string RodzajStudiow
-        {
-            get { return _rodzajStudiow; }
-            set
-            {
-                _rodzajStudiow = value;
-                OnPropertyChanged("RodzajStudiow");
-            }
-        }
-
-        private string _ciag;
-        public string Ciag
-        {
-            get { return _ciag; }
-            set
-            {
-                _ciag = value;
-                OnPropertyChanged("Ciag");
-            }
-        }
-
-        private string _grupa;
-        public string Grupa
-        {
-            get { return _grupa; }
-            set
-            {
-                _grupa = value;
-                OnPropertyChanged("Grupa");
-            }
-        }
-        #endregion
-
         #region Commands
-
-        public ICommand ExecuteRegisterGroupCommand { get; set; }
-
+        public ICommand ExecuteAddKierunek { get; set; }
+        public ICommand ExecuteAddCiag { get; set; }
+        public ICommand ExecuteAddGroup { get; set; }
+        public ICommand ExecuteAddKierunekCommand { get; set; }
         #endregion
-
-        #region Command Questions
-
-        private bool CanRegisterGroup(object parameter)
+        
+        #region CommandQuestions
+        private bool CanAddKierunekCiagGroupCommand(object parameter)
         {
- 	        return true;
+            if (String.IsNullOrEmpty(_selectedKierunek) || String.IsNullOrEmpty(_selectedCiag) || String.IsNullOrEmpty(_selectedGroup)) return false;
+            return true;
+        }
+        private bool CanAddGroupCommand(object parameter)
+        {
+            return true;
+        }
+
+        private bool CanAddCiagCommand(object parameter)
+        {
+            return true;
+        }
+
+        private bool CanAddKierunekCommand(object parameter)
+        {
+            return true;
+        }
+
+        private bool CanAddSemesterNameCommand(object parameter)
+        {
+            return true;
         }
         #endregion
 
-        #region Command Executes
-
-        private void RegisterGroup(object parameter)
+        #region CommandExecutes
+        private void AddKierunekCiagGroupCommand(object parameter)
         {
-            //DataClasses1DataContext context = new DataClasses1DataContext();
+            DataClasses1DataContext context = new DataClasses1DataContext();
 
-            //var kierunek = new Kierunek
-            //{
-            //    Kierunek_Nazwa = _kierunek
-            //};
-            //context.Kieruneks.InsertOnSubmit(kierunek);
-            //context.SubmitChanges();
+            string[] nameSeparator = _selectedCiag.Split('-');
 
-            //var typStudiow = new TypStudiow
-            //{
-            //    Typ_Studiow_Nazwa = _typStudiow
-            //};
-            //context.TypStudiows.InsertOnSubmit(typStudiow);
-            //context.SubmitChanges();
+            Guid idCiag = Ciag.FindCiagIdByName(nameSeparator[0]);
+            Guid idKierunek = Kierunek.FindKierunekIdByName(_selectedKierunek);
+            Guid idGrupa = Grupa.FindGrupaIdByName(_selectedGroup);
 
-            //var stopienStudiow = new StopienStudiow
-            //{
-            //    Stopien_Studiow_Nazwa = _rodzajStudiow
-            //};
-            //context.StopienStudiows.InsertOnSubmit(stopienStudiow);
-            //context.SubmitChanges();
+            var grupa = new Grupa
+            {
+                Id_Ciag = idCiag,
+                Id_Kierunek = idKierunek,
+                Id_Grupa_Nazwa = Grupa.FindGrupaIdByName(_selectedGroup)
+            };
+            context.Grupas.InsertOnSubmit(grupa);
+            context.SubmitChanges();
 
-            //var ciag = new Ciag
-            //{
-            //    Ciag_Nazwa = _ciag,
-            //    Id_Stopien_Studiow = stopienStudiow.Id_Stopien_Studiow,
-            //    Id_Typ_Studiow = typStudiow.Id_Typ_Studiow
-            //};
-            //context.Ciags.InsertOnSubmit(ciag);
-            //context.SubmitChanges();
+            var studentGrupa = new StudentGrupa
+            {
+                Id_Grupa = grupa.Id_Grupa,
+                Id_Student = _studentId
+            };
+            context.StudentGrupas.InsertOnSubmit(studentGrupa);
+            context.SubmitChanges();
 
-            //var kierunekCiag = new LinqToSql.KierunekCiag
-            //{
-            //    Id_Kierunek = kierunek.Id_Kierunek,
-            //    Id_Ciag = ciag.Id_Ciag
-            //};
-            //context.KierunekCiags.InsertOnSubmit(kierunekCiag);
-            //context.SubmitChanges();
+            Window frm = (Window)parameter;
+            frm.Close();
+        }
 
-            //var grupa = new Grupa
-            //{
-            //    Grupa_Nazwa = _grupa
-            //};
-            //context.Grupas.InsertOnSubmit(grupa);
-            //context.SubmitChanges();
+        private void AddGroupCommand(object parameter)
+        {
+            AddGroup frm = new AddGroup();
+            Nullable<bool> dialogResult = frm.ShowDialog();
+        }
 
-            //var kierunekCiagGrupa = new LinqToSql.KierunekCiagGrupa
-            //{
-            //    Id_Ciag = ciag.Id_Ciag,
-            //    Id_Grupa = grupa.Id_Grupa
-            //};
+        private void AddCiagCommand(object parameter)
+        {
+            AddCiag frm = new AddCiag();
+            Nullable<bool> dialogResult = frm.ShowDialog();
+        }
 
-            //context.KierunekCiagGrupas.InsertOnSubmit(kierunekCiagGrupa);
-            //context.SubmitChanges();
+        private void AddKierunekCommand(object parameter)
+        {
+            AddKierunek frm = new AddKierunek();
+            Nullable<bool> dialogResult = frm.ShowDialog();
+        }
 
-            //_groupId = grupa.Id_Grupa;
-
-            //Window frm = (Window)parameter;
-            //frm.Close();
+        private void AddSemesterNameCommand(object parameter)
+        {
+            AddSemesterName frm = new AddSemesterName();
+            Nullable<bool> dialogResult = frm.ShowDialog();
         }
         #endregion
 
-        public Guid CurrentGroupId
+        #region Bindings
+
+        #region Bindings to->
+        private List<string> _semesterName;
+        public List<string> SemesterName
         {
-            get { return _groupId; }
+            get 
+            { 
+                return _semesterName; 
+            }
+            set
+            {
+                _semesterName = value;
+                OnPropertyChanged();
+            }
         }
+
+        private List<string> _ciagName;
+        public List<string> CiagName
+        {
+            get
+            {
+                return _ciagName;
+            }
+            set
+            {
+                _ciagName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private List<string> _kierunekName;
+        public List<string> KierunekName
+        {
+            get
+            {
+                return _kierunekName;
+            }
+            set
+            {
+                _kierunekName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private List<string> _groupName;
+        public List<string> GroupName
+        {
+            get
+            {
+                return _groupName;
+            }
+            set
+            {
+                _groupName = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion
+
+        #region Bindings From <-
+
+        private string _selectedSemester;
+        public string SelectedSemester
+        {
+            get
+            {
+                return _selectedSemester;
+            }
+            set
+            {
+                if (value != _selectedSemester)
+                {
+                    _selectedSemester = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _selectedKierunek;
+        public string SelectedKierunek
+        {
+            get
+            {
+                return _selectedKierunek;
+            }
+            set
+            {
+                if (value != _selectedKierunek)
+                {
+                    _selectedKierunek = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _selectedCiag;
+        public string SelectedCiag
+        {
+            get
+            {
+                return _selectedCiag;
+            }
+            set
+            {
+                if (value != _selectedCiag)
+                {
+                    _selectedCiag = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _selectedGroup;
+        public string SelectedGroup
+        {
+            get
+            {
+                return _selectedGroup;
+            }
+            set
+            {
+                if (value != _selectedGroup)
+                {
+                    _selectedGroup = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        #endregion
+
+        #endregion
     }
 }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using Indeks.LinqToSql;
 
 namespace Indeks.ViewModels
 {
@@ -31,26 +32,34 @@ namespace Indeks.ViewModels
 
         private bool CanAddPrzedmiotCommand(object parameter)
         {
+            if ( String.IsNullOrEmpty(_przedmiotName)) return false;
             return true;
         }
 
         private void AddPrzedmiotCommand(object parameter)
         {
-            throw new NotImplementedException();
+            DataClasses1DataContext context = new DataClasses1DataContext();
+
+            var nazwaPrzedmiot = new PrzedmiotNazwa
+            {
+                Przedmiot_Nazwa = _przedmiotName
+            };
+            context.PrzedmiotNazwas.InsertOnSubmit(nazwaPrzedmiot);
+            context.SubmitChanges();
         }
 
-        private string _selectedTyp;
-        public string SelectedTyp
+        private string _przedmiotName;
+        public string PrzedmiotName
         {
             get
             {
-                return _selectedTyp;
+                return _przedmiotName;
             }
             set
             {
-                if (value != _selectedTyp)
+                if (value != _przedmiotName)
                 {
-                    _selectedTyp = value;
+                    _przedmiotName = value;
                     OnPropertyChanged();
                 }
             }
