@@ -57,15 +57,11 @@ namespace Indeks.ViewModels
 
         private bool CanAddSemesterCommand(object parameter)
         {
+            if (String.IsNullOrEmpty(_wybranaGrupa)) return false;
             return true;
         }
 
         private bool CanAddKierunekCommand(object parameter)
-        {
-            return true;
-        }
-
-        private bool CanTestInformation(object parameter)
         {
             return true;
         }

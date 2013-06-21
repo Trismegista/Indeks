@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -43,6 +44,12 @@ namespace Indeks.ViewModels
         {
             Window window = (Window)parameter;
             window.WindowState = WindowState.Minimized;
+        }
+
+        public static bool IsNumeric(string text)
+        {
+            Regex regex = new Regex("[^0-9.-]+");
+            return !regex.IsMatch(text);
         }
     }
 }

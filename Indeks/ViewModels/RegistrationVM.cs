@@ -234,13 +234,18 @@ namespace Indeks.ViewModels
 
         private bool CanCreateUser(object parameter)
         {
+            if (String.IsNullOrEmpty(_firstName) || String.IsNullOrEmpty(_poczta) || String.IsNullOrEmpty(_gmina) || String.IsNullOrEmpty(_powiat) || String.IsNullOrEmpty(_wojewodztwo) ||
+                String.IsNullOrEmpty(_kraj) || String.IsNullOrEmpty(_kod2) || String.IsNullOrEmpty(_kod1) || String.IsNullOrEmpty(_miasto) || String.IsNullOrEmpty(_numerMieszkania) ||
+                String.IsNullOrEmpty(_numerDomu) || String.IsNullOrEmpty(_ulica) || String.IsNullOrEmpty(_login) || String.IsNullOrEmpty(_passwordRepeat) || String.IsNullOrEmpty(_e_Mail) ||
+                String.IsNullOrEmpty(_telephone) || String.IsNullOrEmpty(_lastName) || String.IsNullOrEmpty(_firstName)) return false;
+            if (!IsNumeric(_numerMieszkania) && !IsNumeric(_telephone) && !IsNumeric(_kod2) && !IsNumeric(_kod1)) return false;
+            if (Convert.ToInt32(_kod1) > 99 || Convert.ToInt32(_kod2) > 999 || ( Convert.ToInt32(_telephone)>999999999 && Convert.ToInt32(_telephone)<100000000)) return false;
+            if (_password != _passwordRepeat) return false;
             return true;
         }
         
         private void CreateUser(object parameter)
         {
-            if (_password != _passwordRepeat) return;
-
             DataClasses1DataContext context = new DataClasses1DataContext();
             string[] kod = { _kod1, _kod2 };
 
