@@ -11,22 +11,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Indeks.Views;
-using Indeks.LinqToSql;
 
-namespace Indeks
-{    
-    public partial class Index : Window
+namespace Indeks.Views
+{
+    /// <summary>
+    /// Interaction logic for ProfileEdit.xaml
+    /// </summary>
+    public partial class ProfileEdit : Window
     {
-        private LoginVM _loginVm;
-
-        public Index(LoginVM loginVm)
+        public ProfileEdit()
         {
-            _loginVm = loginVm;
-            DataContext = new IndexVM(_loginVm);
+            DataContext = new ProfileEditVM();
             InitializeComponent();
         }
-      }
+    }
 }

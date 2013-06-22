@@ -27,8 +27,14 @@ namespace Indeks.ViewModels
             ExecuteOpenKierunekCommand = new Commanding(AddKierunekCommand, CanAddKierunekCommand);
             ExecuteOpenSemestrCommand = new Commanding(AddSemesterCommand, CanAddSemesterCommand);
             ExecuteOpenPrzedmiotCommand = new Commanding(AddPrzedmiotCommand, CanAddPrzedmiotCommand);
+            ExecuteEditStudentCommand = new Commanding(EditProfile, CanEditProfile);
+
             NumeryIndeksow = Student.CurentUserIndexList(_loginVm.CurrentUserId);
         }
+
+
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string property = "")
@@ -41,6 +47,7 @@ namespace Indeks.ViewModels
 
         #region Commands
 
+        public ICommand ExecuteEditStudentCommand { get; set; }
         public ICommand ExecuteOpenPrzedmiotCommand { get; set; }
         public ICommand ExecuteTestButtonCommand { get; set; }
         public ICommand ExecuteOpenSemestrCommand { get; set; }
@@ -66,6 +73,10 @@ namespace Indeks.ViewModels
             return true;
         }
 
+        private bool CanEditProfile(object parameter)
+        {
+            return true;
+        }
         #endregion
 
         #region Commands Execute
@@ -87,6 +98,11 @@ namespace Indeks.ViewModels
             Nullable<bool> dialogResult = frm.ShowDialog();
         }
 
+        private void EditProfile(object parameter)
+        {
+            ProfileEdit frm = new ProfileEdit();
+            Nullable<bool> dialogResult = frm.ShowDialog();
+        }
         #endregion
 
         #region Bindings

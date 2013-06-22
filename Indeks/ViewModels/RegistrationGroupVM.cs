@@ -28,7 +28,6 @@ namespace Indeks.ViewModels
             KierunekName = Kierunek.GetKieruneks();
             CiagName = Ciag.GetCiags();
             GroupName = Grupa.GetGrupas();
-            MessageBox.Show(_studentId.ToString());
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -24,6 +24,10 @@ namespace Indeks.ViewModels
             ExecuteCancelCommand = new Commanding(CancelApp,CanCancelApp);
         }
 
+        
+
+
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(String property)
         {
@@ -84,8 +88,8 @@ namespace Indeks.ViewModels
 
         private void OpenRegistration(object parameter)
         {
-            var frm = new RegisterWindow();
-            frm.Show();
+            RegisterWindow frm = new RegisterWindow();
+            Nullable<bool> dialogResult = frm.ShowDialog();
         }
 
         #endregion
