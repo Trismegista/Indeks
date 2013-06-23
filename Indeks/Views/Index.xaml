@@ -21,6 +21,7 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
+            
             <StackPanel Grid.Column="3" 
                         Grid.Row="0" 
                         Margin="290,-12,60,34" 
@@ -184,6 +185,40 @@
             <Button HorizontalAlignment="Left" Margin="10,122,0,0" VerticalAlignment="Top" Width="106" Grid.Column="2"
             	Content="Edytuj profil"
             	Command="{Binding ExecuteEditStudentCommand}"/>
+            <DockPanel Grid.Column="2" Grid.ColumnSpan="3">
+            <ListBox Grid.Column="2" HorizontalAlignment="Left" Height="100" Margin="10,17,0,0" VerticalAlignment="Top" Width="138" Background="{x:Null}" BorderBrush="{x:Null}" ItemsSource="{Binding StudentData}" DockPanel.Dock="Left">
+                <ListBox.Items>
+                    <TextBlock Text="{Binding User_Login}"/>
+                    <TextBlock Text="{Binding Student_Imie}">
+                        <Run Text=" "/>
+                        <Run Text="{Binding Student_Nazwisko}"/>
+                    </TextBlock>
+                    <TextBlock Text="{Binding Student_Telefon}"/>
+                    <TextBlock Text="{Binding Student_E_Mail}"/>
+                </ListBox.Items>
+            </ListBox>
+                <ListBox Grid.Column="2" HorizontalAlignment="Left" Height="100" Margin="17,17,0,0" VerticalAlignment="Top" Width="138" Background="{x:Null}" BorderBrush="{x:Null}" ItemsSource="{Binding StudentAdres}" DockPanel.Dock="Left">
+                    <ListBox.Items>
+                        <TextBlock Text="{Binding Miasto}">
+                            <Run Text=", "/>
+                            <Run Text="{Binding Woj}"/>
+                        </TextBlock>
+                        <TextBlock Text="{Binding Ulica}">
+                            <Run Text=", "/>
+                            <Run Text="{Binding Nr_Domu}"/>
+                            <Run Text=", "/>
+                            <Run Text="{Binding Nr_Mieszkania}"/>
+                        </TextBlock>
+                        <TextBlock Text="{Binding Kod_Pocztowy}">
+                            <Run Text=", "/>
+                            <Run Text="{Binding Poczta}"/>
+                            <Run Text=", "/>
+                            <Run Text="{Binding Kraj}"/>
+                        </TextBlock>
+                        <TextBlock Text="{Binding Student_E_Mail}"/>
+                    </ListBox.Items>
+                </ListBox>
+            </DockPanel>
         </Grid> 
     </Border>
 </Window>
