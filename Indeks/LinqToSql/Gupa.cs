@@ -30,5 +30,11 @@ namespace Indeks.LinqToSql
             Guid idGrupaNazwa = db.GrupaNazwas.Where(x => x.Grupa_Nazwa == splitGrupa[2]).Select(x => x.Id_Grupa_Nazwa).SingleOrDefault();
             return db.Grupas.Where(x => x.Id_Kierunek == idKierunek).Where(x => x.Id_Ciag == idCiag).Where(x => x.Id_Grupa_Nazwa == idGrupaNazwa).Select(x => x.Id_Grupa).SingleOrDefault();
         }
+
+        public static Grupa CheckGrupaExist(Guid idKierunek, Guid idCiag, Guid idGrupa)
+        {
+            DataClasses1DataContext db = new DataClasses1DataContext();
+            return db.Grupas.Where(x => x.Id_Ciag == idCiag).Where(x => x.Id_Grupa_Nazwa == idGrupa).Where(x => x.Id_Kierunek == idKierunek).SingleOrDefault();
+        }
     }
 }

@@ -83,15 +83,19 @@ namespace Indeks.ViewModels
             Guid idCiag = Ciag.FindCiagIdByName(nameSeparator[0]);
             Guid idKierunek = Kierunek.FindKierunekIdByName(_selectedKierunek);
             Guid idGrupa = Grupa.FindGrupaIdByName(_selectedGroup);
-
-            var grupa = new Grupa
+            Grupa grupa = Grupa.CheckGrupaExist(idKierunek, idCiag, idGrupa);
+            if ( grupa == null)
             {
-                Id_Ciag = idCiag,
-                Id_Kierunek = idKierunek,
-                Id_Grupa_Nazwa = idGrupa
-            };
-            context.Grupas.InsertOnSubmit(grupa);
-            context.SubmitChanges();
+                var nowaGrupa = new Grupa
+                    {
+                        Id_Ciag = idCiag,
+                        Id_Kierunek = idKierunek,
+                        Id_Grupa_Nazwa = idGrupa
+                    };
+                context.Grupas.InsertOnSubmit(nowaGrupa);
+                context.SubmitChanges();
+                grupa = nowaGrupa;
+            }
 
             var studentGrupa = new StudentGrupa
             {
