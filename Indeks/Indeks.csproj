@@ -62,15 +62,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </Compile>
+    <Compile Include="LinqToSql\Gmina.cs" />
     <Compile Include="LinqToSql\Gupa.cs" />
     <Compile Include="LinqToSql\Kierunek.cs" />
+    <Compile Include="LinqToSql\Kraj.cs" />
     <Compile Include="LinqToSql\Login.cs" />
+    <Compile Include="LinqToSql\Miejscowosc.cs" />
+    <Compile Include="LinqToSql\Nazwa_Miasto.cs" />
+    <Compile Include="LinqToSql\Powiat.cs" />
     <Compile Include="LinqToSql\Przedmiot.cs" />
     <Compile Include="LinqToSql\Semestr.cs" />
     <Compile Include="LinqToSql\StopienStudiow.cs" />
     <Compile Include="LinqToSql\Student.cs" />
     <Compile Include="LinqToSql\TypStudiow.cs" />
     <Compile Include="LinqToSql\TypZajec.cs" />
+    <Compile Include="LinqToSql\Ulica.cs" />
+    <Compile Include="LinqToSql\Wojewodztwo.cs" />
     <Compile Include="LinqToSql\Wykladowca.cs" />
     <Compile Include="ViewModels\AddCiagVM.cs" />
     <Compile Include="ViewModels\AddGroupVM.cs" />
