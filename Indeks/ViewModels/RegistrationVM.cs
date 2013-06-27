@@ -444,7 +444,7 @@ namespace Indeks.ViewModels
                 ValitadionMessage = "Wpisz pocztę";
                 return false;
             }
-            if (Regex.Match(_poczta, @"^[0-9]$").Success || !Regex.IsMatch(_poczta, @"(?i)^[a-z]+$"))
+            if (Regex.Match(_poczta, @"^[0-9]+$").Success || !Regex.IsMatch(_poczta, @"\w"))
             {
                 ValitadionMessage = "Zła nazwa poczty ( Tylko litery od A-Z )";
                 return false;
