@@ -123,7 +123,5 @@ namespace Indeks.ViewModels
                 }
             }
         }
-
-        DataClasses1DataContext context = new DataClasses1DataContext();
     }
 }

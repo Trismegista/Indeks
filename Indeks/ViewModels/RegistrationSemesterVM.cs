@@ -46,7 +46,7 @@ namespace Indeks.ViewModels
             set
             {
                 _selectedSemester = value;
-                OnPropertyChanged("Kierunek");
+                OnPropertyChanged();
             }
         }
 
@@ -57,7 +57,7 @@ namespace Indeks.ViewModels
             set
             {
                 _selectedPrzedmiot = value;
-                OnPropertyChanged("TypStudiow");
+                OnPropertyChanged();
             }
         }
 

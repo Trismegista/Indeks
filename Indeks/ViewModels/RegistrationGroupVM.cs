@@ -113,24 +113,28 @@ namespace Indeks.ViewModels
         {
             AddGroup frm = new AddGroup();
             Nullable<bool> dialogResult = frm.ShowDialog();
+            GroupName = Grupa.GetGrupas();
         }
 
         private void AddCiagCommand(object parameter)
         {
             AddCiag frm = new AddCiag();
             Nullable<bool> dialogResult = frm.ShowDialog();
+            CiagName = Ciag.GetCiags();
         }
 
         private void AddKierunekCommand(object parameter)
         {
             AddKierunek frm = new AddKierunek();
             Nullable<bool> dialogResult = frm.ShowDialog();
+            KierunekName = Kierunek.GetKieruneks();
         }
 
         private void AddSemesterNameCommand(object parameter)
         {
             AddSemesterName frm = new AddSemesterName();
             Nullable<bool> dialogResult = frm.ShowDialog();
+            SemesterName = Semestr.GetSemestersNames();
         }
         #endregion
 
