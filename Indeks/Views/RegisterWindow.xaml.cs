@@ -23,5 +23,13 @@ namespace Indeks
             InitializeComponent();            
             DataContext = new RegistrationVM();
         }
+        Login _studentData;
+
+        public RegisterWindow(Login studentData)
+        {
+            _studentData = studentData;
+            InitializeComponent();
+            DataContext = new RegistrationVM(_studentData);
+        }
     }
 }

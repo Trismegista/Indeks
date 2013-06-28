@@ -71,6 +71,7 @@
     <Compile Include="LinqToSql\Nazwa_Miasto.cs" />
     <Compile Include="LinqToSql\Powiat.cs" />
     <Compile Include="LinqToSql\Przedmiot.cs" />
+    <Compile Include="LinqToSql\Region.cs" />
     <Compile Include="LinqToSql\Semestr.cs" />
     <Compile Include="LinqToSql\StopienStudiow.cs" />
     <Compile Include="LinqToSql\Student.cs" />

@@ -3,6 +3,7 @@ using Indeks.LinqToSql;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Linq;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -15,8 +16,11 @@ namespace Indeks.ViewModels
 {
     public class RegistrationVM : ApplicationVM, INotifyPropertyChanged
     {
+        public bool edycja;
+        StudentData _student;
         public RegistrationVM()
         {
+            edycja = false;
             ExecuteRegisterCommand = new Commanding(CreateUser, CanCreateUser);
 
             KrajName = Kraj.GetKrajs();
@@ -27,6 +31,44 @@ namespace Indeks.ViewModels
             MiastoName = Nazwa_Miasto.GetMiastos();
         }
 
+        Login _studentData;
+        public RegistrationVM(Login studentData)
+        {
+            edycja = true;
+            ExecuteRegisterCommand = new Commanding(CreateUser, CanCreateUser);
+
+            _studentData = studentData;
+            KrajName = Kraj.GetKrajs();
+            WojewodztwoName = Wojewodztwo.GetWojewodztwos();
+            PowiatName = Powiat.GetPowiats();
+            GminaName = Gmina.GetGminas();
+            UlicaName = Ulica.GetUlicas();
+            MiastoName = Nazwa_Miasto.GetMiastos();
+
+            StudentData student = new StudentData();
+            student.loadData(studentData);
+            FirstName = student.Student_Imie;
+            LastName = student.Student_Nazwisko;
+            Telephone = student.Student_Telefon;
+            E_Mail = student.Studetn_E_Mail;
+            Login = student.User_Login;
+            Password = student.Haslo;
+            PasswordRepeat = student.Haslo;
+            NumerDomu = student.Numer_Domu;
+            NumerMieszkania = student.Numer_Mieszkania.ToString();
+            SelectedUlica = student.Nazwa_Ulica;
+            SelectedMiasto = student.Nazwa_Miasto;
+            Kod1 = student.kod1;
+            Kod2 = student.kod2;
+            SelectedWojewodztwo = student.Nazwa_Wojewodztwo;
+            SelectedPowiat = student.Nazwa_Powiat;
+            SelectedGmina = student.Nazwa_Gmina;
+            SelectedKraj = student.Nazwa_Kraj;
+            Poczta = student.Poczta;
+
+            _student = student;
+            
+        }
         public ICommand ExecuteRegisterCommand { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -339,9 +381,15 @@ namespace Indeks.ViewModels
 
         private bool CanCreateUser(object parameter)
         {
+            Login log = new Login();
             if (String.IsNullOrEmpty(_login))
             {
                 ValitadionMessage = "Wpisz login";
+                return false;
+            }
+            if (log.FindUserByLogin(_login) != null && edycja == false)
+            {
+                ValitadionMessage = "Login zajęty";
                 return false;
             }
             if (String.IsNullOrEmpty(_firstName))
@@ -475,61 +523,159 @@ namespace Indeks.ViewModels
         
         private void CreateUser(object parameter)
         {
-            DataClasses1DataContext context = new DataClasses1DataContext();
-            string[] kod = { _kod1, _kod2 };
-
-            var miejscowosc = new Miejscowosc
+            if (edycja == false)
             {
-                Id_Nazwa_Miasto = Nazwa_Miasto.FindNazwiaMiastoByName(_selectedMiasto),
-                Id_Ulica = Ulica.FindUlicaIdByName(_selectedUlica),
-                Poczta = _poczta,
-                Kod = _kod1.ToString() + '-' + _kod2.ToString()
-            };
-            context.Miejscowoscs.InsertOnSubmit(miejscowosc);
-            context.SubmitChanges();
+                DataClasses1DataContext context = new DataClasses1DataContext();
 
-            var region = new Region
+                Miejscowosc oldMiejscowosc = Miejscowosc.CheckMiejscowoscExist(Ulica.FindUlicaIdByName(_selectedUlica), 
+                                                                               Nazwa_Miasto.FindNazwiaMiastoByName(_selectedMiasto));
+
+                Region oldRegion = Region.CheckRegionExist(Kraj.FindKrajIdByName(_selectedKraj),
+                                                           Powiat.FindPowiatIdByNazwa(_selectedPowiat),
+                                                           Gmina.FindGminaIdByName(_selectedGmina),
+                                                           Wojewodztwo.FindWojIdByNazwa(_selectedWojewodztwo));
+                if (oldMiejscowosc == null)
+                {
+                    var miejscowosc = new Miejscowosc
+                    {
+                        Id_Nazwa_Miasto = Nazwa_Miasto.FindNazwiaMiastoByName(_selectedMiasto),
+                        Id_Ulica = Ulica.FindUlicaIdByName(_selectedUlica),
+                        Poczta = _poczta,
+                        Kod = _kod1.ToString() + '-' + _kod2.ToString()
+                    };
+                    context.Miejscowoscs.InsertOnSubmit(miejscowosc);
+                    context.SubmitChanges();
+                    oldMiejscowosc = miejscowosc;
+                }
+
+                if (oldRegion == null)
+                {
+                    var region = new Region
+                    {
+                        Id_Kraj = Kraj.FindKrajIdByName(_selectedKraj),
+                        Id_Powiat = Powiat.FindPowiatIdByNazwa(_selectedPowiat),
+                        Id_Gmina = Gmina.FindGminaIdByName(_selectedGmina),
+                        Id_Wojewodztwo = Wojewodztwo.FindWojIdByNazwa(_selectedWojewodztwo)
+                    };
+                    context.Regions.InsertOnSubmit(region);
+                    context.SubmitChanges();
+                    oldRegion = region;
+                }
+                Adre oldAdres = Adre.CheckAdreExist(oldMiejscowosc.Id_Miejscowosc, oldRegion.Id_Region);
+                if (oldAdres == null)
+                {
+                    var adresData = new Adre
+                    {
+                        Id_Miejscowosc = oldMiejscowosc.Id_Miejscowosc,
+                        Id_Region = oldRegion.Id_Region
+                    };
+                    context.Adres.InsertOnSubmit(adresData);
+                    context.SubmitChanges();
+                    oldAdres = adresData;
+                }
+
+                var userLogin = new Login
+                {
+                    User_Login = _login,
+                    Student_Imie = _firstName,
+                    Student_Nazwisko = _lastName,
+                    Student_E_Mail = E_Mail,
+                    Student_Telefon = _telephone,
+                    Haslo = _password,
+                    Id_Adres = oldAdres.Id_Adres,
+                    Numer_Domu = _numerDomu,
+                    Numer_Mieszkania = Convert.ToInt32(_numerMieszkania),
+                    Id_Zdjecie = new Guid("3c554039-2175-4aaa-9001-1372b82cb04c")
+                };
+
+                context.Logins.InsertOnSubmit(userLogin);
+                context.SubmitChanges();
+
+                var student = new Student
+                {
+                    Id_Login = userLogin.Id_Login,
+                };
+                context.Students.InsertOnSubmit(student);
+                context.SubmitChanges();
+            }
+            if (edycja == true)
             {
-                Id_Kraj = Kraj.FindKrajIdByName(_selectedKraj),
-                Id_Powiat = Powiat.FindPowiatIdByNazwa(_selectedPowiat),
-                Id_Gmina = Gmina.FindGminaIdByName(_selectedGmina),
-                Id_Wojewodztwo = Wojewodztwo.FindWojIdByNazwa(_selectedWojewodztwo)
-            };
-            context.Regions.InsertOnSubmit(region);
-            context.SubmitChanges();
+                DataClasses1DataContext context = new DataClasses1DataContext();
+                var idKraj = Kraj.FindKrajIdByName(_selectedKraj);
+                var idPowiat = Powiat.FindPowiatIdByNazwa(_selectedPowiat);
+                var idGmina = Gmina.FindGminaIdByName(_selectedGmina);
+                var idWojewodztwo = Wojewodztwo.FindWojIdByNazwa(_selectedWojewodztwo);
+                var idNazwa_Miasto = Nazwa_Miasto.FindNazwiaMiastoByName(_selectedMiasto);
+                var idUlica = Ulica.FindUlicaIdByName(_selectedUlica);
+                Miejscowosc oldMiejscowosc = Miejscowosc.CheckMiejscowoscExist(idNazwa_Miasto, idUlica);
+                Region oldRegion = Region.CheckRegionExist(idKraj, idPowiat, idGmina, idWojewodztwo);
+                Adre oldAdres;
+                if (oldMiejscowosc != null && oldRegion != null)
+                {
+                    oldAdres = Adre.CheckAdreExist(oldMiejscowosc.Id_Miejscowosc, oldRegion.Id_Region);
+                    if (_studentData.Id_Adres == oldAdres.Id_Adres && !Student.AnyChanges(_studentData, _login, _firstName, _lastName, _telephone, _e_Mail, _password, _numerDomu, Convert.ToInt32(_numerMieszkania)))
+                    {
+                        MessageBox.Show("Nie dokonano żadnych zmian w treści", "Uwaga", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    else
+                    {
+                        Login log = context.Logins.Single(x => x.Id_Login == _student.Id_Login);
+                        log.Id_Adres = oldAdres.Id_Adres;
+                        log.User_Login = _login;
+                        log.Student_Imie = _firstName;
+                        log.Student_Nazwisko = _lastName;
+                        log.Student_Telefon = _telephone;
+                        log.Student_E_Mail = _e_Mail;
+                        log.Haslo = _password;
+                        log.Numer_Domu = _numerDomu;
+                        log.Numer_Mieszkania = Convert.ToInt32(_numerMieszkania);
+                        context.SubmitChanges();
+                    }
+                }
+                if (oldMiejscowosc == null || oldRegion == null)
+                {
+                    if (oldMiejscowosc == null)
+                    {
+                        var newMiejscowosc = new Miejscowosc
+                        {
+                            Id_Nazwa_Miasto = idNazwa_Miasto,
+                            Id_Ulica = idUlica,
+                            Poczta = _poczta,
+                            Kod = _kod1.ToString() + '-' + _kod2.ToString()
+                        };
+                        context.Miejscowoscs.InsertOnSubmit(newMiejscowosc);
+                        context.SubmitChanges();
+                        oldMiejscowosc = newMiejscowosc;
+                    }
+                    if (oldRegion == null)
+                    {
+                        var newRegion = new Region
+                        {
+                            Id_Kraj = idKraj,
+                            Id_Wojewodztwo = idWojewodztwo,
+                            Id_Powiat = idPowiat,
+                            Id_Gmina = idGmina
+                        };
+                        context.Regions.InsertOnSubmit(newRegion);
+                        context.SubmitChanges();
+                        oldRegion = newRegion;
+                    }
 
-            var adresData = new Adre
-            {
-                Id_Miejscowosc = miejscowosc.Id_Miejscowosc,
-                Id_Region = region.Id_Region
-            };
-            context.Adres.InsertOnSubmit(adresData);
-            context.SubmitChanges();
+                    var newAdres = new Adre
+                    {
+                        Id_Miejscowosc = oldMiejscowosc.Id_Miejscowosc,
+                        Id_Region = oldRegion.Id_Region
+                    };
+                    context.Adres.InsertOnSubmit(newAdres);
+                    context.SubmitChanges();
 
-            var userLogin = new Login
-            {
-                User_Login = _login,
-                Student_Imie = _firstName,
-                Student_Nazwisko = _lastName,
-                Student_E_Mail = E_Mail,
-                Student_Telefon = _telephone,
-                Haslo = _password,
-                Id_Adres = adresData.Id_Adres,
-                Numer_Domu = _numerDomu,
-                Numer_Mieszkania = Convert.ToInt32(_numerMieszkania),
-                Id_Zdjecie = new Guid("3c554039-2175-4aaa-9001-1372b82cb04c")
-            };
-
-            context.Logins.InsertOnSubmit(userLogin);
-            context.SubmitChanges();
-
-            var student = new Student
-            {
-                Id_Login = userLogin.Id_Login,
-            };
-            context.Students.InsertOnSubmit(student);
-            context.SubmitChanges();
-
+                    Login log = context.Logins.Single(x => x.Id_Login == _student.Id_Login);
+                    log.Id_Adres = newAdres.Id_Adres;
+                    context.SubmitChanges();
+                    context.Refresh(RefreshMode.OverwriteCurrentValues, newAdres);
+                }
+            }
             Window frm = (Window)parameter;
             frm.Close();
         }

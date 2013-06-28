@@ -52,5 +52,20 @@ namespace Indeks.LinqToSql
             DataClasses1DataContext db = new DataClasses1DataContext();
             return db.Students.Where(x => x.Nr_Indeksu == index).Select(x => x.Id_Student).SingleOrDefault();
         }
+
+        public static bool AnyChanges(Login login, string name, string im, string naz, string tel, string mail, string pas, string nrD, int nrM)
+        {
+            if (login.User_Login != name ||
+                    login.Student_Imie != im ||
+                    login.Student_Nazwisko != naz ||
+                    login.Student_Telefon != tel ||
+                    login.Student_E_Mail != mail ||
+                    login.Haslo != pas ||
+                    login.Numer_Domu != nrD ||
+                    login.Numer_Mieszkania != nrM)
+                return true;
+            return false;
+        }
+
     }
 }

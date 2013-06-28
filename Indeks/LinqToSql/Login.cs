@@ -8,6 +8,86 @@ namespace Indeks.LinqToSql
 {
     public partial class Login
     {
+        
+        public Miejscowosc Miejscowosci
+        {
+            get
+            {
+                return Adre.Miejscowosc;
+            }
+        }
+
+        public Nazwa_Miasto Miasto_Nazwa
+        {
+            get
+            {
+                return Adre.Miejscowosc.Nazwa_Miasto;
+            }
+        }
+
+        public Powiat Powiaty
+        {
+            get
+            {
+                return Adre.Region.Powiat;
+            }
+        }
+
+        public Kraj Kraje
+        {
+            get
+            {
+                return Adre.Region.Kraj;
+            }
+        }
+
+        public Wojewodztwo Wojewodztwa
+        {
+            get
+            {
+                return Adre.Region.Wojewodztwo;
+            }
+        }
+
+        public Ulica Ulice
+        {
+            get
+            {
+                return Adre.Miejscowosc.Ulica;
+            }
+        }
+
+        public Gmina Gminy
+        {
+            get
+            {
+                return Adre.Region.Gmina;
+            }
+        }
+
+
+        public bool IsAuthenticated(Login user, string haslo, string login)
+        {
+            if (user == null) return false;
+            if (user.Haslo == haslo && user.User_Login == login)
+            {
+                return true;
+            }
+            else return false;
+        }
+
+        public Guid GetUserId(string login)
+        {
+            DataClasses1DataContext db = new DataClasses1DataContext();
+            return db.Logins.Where(x => x.User_Login == login).Select(x => x.Id_Login).SingleOrDefault();
+        }
+
+        public static Login CheckLoginExist(string login)
+        {
+            DataClasses1DataContext db = new DataClasses1DataContext();
+            return db.Logins.Where(x => x._User_Login == login).SingleOrDefault();
+        }
+
         public Login FindUserByLogin(string login)
         {
             DataClasses1DataContext db = new DataClasses1DataContext();
@@ -35,79 +115,6 @@ namespace Indeks.LinqToSql
             return db.Logins.Where(x => x.Id_Login == login).SingleOrDefault();
         }
 
-        public Miejscowosc Miejscowosci
-        {
-            get
-            {
-                return Adre.Miejscowosc;
-            }
-        }
-
-        public Nazwa_Miasto Miasto_Nazwa
-        {
-            get
-            {
-                return Adre.Miejscowosc.Nazwa_Miasto;
-            }
-        }
-
-        public Powiat Powiaty
-        {
-            get
-            {
-                return Adre.Region.Powiat;
-            }
-        }
-        public Kraj Kraje
-        {
-            get
-            {
-                return Adre.Region.Kraj;
-            }
-        }
-
-        public Wojewodztwo Wojewodztwa
-        {
-            get
-            {
-                return Adre.Region.Wojewodztwo;
-            }
-        }
-
-        public Ulica Ulice
-        {
-            get
-            {
-                return Adre.Miejscowosc.Ulica;
-            }
-        }
-        public Gmina Gminy
-        {
-            get
-            {
-                return Adre.Region.Gmina;
-            }
-        }
-        public bool IsAuthenticated(Login user, string haslo, string login)
-        {
-            if (user == null) return false;
-            if (user.Haslo == haslo && user.User_Login == login)
-            {
-                return true;
-            }
-            else return false;
-        }
-
-        public Guid GetUserId(string login)
-        {
-            DataClasses1DataContext db = new DataClasses1DataContext();
-            return db.Logins.Where(x => x.User_Login == login).Select(x => x.Id_Login).SingleOrDefault();
-        }
-
-        public static Login CheckLoginExist(string login)
-        {
-            DataClasses1DataContext db = new DataClasses1DataContext();
-            return db.Logins.Where(x => x._User_Login == login).SingleOrDefault();
-        }
+        
     }
 }

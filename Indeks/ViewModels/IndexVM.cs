@@ -98,8 +98,9 @@ namespace Indeks.ViewModels
 
         private void EditProfile(object parameter)
         {
-            ProfileEdit frm = new ProfileEdit();
+            RegisterWindow frm = new RegisterWindow(Logins);
             Nullable<bool> dialogResult = frm.ShowDialog();
+            Logins = Login.GetLogins(_loginVm.CurrentUserId);
         }
         #endregion
 
