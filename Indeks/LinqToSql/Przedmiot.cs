@@ -63,5 +63,11 @@ namespace Indeks.LinqToSql
             Guid idTyp = db.Typ_Zajecs.Where(x => x.Typ_Zajec_Nazwa == grupyTematycznePrzedmiotu[1]).Select(x => x.Id_Zajecia).SingleOrDefault();
             return db.Przedmiots.Where(x => x.Id_PrzedmiotNazwa == idPrzedmiotNazwa).Where(x => x.Id_Typ_Zajec == idTyp).Select(x=>x.Id_Przedmiot).SingleOrDefault();
         }
+
+        public static Przedmiot CheckPrzedmiotExist(Guid idTyp, Guid idWykladowca, Guid idPrzedmiotNazwa)
+        {
+            DataClasses1DataContext db = new DataClasses1DataContext();
+            return db.Przedmiots.Where(x => x.Id_Typ_Zajec == idTyp).Where(x => x.Id_Wykladowcy == idWykladowca).Where(x => x.Id_PrzedmiotNazwa == idPrzedmiotNazwa).SingleOrDefault();
+        }
     }
 }

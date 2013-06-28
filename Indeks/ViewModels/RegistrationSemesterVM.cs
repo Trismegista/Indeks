@@ -124,16 +124,19 @@ namespace Indeks.ViewModels
             DataClasses1DataContext context = new DataClasses1DataContext();
             Guid idSemestr = Semestr.FindSemestrIdByName(_selectedSemester);
             Guid idPrzedmiot = Przedmiot.FindPrzedmiotIdByFullName(_selectedPrzedmiot);
-
-            var grupaSemestrPrzedmiot = new GrupaSemestrPrzedmiot
+            if (!Semestr.CheckSemestrExistInGroup(CurrentGroupId, idSemestr))
             {
-                Id_Grupa = CurrentGroupId,
-                Id_Przedmiot = idPrzedmiot,
-                Id_Semestr = idSemestr
-            };
+                var grupaSemestrPrzedmiot = new GrupaSemestrPrzedmiot
+                {
+                    Id_Grupa = CurrentGroupId,
+                    Id_Przedmiot = idPrzedmiot,
+                    Id_Semestr = idSemestr
+                };
 
-            context.GrupaSemestrPrzedmiots.InsertOnSubmit(grupaSemestrPrzedmiot);
-            context.SubmitChanges();
+                context.GrupaSemestrPrzedmiots.InsertOnSubmit(grupaSemestrPrzedmiot);
+                context.SubmitChanges();
+            }
+            else MessageBox.Show("Semestr jest już wpisany","Uwaga", MessageBoxButton.OK, MessageBoxImage.Error);
 
             Window frm = (Window)parameter;
             frm.Close();

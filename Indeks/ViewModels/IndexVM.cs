@@ -30,11 +30,9 @@ namespace Indeks.ViewModels
             ExecuteEditStudentCommand = new Commanding(EditProfile, CanEditProfile);
 
             NumeryIndeksow = Student.CurentUserIndexList(_loginVm.CurrentUserId);
+            Logins = Login.GetLogins(_loginVm.CurrentUserId);
+            PhotoSource = Zdjecie.GetZdjecieSource(_loginVm.CurrentUserId);
         }
-
-
-
-
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string property = "")
@@ -106,6 +104,35 @@ namespace Indeks.ViewModels
         #endregion
 
         #region Bindings
+        private string _photoSource;
+        public string PhotoSource
+        {
+            get
+            {
+                return _photoSource;
+            }
+            set
+            {
+                _photoSource = value;
+                OnPropertyChanged();
+            }
+        }
+        
+        private Login _login;
+        public Login Logins
+        {
+            get
+            {
+                return _login;
+            }
+            set
+            {
+                {
+                    _login = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         private IQueryable<Semestr> _semesters;
         public IQueryable<Semestr> Semesters
@@ -184,7 +211,8 @@ namespace Indeks.ViewModels
                     OnPropertyChanged();
                     Semesters = Student.Semesters(_wybranaGrupa);
                     WybranySemestr = 0;
-                    CurrentGrupa = Grupa.FindGrupaIdByFullName(_wybranaGrupa);
+                    CurrentGrupa = Grupa.FindGrupaIdByFullName(_wybranaGrupa); 
+                    CurrentSemesterId = _semesters.ToList()[_wybranySemestr].Id_Semestr;
                 }
             }
         }

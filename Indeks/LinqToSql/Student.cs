@@ -45,7 +45,6 @@ namespace Indeks.LinqToSql
             //var cos = db.GrupaSemestrPrzedmiotWykladowcas.Where(x => x.Id_Grupa == idgrupa).Select(x => x.Semestr);            
             Application.Current.Properties["idgrupa"] = idgrupa;
             return db.GrupaSemestrPrzedmiots.Where(x => x.Id_Grupa == idgrupa).Select(x => x.Semestr).GroupBy(x => x.Id_Semestr).Select(x => x.First());
-
         }
 
         public static Guid FindStudentIdByIndex(int index)

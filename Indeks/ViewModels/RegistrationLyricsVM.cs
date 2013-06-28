@@ -88,26 +88,37 @@ namespace Indeks.ViewModels
             Guid idWykladowcy = Wykladowca.FindWykladowcaIdByName(_selectedWykladowca);
             Guid idTyp = Typ_Zajec.FindZajeciasIdByName(_selectedTyp);
             Guid PrzedmiotNazwaId = Przedmiot.FindPrzedmiotNazwaIdByNazwa(_selectedPrzedmiot);
-
-            var newPrzedmiot = new Przedmiot
+            Przedmiot przedmiotExist = Przedmiot.CheckPrzedmiotExist(idTyp, idWykladowcy, PrzedmiotNazwaId);
+            if (przedmiotExist == null)
             {
-                Id_PrzedmiotNazwa = PrzedmiotNazwaId,
-                Id_Typ_Zajec = idTyp,
-                PunktyETCS = Convert.ToInt32(_punktyETCS),
-                Godziny = Convert.ToInt32(_liczbaGodzin),
-                Id_Wykladowcy = idWykladowcy
-            };
-            context.Przedmiots.InsertOnSubmit(newPrzedmiot);
-            context.SubmitChanges();
+                var newPrzedmiot = new Przedmiot
+                {
+                    Id_PrzedmiotNazwa = PrzedmiotNazwaId,
+                    Id_Typ_Zajec = idTyp,
+                    PunktyETCS = Convert.ToInt32(_punktyETCS),
+                    Godziny = Convert.ToInt32(_liczbaGodzin),
+                    Id_Wykladowcy = idWykladowcy
+                };
+                przedmiotExist = newPrzedmiot;
+                context.Przedmiots.InsertOnSubmit(przedmiotExist);
+                context.SubmitChanges();
+            }
 
-            var grupaPrzedmiotSemestr = new GrupaSemestrPrzedmiot
+            if (!Semestr.CheckPrzedmiotExistInSemester(_idSemestr, _idGrupa, przedmiotExist.Id_Przedmiot))
             {
-                Id_Grupa = _idGrupa,
-                Id_Semestr = _idSemestr,
-                Id_Przedmiot = newPrzedmiot.Id_Przedmiot
-            };
-            context.GrupaSemestrPrzedmiots.InsertOnSubmit(grupaPrzedmiotSemestr);
-            context.SubmitChanges();
+                var grupaPrzedmiotSemestr = new GrupaSemestrPrzedmiot
+                {
+                    Id_Grupa = _idGrupa,
+                    Id_Semestr = _idSemestr,
+                    Id_Przedmiot = przedmiotExist.Id_Przedmiot
+                };
+                context.GrupaSemestrPrzedmiots.InsertOnSubmit(grupaPrzedmiotSemestr);
+                context.SubmitChanges();
+            }
+            else
+            {
+                MessageBox.Show("Przedmiot jest już na liście","Uwaga", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void AddPrzedmiotCommand(object parameter)

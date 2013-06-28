@@ -74,11 +74,13 @@
     <Compile Include="LinqToSql\Semestr.cs" />
     <Compile Include="LinqToSql\StopienStudiow.cs" />
     <Compile Include="LinqToSql\Student.cs" />
+    <Compile Include="LinqToSql\StudentData.cs" />
     <Compile Include="LinqToSql\TypStudiow.cs" />
     <Compile Include="LinqToSql\TypZajec.cs" />
     <Compile Include="LinqToSql\Ulica.cs" />
     <Compile Include="LinqToSql\Wojewodztwo.cs" />
     <Compile Include="LinqToSql\Wykladowca.cs" />
+    <Compile Include="LinqToSql\Zdjecie.cs" />
     <Compile Include="ViewModels\AddCiagVM.cs" />
     <Compile Include="ViewModels\AddGroupVM.cs" />
     <Compile Include="ViewModels\AddKierunekVM.cs" />
