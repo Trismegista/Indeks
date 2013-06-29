@@ -184,7 +184,7 @@
             <Button HorizontalAlignment="Left" Margin="40,131,0,0" VerticalAlignment="Top" Width="105" Grid.Column="4"
             	Content="Edytuj profil"
             	Command="{Binding ExecuteEditStudentCommand}"/>
-            <Button HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Width="25"
+            <Button HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="25"
             	Content="+"
             	Command="{Binding ExecuteEditPhotoCommand}"/>
             <DockPanel Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="0">

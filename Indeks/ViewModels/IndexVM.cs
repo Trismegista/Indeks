@@ -78,6 +78,7 @@ namespace Indeks.ViewModels
 
         private bool CanAddKierunekCommand(object parameter)
         {
+            if (_wybranyIndex <= 0) return false;
             return true;
         }
 
@@ -110,18 +111,22 @@ namespace Indeks.ViewModels
         {
             AddPrzedmiot frm = new AddPrzedmiot(CurrentGrupa,CurrentSemesterId);
             Nullable<bool> dialogResult = frm.ShowDialog();
+            Semesters = Student.Semesters(_wybranaGrupa);
+
         }
 
         private void AddKierunekCommand(object parameter)
         {
             GroupRegistration frm = new GroupRegistration(CurrentStudentId);
             Nullable<bool> dialogResult = frm.ShowDialog();
+            ListaGrup = Student.CurentStudentGroupList(_wybranyIndex);
         }
 
         private void AddSemesterCommand(object parameter)
         {
             SemesterRegistration frm = new SemesterRegistration(CurrentGrupa);
             Nullable<bool> dialogResult = frm.ShowDialog();
+            Semesters = Student.Semesters(_wybranaGrupa);
         }
 
         private void EditProfile(object parameter)
@@ -220,7 +225,7 @@ namespace Indeks.ViewModels
                 {
                     _wybranySemestr = value;
                     OnPropertyChanged();
-                    if (value >= 0)
+                    if (value >= 0 && _semesters.ToList().Count() != 0)
                     {
                         CurrentSemesterId = _semesters.ToList()[_wybranySemestr].Id_Semestr;
                     }
@@ -241,6 +246,7 @@ namespace Indeks.ViewModels
                     Semesters = Student.Semesters(_wybranaGrupa);
                     WybranySemestr = 0;
                     CurrentGrupa = Grupa.FindGrupaIdByFullName(_wybranaGrupa); 
+                    if (_semesters.ToList().Count() != 0)
                     CurrentSemesterId = _semesters.ToList()[_wybranySemestr].Id_Semestr;
                 }
             }

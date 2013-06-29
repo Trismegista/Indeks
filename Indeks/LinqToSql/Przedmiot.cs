@@ -35,8 +35,8 @@ namespace Indeks.LinqToSql
                     string nazwaTypZajec = db.Typ_Zajecs.Where(x => x.Id_Zajecia == val.Id_Typ_Zajec).Select(x => x.Typ_Zajec_Nazwa).SingleOrDefault().ToString();
                     string punktyETCS = db.Przedmiots.Where(x => x.Id_Przedmiot == val.Id_Przedmiot).Select(x => x.PunktyETCS).SingleOrDefault().ToString();
                     string liczbaGodzin = db.Przedmiots.Where(x => x.Id_Przedmiot == val.Id_Przedmiot).Select(x => x.Godziny).SingleOrDefault().ToString();
-
-                    string nazwyPrzedmiotow = nazwaPrzedmiotu + "-" + nazwaTypZajec + "-Punkty:" + punktyETCS + "-Godz.:" + liczbaGodzin;
+                    string nrWykladowcy = db.Wykladowcas.Where(x => x.Id_Wykladowcy == val.Id_Wykladowcy).Select(x => x.Nr_Wykladowcy).SingleOrDefault().ToString();
+                    string nazwyPrzedmiotow = nazwaPrzedmiotu + "-" + nazwaTypZajec + "-Punkty:" + punktyETCS + "-Godz.:" + liczbaGodzin+"-Wykl.:" + nrWykladowcy;
                     listaPrzedmiotow.Add(nazwyPrzedmiotow);
                 }
 
@@ -59,9 +59,12 @@ namespace Indeks.LinqToSql
         {
             DataClasses1DataContext db = new DataClasses1DataContext();
             string[] grupyTematycznePrzedmiotu = name.Split('-');
+            string wykladowcaFull = grupyTematycznePrzedmiotu[grupyTematycznePrzedmiotu.Length-1];
+            string wykladowca = wykladowcaFull.Substring(wykladowcaFull.LastIndexOf(':')+1);
             Guid idPrzedmiotNazwa = db.PrzedmiotNazwas.Where(x => x.Przedmiot_Nazwa == grupyTematycznePrzedmiotu[0]).Select(x => x.Id_Przedmiot_Nazwa).SingleOrDefault();
             Guid idTyp = db.Typ_Zajecs.Where(x => x.Typ_Zajec_Nazwa == grupyTematycznePrzedmiotu[1]).Select(x => x.Id_Zajecia).SingleOrDefault();
-            return db.Przedmiots.Where(x => x.Id_PrzedmiotNazwa == idPrzedmiotNazwa).Where(x => x.Id_Typ_Zajec == idTyp).Select(x=>x.Id_Przedmiot).SingleOrDefault();
+            Guid idWyk = db.Wykladowcas.Where(x => x.Nr_Wykladowcy == Convert.ToInt32(wykladowca)).Select(x => x.Id_Wykladowcy).SingleOrDefault();
+            return db.Przedmiots.Where(x => x.Id_PrzedmiotNazwa == idPrzedmiotNazwa).Where(x => x.Id_Typ_Zajec == idTyp).Where(x=>x.Id_Wykladowcy==idWyk).Select(x=>x.Id_Przedmiot).SingleOrDefault();
         }
 
         public static Przedmiot CheckPrzedmiotExist(Guid idTyp, Guid idWykladowca, Guid idPrzedmiotNazwa)

@@ -93,7 +93,6 @@
     <Compile Include="ViewModels\ApplicationVm.cs" />
     <Compile Include="ViewModels\IndexVM.cs" />
     <Compile Include="ViewModels\LoginVM.cs" />
-    <Compile Include="ViewModels\ProfileEditVM.cs" />
     <Compile Include="ViewModels\RegistrationSemesterVM.cs" />
     <Compile Include="ViewModels\RegistrationLyricsVM.cs" />
     <Compile Include="ViewModels\RegistrationGroupVM.cs" />
@@ -260,9 +259,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\Square Black Button Add Book.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\TestPhoto.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -43,7 +43,7 @@ namespace Indeks.LinqToSql
         {
             DataClasses1DataContext db = new DataClasses1DataContext();
             var semestersList = db.GrupaSemestrPrzedmiots.Where(x => x.Id_Grupa == idGroup).Where(x => x.Id_Semestr == idSemestr).ToList();
-            if (semestersList == null)
+            if (semestersList.Count == 0)
                 return false;
             return true;
         }

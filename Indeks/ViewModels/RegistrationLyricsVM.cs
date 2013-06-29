@@ -132,11 +132,11 @@ namespace Indeks.ViewModels
         private void AddPrzedmiotAndContinueCommand(object parameter)
         {
             dodaj_przedmiot();
-            _selectedPrzedmiot = string.Empty;
-            _selectedTyp = string.Empty;
-            _selectedWykladowca = string.Empty;
-            _punktyETCS = string.Empty;
-            _liczbaGodzin = string.Empty;
+            Window frm = (Window)parameter;
+            frm.Close();
+
+            AddPrzedmiot frm2 = new AddPrzedmiot(_idGrupa, _idSemestr);
+            Nullable<bool> dialogResult = frm2.ShowDialog();
         }
 
         private void AddWykladowcaCommand(object parameter)
