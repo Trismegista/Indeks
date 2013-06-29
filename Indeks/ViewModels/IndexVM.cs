@@ -1,9 +1,12 @@
 ﻿using Indeks.Interfaces;
 using Indeks.LinqToSql;
 using Indeks.Views;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Linq;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -28,6 +31,7 @@ namespace Indeks.ViewModels
             ExecuteOpenSemestrCommand = new Commanding(AddSemesterCommand, CanAddSemesterCommand);
             ExecuteOpenPrzedmiotCommand = new Commanding(AddPrzedmiotCommand, CanAddPrzedmiotCommand);
             ExecuteEditStudentCommand = new Commanding(EditProfile, CanEditProfile);
+            ExecuteEditPhotoCommand = new Commanding(EditPhotoCommand, CanEditPhotoCommand);
 
             NumeryIndeksow = Student.CurentUserIndexList(_loginVm.CurrentUserId);
             Logins = Login.GetLogins(_loginVm.CurrentUserId);
@@ -50,10 +54,16 @@ namespace Indeks.ViewModels
         public ICommand ExecuteTestButtonCommand { get; set; }
         public ICommand ExecuteOpenSemestrCommand { get; set; }
         public ICommand ExecuteOpenKierunekCommand { get; set; }
+        public ICommand ExecuteEditPhotoCommand { get; set; }
 
         #endregion
 
         #region Command Questions
+        private bool CanEditPhotoCommand(object parameter)
+        {
+            return true;
+        }
+
         private bool CanAddPrzedmiotCommand(object parameter)
         {
             if (String.IsNullOrEmpty(_wybranaGrupa)) return false;
@@ -78,6 +88,24 @@ namespace Indeks.ViewModels
         #endregion
 
         #region Commands Execute
+
+        private void EditPhotoCommand(object parameter)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.ShowDialog();
+            string fileName = dialog.FileName;
+            string name = Path.GetFileNameWithoutExtension(fileName);
+            Zdjecie newPhoto = new Zdjecie();
+            newPhoto = Zdjecie.CopyPhotoToImages(fileName);
+
+            DataClasses1DataContext context = new DataClasses1DataContext();
+            Login log = context.Logins.Single(x => x.Id_Login == _loginVm.CurrentUserId);
+            log.Id_Zdjecie = newPhoto.Id_Zdjecia;
+            context.SubmitChanges();
+
+            PhotoSource = Zdjecie.GetZdjecieSource(_loginVm.CurrentUserId);
+        }
+
         private void AddPrzedmiotCommand(object parameter)
         {
             AddPrzedmiot frm = new AddPrzedmiot(CurrentGrupa,CurrentSemesterId);
